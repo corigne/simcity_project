@@ -1,0 +1,1 @@
+//residential class definition here

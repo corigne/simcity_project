@@ -3,6 +3,7 @@
 //Recitation Sec. 213 Group 6
 //Zone class definition
 #include <utility>
+#include <vector>
 
 class zone
 {
@@ -10,6 +11,10 @@ class zone
     std::pair<int,int> location;
     int pollution;
     bool powered;
+
+    //local adjacency list, should be reserved size 8 in constructor
+    std::vector<zone*> locallyAdjacent;
+
   public:
     //constructor
     zone()
@@ -18,6 +23,9 @@ class zone
       location = std::pair<int,int>(-1,-1);
       pollution = 0;
       powered = false;
+
+      //reserve 8 spots for the local adjacencies
+      this->locallyAdjacent.reserve(8);
     }
 
     //Accessors
@@ -32,6 +40,10 @@ class zone
     bool isPowered() const{
       return this->powered;
     }
+    std::vector<zone*> getLocallyAdjacent() const
+    {
+      return this->locallyAdjacent;
+    }
 
     //Mutators
     void setLocation(int X, int Y)
@@ -45,5 +57,9 @@ class zone
     }
     void setPowered(bool isPoweredOrNot){
       this->powered = isPoweredOrNot;
+    }
+    void setLocallyAdjacent(std::vector<zone*> locallyAdjacentNodes){
+      //remember this must be size 8, top left adjacent first
+      this->locallyAdjacent = locallyAdjacentNodes;
     }
 };

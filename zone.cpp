@@ -2,8 +2,7 @@
 //CSCE2110 SimCity
 //Recitation Sec. 213 Group 6
 //Zone class definition
-#include <utility>
-#include <vector>
+#include "definitions.hpp"
 
 class zone
 {

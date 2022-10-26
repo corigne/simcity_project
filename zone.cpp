@@ -2,7 +2,6 @@
 //CSCE2110 SimCity
 //Recitation Sec. 213 Group 6
 //Zone class definition
-#include "definitions.hpp"
 
 class zone
 {
@@ -24,6 +23,13 @@ class zone
       powered = false;
 
       //reserve 8 spots for the local adjacencies
+      this->locallyAdjacent.reserve(8);
+    }
+    zone(int x_loc, int y_loc)
+    {
+      location = std::pair<int,int>(x_loc, y_loc);
+      pollution = 0;
+      powered = false;
       this->locallyAdjacent.reserve(8);
     }
 

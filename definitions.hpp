@@ -11,13 +11,15 @@
 #include <iostream>
 #include <iomanip>
 #include <typeinfo>
+// class includes here
+// avoid functional includes here
 #include "zone.cpp"
 #include "commercial.cpp"
 #include "industrial.cpp"
 #include "residential.cpp"
 #include "unpop_zones.cpp"
 
-typedef struct
+typedef struct Map
 {
   std::vector< std::vector<zone> > map_grid;
   int x_size = -1;
@@ -39,14 +41,39 @@ const std::type_info& INDUSTRIAL = typeid(industrial());
 char zone_to_char(zone zone)
 {
   //if the typeid matches, return the appropriate ascii character
-  if(typeid(zone) == EMPTY) return ' ';
-  if(typeid(zone) == ROAD) return '-';
-  if(typeid(zone) == PLINE) return 'T';
-  if(typeid(zone) == PROAD) return '#';
-  if(typeid(zone) == PPLANT) return 'P';
-  if(typeid(zone) == RESIDENTIAL) return 'R';
-  if(typeid(zone) == COMMERCIAL) return 'C';
-  if(typeid(zone) == INDUSTRIAL) return 'I';
+  if(typeid(zone) == EMPTY)
+  {
+    return ' ';
+  }
+  if(typeid(zone) == ROAD)
+  {
+    return '-';
+  }
+  if(typeid(zone) == PLINE)
+  {
+    return 'T';
+  }
+  if(typeid(zone) == PROAD)
+  {
+    return '#';
+  }
+  if(typeid(zone) == PPLANT)
+  {
+    return 'P';
+  }
+  if(typeid(zone) == RESIDENTIAL)
+  {
+    return 'R';
+  }
+  if(typeid(zone) == COMMERCIAL)
+  {
+    return 'C';
+  }
+  if(typeid(zone) == INDUSTRIAL)
+  {
+    return 'I';
+  }
+  return '!';
 }
 //Leave additional useful definitions here.
 

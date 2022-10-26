@@ -40,37 +40,37 @@ void calcLocalAdjacencies(Map * map)
 
       }
 
-      // MIDDLE ADJACENCIES, indexes 3 (left) and 8 (right)
+      // MIDDLE ADJACENCIES, indexes 3 (left) and 7 (right)
       // no need to check y, as y is never out of bounds
 
       // left, x - 1 must be >= 0
       if((x - 1) >= 0)
       {
-        temp.at(4) = &(map->map_grid.at(y).at(x-1));
+        temp.at(7) = &(map->map_grid.at(y).at(x-1));
       }
 
       // right, x + 1 must be < x_size
       if((x + 1) < map->x_size)
       {
-        temp.at(8) = &(map->map_grid.at(y).at(x+1));
+        temp.at(3) = &(map->map_grid.at(y).at(x+1));
       }
 
-      // BOTTOM ADJACENCIES, indexes 5, 6, and 7 (bot right, bot middle, bot left)
+      // BOTTOM ADJACENCIES, indexes 4, 5, and 6 (bot right, bot middle, bot left)
       if((y + 1) < map->y_size)
       {
         // bottom right, x + 1 must be less than x_size
         if((x + 1) < map->x_size)
         {
-          temp.at(5) = &(map->map_grid.at(y+1).at(x + 1));
+          temp.at(4) = &(map->map_grid.at(y+1).at(x+1));
         }
 
         // middle, where x is never out of bounds
-        temp.at(6) = &(map->map_grid.at(y+1).at(x));
+        temp.at(5) = &(map->map_grid.at(y+1).at(x));
 
         // bottom left, x -1 must be >= 0
         if((x - 1) >= 0)
         {
-          temp.at(7) = &(map->map_grid.at(y+1).at(x +1));
+          temp.at(6) = &(map->map_grid.at(y+1).at(x-1));
         }
       }
 

@@ -9,7 +9,8 @@ class industrial : public zone
   private:
     int population;
     int goods;
-
+    //residential adjacency list, by distance
+    std::list<zone *> residential_adj;
   public:
     //constructor
     industrial()
@@ -65,4 +66,12 @@ class industrial : public zone
       this->goods -= 1;
     }
 
+    std::list<zone*> getResidentialAdj()
+    {
+      return this->residential_adj;
+    }
+    void setResidentialAdj(std::list<zone*> residentialAdj)
+    {
+      this->residential_adj = residentialAdj;
+    }
 };

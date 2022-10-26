@@ -8,6 +8,7 @@
 
 #include <utility>
 #include <vector>
+#include <list>
 #include <iostream>
 #include <iomanip>
 #include <typeinfo>

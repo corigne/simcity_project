@@ -8,6 +8,8 @@ class commercial : public zone
 {
   private:
     int population;
+    std::list<zone*> residentialAdj;
+    std::list<zone*> industrialAdj;
 
   public:
     commercial()
@@ -32,5 +34,21 @@ class commercial : public zone
     void incPopulation()
     {
       this->population += 1;
+    }
+    std::list<zone*> getResidentialAdj()
+    {
+      return this->residentialAdj;
+    }
+    void setResidentialAdj(std::list<zone*> residentialAdj)
+    {
+      this->residentialAdj = residentialAdj;
+    }
+    std::list<zone*> getIndustrialAdj()
+    {
+      return this->industrialAdj;
+    }
+    void setIndustrialAdj(std::list<zone*> industrialAdj)
+    {
+      this->industrialAdj = industrialAdj;
     }
 };

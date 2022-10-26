@@ -1,5 +1,5 @@
 // main function here
-
+#include "definitions.hpp"
 int main(){
   
   //read file + populate map struct

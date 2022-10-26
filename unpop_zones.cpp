@@ -8,27 +8,70 @@
 class road: public zone
 {
   public:
-    explicit road(int x, int y) : zone(x, y) {}
-    
+    road(){
+
+    }
+    road(int x, int y)
+    {
+      setLocation(x, y);
+    }
+
+    char getType()
+    {
+      return '-';
+    }
 };
 
 //powerline class
 class powerline: public zone
 {
   public:
-    explicit powerline(int x, int y) : zone(x, y) {}
+    powerline(){
+
+    }
+    powerline(int x, int y)
+    {
+      setLocation(x, y);
+    }
+
+    char getType()
+    {
+      return 'T';
+    }
 };
 
 //powered_road class
 class powered_road: public zone
 {
   public:
-    explicit powered_road(int x, int y) : zone(x, y) {}
+    powered_road(){
+
+    }
+    powered_road(int x, int y)
+    {
+      setLocation(x, y);
+    }
+
+    char getType()
+    {
+      return '#';
+    }
 };
 
 //powerplant class
 class powerplant: public zone
 {
   public:
-    explicit powerplant(int x, int y) : zone(x, y) {}
+    powerplant(){
+      
+    }
+    powerplant(int x, int y)
+    {
+      setLocation(x, y);
+    }
+
+    char getType()
+    {
+      return 'P';
+    }
 };

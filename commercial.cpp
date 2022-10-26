@@ -10,10 +10,21 @@ class commercial : public zone
     int population;
 
   public:
-    explicit commercial(int x, int y) : zone(x, y)
+    commercial()
     {
-      this->population = 0;
+      population = 0;
     }
+    commercial(int x, int y)
+    {
+      population = 0;
+      setLocation(x, y);
+    }
+
+    char getType() override
+    {
+      return 'C';
+    }
+    
     int getPopulation()
     {
       return this->population;

@@ -10,10 +10,21 @@ class residential : public zone
     int population;
     int workers;
   public:
-    explicit residential(int x, int y) : zone(x, y)
+    residential()
     {
       this->population = 0;
       this->workers = 0;
+    }
+    residential(int x, int y)
+    {
+      this->population = 0;
+      this->workers = 0;
+      setLocation(x, y);
+    }
+
+    char getType() override
+    {
+      return 'R';
     }
 
     int getPopulation()

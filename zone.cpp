@@ -34,6 +34,10 @@ class zone
     }
 
     //Accessors
+    virtual char getType()
+    {
+      return ' ';
+    }
     std::pair<int,int> getLocation() const
     {
       return this->location;

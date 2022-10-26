@@ -12,10 +12,21 @@ class industrial : public zone
 
   public:
     //constructor
-    explicit industrial(int x, int y) : zone(x, y)
+    industrial()
     {
       this->population = 0;
       this->goods = 0;
+    }
+    industrial(int x, int y)
+    {
+      this->population = 0;
+      this->goods = 0;
+      setLocation(x, y);
+    }
+
+    char getType() override
+    {
+      return 'I';
     }
 
     int getPopulation()

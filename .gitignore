@@ -1,4 +1,8 @@
 test.cpp
+a.out
+test
+*.dSYM
+tasks.JSON
 
 # Compiled source #
 ###################

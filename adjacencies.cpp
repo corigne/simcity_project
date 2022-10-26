@@ -79,9 +79,29 @@ void calcLocalAdjacencies(Map * map)
     }
   }
 }
-/*
-void calcRemoteAdjacencies()
+
+void calcRemoteAdjacencies(Map * map)
 {
+  for(std::vector<zone*> rows : map->map_grid)
+  {
+    for(zone * curr : rows)
+    {
+      //is zone industrial or commercial?
+        //yes, populate residential adjacencies
+      
+        //no, goto end
+
+      //is zone commercial?
+        //yes, populate industrial adjacencies
+      
+        //no, goto end
+    }
+  }
   
+
 }
-*/
+
+void breadthFirstTraverse(zone * current_zone, char zone_type)
+{
+
+}

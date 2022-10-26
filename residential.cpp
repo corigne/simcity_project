@@ -10,7 +10,7 @@ class residential : public zone
     int population;
     int workers;
   public:
-    residential()
+    explicit residential(int x, int y) : zone(x, y)
     {
       this->population = 0;
       this->workers = 0;

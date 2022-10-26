@@ -10,7 +10,7 @@ class commercial : public zone
     int population;
 
   public:
-    commercial()
+    explicit commercial(int x, int y) : zone(x, y)
     {
       this->population = 0;
     }

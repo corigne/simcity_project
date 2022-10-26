@@ -7,43 +7,28 @@
 //road class
 class road: public zone
 {
-  private:
-    //nobody here but us chickens
   public:
-    road(){
-      //nothing happens here
-    }
+    explicit road(int x, int y) : zone(x, y) {}
+    
 };
 
 //powerline class
 class powerline: public zone
 {
-  private:
-    //nobody here buy us chickens
   public:
-    powerline(){
-      //nothing happens here
-    }
+    explicit powerline(int x, int y) : zone(x, y) {}
 };
 
 //powered_road class
 class powered_road: public zone
 {
-  private:
-    //nobody here but us chickens
   public:
-    powered_road(){
-      //nothing happens here
-    }
+    explicit powered_road(int x, int y) : zone(x, y) {}
 };
 
 //powerplant class
 class powerplant: public zone
 {
-  private:
-    //nobody here but us chickens
   public:
-    powerplant(){
-      //nothing happens here... yet?
-    }
+    explicit powerplant(int x, int y) : zone(x, y) {}
 };

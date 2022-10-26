@@ -12,7 +12,7 @@ class industrial : public zone
 
   public:
     //constructor
-    industrial()
+    explicit industrial(int x, int y) : zone(x, y)
     {
       this->population = 0;
       this->goods = 0;

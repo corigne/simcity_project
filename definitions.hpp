@@ -14,10 +14,10 @@
 // class includes here
 // avoid functional includes here
 #include "zone.cpp"
+#include "unpop_zones.cpp"
 #include "commercial.cpp"
 #include "industrial.cpp"
 #include "residential.cpp"
-#include "unpop_zones.cpp"
 
 typedef struct Map
 {
@@ -26,51 +26,40 @@ typedef struct Map
   int y_size = -1;
 } Map;
 
-
-// TYPEID DEFINITIONS for typeid() comparisons
-const std::type_info& EMPTY = typeid(zone);
-const std::type_info& ROAD = typeid(road);
-const std::type_info& PLINE = typeid(powerline);
-const std::type_info& PROAD = typeid(powered_road);
-const std::type_info& PPLANT = typeid(powerplant);
-const std::type_info& RESIDENTIAL = typeid(residential);
-const std::type_info& COMMERCIAL = typeid(commercial);
-const std::type_info& INDUSTRIAL = typeid(industrial);
-
 //HELPER FUNCTION TO CONVERT zone TO CHAR
-char zone_to_char(zone input)
+char zone_to_char(zone& input)
 {
   //if the typeid matches, return the appropriate ascii character
-  if(typeid(input) == ROAD)
+  if(typeid(input) == typeid(road))
   {
     return '-';
   }
-  if(typeid(input) == PLINE)
+  if(typeid(input) == typeid(powerline))
   {
     return 'T';
   }
-  if(typeid(input) == PROAD)
+  if(typeid(input) == typeid(powered_road))
   {
     return '#';
   }
-  if(typeid(input) == PPLANT)
+  if(typeid(input) == typeid(powerplant))
   {
     return 'P';
   }
-  if(typeid(input) == RESIDENTIAL)
+  if(typeid(input) == typeid(residential))
   {
     return 'R';
   }
-  if(typeid(input) == COMMERCIAL)
+  if(typeid(input) == typeid(commercial))
   {
     return 'C';
   }
-  if(typeid(input) == INDUSTRIAL)
+  if(typeid(input) == typeid(industrial))
   {
     return 'I';
   }
   //has to be at the end bc technically all children are zones
-  if(typeid(input) == EMPTY)
+  if(typeid(input) == typeid(zone))
   {
     return ' ';
   }

@@ -24,7 +24,7 @@ class industrial : public zone
       setLocation(x, y);
     }
 
-    char getType() override
+    char getType()
     {
       return 'I';
     }

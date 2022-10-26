@@ -20,7 +20,7 @@ class commercial : public zone
       setLocation(x, y);
     }
 
-    char getType() override
+    char getType()
     {
       return 'C';
     }

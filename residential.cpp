@@ -22,7 +22,7 @@ class residential : public zone
       setLocation(x, y);
     }
 
-    char getType() override
+    char getType()
     {
       return 'R';
     }

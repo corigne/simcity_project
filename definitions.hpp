@@ -28,52 +28,54 @@ typedef struct Map
 
 
 // TYPEID DEFINITIONS for typeid() comparisons
-const std::type_info& EMPTY = typeid(zone());
-const std::type_info& ROAD = typeid(road());
-const std::type_info& PLINE = typeid(powerline());
-const std::type_info& PROAD = typeid(powered_road());
-const std::type_info& PPLANT = typeid(powerplant());
-const std::type_info& RESIDENTIAL = typeid(residential());
-const std::type_info& COMMERCIAL = typeid(commercial());
-const std::type_info& INDUSTRIAL = typeid(industrial());
+const std::type_info& EMPTY = typeid(zone);
+const std::type_info& ROAD = typeid(road);
+const std::type_info& PLINE = typeid(powerline);
+const std::type_info& PROAD = typeid(powered_road);
+const std::type_info& PPLANT = typeid(powerplant);
+const std::type_info& RESIDENTIAL = typeid(residential);
+const std::type_info& COMMERCIAL = typeid(commercial);
+const std::type_info& INDUSTRIAL = typeid(industrial);
 
-//HELPER FUNCTION TO CONVERT ZONE TO CHAR
-char zone_to_char(zone zone)
+//HELPER FUNCTION TO CONVERT zone TO CHAR
+char zone_to_char(zone input)
 {
   //if the typeid matches, return the appropriate ascii character
-  if(typeid(zone) == EMPTY)
-  {
-    return ' ';
-  }
-  if(typeid(zone) == ROAD)
+  if(typeid(input) == ROAD)
   {
     return '-';
   }
-  if(typeid(zone) == PLINE)
+  if(typeid(input) == PLINE)
   {
     return 'T';
   }
-  if(typeid(zone) == PROAD)
+  if(typeid(input) == PROAD)
   {
     return '#';
   }
-  if(typeid(zone) == PPLANT)
+  if(typeid(input) == PPLANT)
   {
     return 'P';
   }
-  if(typeid(zone) == RESIDENTIAL)
+  if(typeid(input) == RESIDENTIAL)
   {
     return 'R';
   }
-  if(typeid(zone) == COMMERCIAL)
+  if(typeid(input) == COMMERCIAL)
   {
     return 'C';
   }
-  if(typeid(zone) == INDUSTRIAL)
+  if(typeid(input) == INDUSTRIAL)
   {
     return 'I';
   }
-  return '!';
+  //has to be at the end bc technically all children are zones
+  if(typeid(input) == EMPTY)
+  {
+    return ' ';
+  }
+  //returns for error
+  return 'e';
 }
 //Leave additional useful definitions here.
 

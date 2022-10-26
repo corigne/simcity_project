@@ -1,7 +1,7 @@
 //Author: Nathan Jodoin
 //CSCE2110 SimCity
 //Recitation Sec. 213 Group 6
-//Zone class definition
+//zone class definition
 
 class zone
 {

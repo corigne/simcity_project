@@ -1,7 +1,7 @@
 // Author: Nathan Jodoin
 // CSCE2110 - SimCity
 // Recitation Section 213 - Group 6
-// Commercial Zone Class Def.
+// Commercial zone Class Def.
 #include "definitions.hpp"
 
 class commercial : public zone

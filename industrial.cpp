@@ -1,7 +1,7 @@
 // Author: Nathan Jodoin
 // CSCE2110 - SimCity
 // Recitation Section 213 - Group 6
-// industrial Zone Class Def.
+// industrial zone Class Def.
 #include "definitions.hpp"
 
 class industrial : public zone

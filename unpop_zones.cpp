@@ -1,54 +1,90 @@
-//delete after Testing
-using namespace std;
-#include <vector>
-#include<iostream>
-class zone {
-
-
-    public:
-    char cellType;
-    int power = 0;
-    pair<int,int> Location;
-    int pollution = 0;
-    vector<zone> adjacencyList;
-};
-
-///////////////////////////////////////////////////////////////////////
-
-
-// all the class definitions for unpopulated zones in this file
+//Author: Nathan Jodoin
+//CSCE2110 SimCity
+//Recitation Sec. 213 Group 6
+//Unpopulated zone class definitions.
+#include "definitions.hpp"
 
 //road class
+class road: public zone
+{
+  public:
+    road(){
+
+    }
+    road(int x, int y)
+    {
+      setLocation(x, y);
+    }
+
+    char getType()
+    {
+      return '-';
+    }
+};
 
 //powerline class
+class powerline: public zone
+{
+  public:
+    powerline(){
+
+    }
+    powerline(int x, int y)
+    {
+      setLocation(x, y);
+    }
+
+    char getType()
+    {
+      return 'T';
+    }
+};
 
 //powered_road class
+class powered_road: public zone
+{
+  public:
+    powered_road(){
+
+    }
+    powered_road(int x, int y)
+    {
+      setLocation(x, y);
+    }
+
+    char getType()
+    {
+      return '#';
+    }
+};
 
 //powerplant class
-class powerPlant: public zone{
-public:
-//change data type
+class powerplant: public zone
+{
+  public:
 
-//recursive program to add power to all available cells
-void setPoweredState(vector<zone>){
-      
-            zone * currentCellpower;// 
-            power=1;
+    setPoweredState(*zone){
 
-for(int PsI=0;PsI<8;PsI++){
-    zone * nextCellpower = adjacencyList[PsI];
-
-            if(nextCellpower==nullptr||nextCellpower->cellType='R'||nextCellpower==1)
+        for(zone PSI :zone.adjacencyList ){
+            if(PSI ==NULL||zone.getType()=='-')
             continue;
-
-        setPoweredState(currentCell.adjacencyList[PsI]);
-    };
-};
-};
-};
-int main(){
+            else{setPoweredState(*PSI}
+    }
 
 
+    }
 
-    return 0;
+    powerplant(){
+      
+    }
+    powerplant(int x, int y)
+    {
+      setLocation(x, y);
+    }
+
+    char getType()
+    {
+      return 'P';
+    }
+
 };

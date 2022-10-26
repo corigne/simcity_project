@@ -16,13 +16,14 @@
 #include "industrial.cpp"
 #include "residential.cpp"
 #include "unpop_zones.cpp"
-#include "adjacencies.cpp"
 
-struct map{
+typedef struct
+{
   std::vector< std::vector<zone> > map_grid;
-  int x_size;
-  int y_size;
-};
+  int x_size = -1;
+  int y_size = -1;
+} Map;
+
 
 // TYPEID DEFINITIONS for typeid() comparisons
 const std::type_info& EMPTY = typeid(zone());

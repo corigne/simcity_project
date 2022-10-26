@@ -12,6 +12,9 @@
 #include <iomanip>
 #include <typeinfo>
 #include "zone.cpp"
+#include "commercial.cpp"
+#include "industrial.cpp"
+#include "residential.cpp"
 #include "unpop_zones.cpp"
 #include "adjacencies.cpp"
 
@@ -22,23 +25,27 @@ struct map{
 };
 
 // TYPEID DEFINITIONS for typeid() comparisons
-const type_info& EMPTY = typeid(zone());
-const type_info& ROAD = typeid(road());
-const type_info& PLINE = typeid(powerline());
-const type_info& PROAD = typeid(powered_road());
-const type_info& PPLANT = typeid(powerplant());
-const type_info& RESIDENTIAL = typeid(residential());
-const type_info& COMMERCIAL = typeid(commercial());
-const type_info& INDUSTRIAL = typeid(industrial());
+const std::type_info& EMPTY = typeid(zone());
+const std::type_info& ROAD = typeid(road());
+const std::type_info& PLINE = typeid(powerline());
+const std::type_info& PROAD = typeid(powered_road());
+const std::type_info& PPLANT = typeid(powerplant());
+const std::type_info& RESIDENTIAL = typeid(residential());
+const std::type_info& COMMERCIAL = typeid(commercial());
+const std::type_info& INDUSTRIAL = typeid(industrial());
 
 //HELPER FUNCTION TO CONVERT ZONE TO CHAR
 char zone_to_char(zone zone)
 {
-  /*
-  if(typeid(zone) == zone()){
-    return ' ';
-  }
-  */
+  //if the typeid matches, return the appropriate ascii character
+  if(typeid(zone) == EMPTY) return ' ';
+  if(typeid(zone) == ROAD) return '-';
+  if(typeid(zone) == PLINE) return 'T';
+  if(typeid(zone) == PROAD) return '#';
+  if(typeid(zone) == PPLANT) return 'P';
+  if(typeid(zone) == RESIDENTIAL) return 'R';
+  if(typeid(zone) == COMMERCIAL) return 'C';
+  if(typeid(zone) == INDUSTRIAL) return 'I';
 }
 //Leave additional useful definitions here.
 

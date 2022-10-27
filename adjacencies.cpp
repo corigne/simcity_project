@@ -86,22 +86,13 @@ void calcRemoteAdjacencies(Map * map)
   {
     for(zone * curr : rows)
     {
-      //is zone industrial or commercial?
-        //yes, populate residential adjacencies
-      
-        //no, goto end
-
-      //is zone commercial?
-        //yes, populate industrial adjacencies
-      
-        //no, goto end
+      zoneBFS(map, curr);
     }
   }
-  
 
 }
 
-void zoneBFS(Map * city, zone * origin, char zone_type)
+void zoneBFS(Map * city, zone * origin)
 {
   //we don't need remote adjacencies for non Comm and Industrial nodes
   if(origin->getType() != 'C' && origin->getType() != 'I')

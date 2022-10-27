@@ -11,6 +11,7 @@ int main(int argc, char *argv[]){
   
   Map * city_map = new Map;
   //read file + populate map struct
+  //CHANGE THIS BACK TO argv[1] before submission this is for debugging
   string config = "config1.txt";
   fileio(config, city_map->max_time, city_map->refresh_rate, city_map->map_grid);
   city_map->y_size = city_map->map_grid.size();
@@ -42,7 +43,7 @@ int main(int argc, char *argv[]){
   //first time display map
   displayMap(city_map);
   
-  //// MILESTONE 1 /////
+  //// MILESTONE 1 COMPLETED/////
 
   //start menu
 

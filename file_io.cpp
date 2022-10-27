@@ -16,6 +16,11 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 
 	in_f.open(config);
 
+	if(!in_f.is_open())
+	{
+   		cout<<"Can't open the file";
+	}
+
 	while(getline(in_f,line))
 	{
 		position = line.find(":");
@@ -47,6 +52,16 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 	}
 
 	in_f.close();
+
+	for(int i = 0; i < city.size(); i++)
+	{
+		for(int j = 0; j < city.at(i).size(); j++)
+		{
+			cout << city[i][j] << " ";
+		}
+
+		cout << endl;
+	}
 
 	int x, y;
 
@@ -89,10 +104,8 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 					temp2.push_back(new powered_road(x, y));
 				}
 
-				map.at(i).push_back(temp2);
+				map.push_back(temp2);
 			}
-
-			
 	}
 
 }

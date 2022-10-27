@@ -33,12 +33,15 @@ int main(int argc, char *argv[]){
         //dynamic casting allows you to call powerplant child functions
         powerplant* pplt_ptr = dynamic_cast<powerplant*>(curr);
 
+        //set up the visited list
         vector<bool> vis_temp (city_map->x_size, false);
         vector< vector<bool> > visited(city_map->y_size, vis_temp);
+
+        //calls recursive setPoweredState, 
+        //power radiates out from powerplant to all zones along powerlines
         pplt_ptr->setPoweredState(curr, visited);
       }
     }
-  }
 
   //first time display map
   displayMap(city_map);

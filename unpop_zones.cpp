@@ -62,20 +62,7 @@ class powered_road: public zone
 class powerplant: public zone
 {
   public:
-
-   void setPoweredState(zone *cell){
-        cell->setPowered(true);
-        
-        for(zone *PSI : cell->getLocallyAdjacent()){
-            if(PSI == NULL||PSI->getType()=='-')
-            continue;
-
-            else{setPoweredState(PSI);}
-    }
-
-
-    }
-
+    //Constructor
     powerplant(){
       
     }
@@ -84,9 +71,27 @@ class powerplant: public zone
       setLocation(x, y);
     }
 
+    void setPoweredState(zone *cell){
+      
+      cell->setPowered(true);
+      
+      for(zone *PSI : cell->getLocallyAdjacent()){
+      
+          //if PSI is adjacent to the powerline, powered road, or powerplant, it has power 
+          PSI->setPowered(true);
+          //TRAVERSAL TO NEXT POWERLINE BY DFS RECUSIVELY
+          if(PSI == NULL || !(PSI->getType() == 'T' || PSI->getType() == '#'))
+          {
+            continue;
+          }
+          else
+          {
+            setPoweredState(PSI);
+          }
+      }
+    }
     char getType()
     {
       return 'P';
     }
-
 };

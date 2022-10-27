@@ -29,8 +29,12 @@ int main(int argc, char *argv[]){
     {
       if(curr->getType() == 'P')
       {
+        //allows you to call powerplant functions
         powerplant* pplt_ptr = dynamic_cast<powerplant*>(curr);
-        pplt_ptr->setPoweredState(curr);
+
+        vector<bool> vis_temp (city_map->x_size, false);
+        vector< vector<bool> > visited(city_map->y_size, vis_temp);
+        pplt_ptr->setPoweredState(curr, visited);
       }
     }
   }

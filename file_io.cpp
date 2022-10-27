@@ -5,7 +5,7 @@
 #include "definitions.hpp";
 using namespace std;
 
-void fileio(string filename, vector<vector<zone>> &map)
+void fileio(string filename, vector<vector<zone*>> &map)
 {
 	ifstream  in_f;
 	vector<string> data;
@@ -52,7 +52,7 @@ void fileio(string filename, vector<vector<zone>> &map)
 
 	for(int i = 0; i < city.size(); i++)
 	{
-			for(int j = 0; j < city[i].size; j++)
+			for(int j = 0; j < city[i].size(); j++)
 			{
 				y = i;
 				x = j;
@@ -89,5 +89,4 @@ void fileio(string filename, vector<vector<zone>> &map)
 			}
 	}
 
-	return city;
 }

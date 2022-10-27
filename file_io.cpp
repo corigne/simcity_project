@@ -59,17 +59,19 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 	}
 
 	int x, y;
-
+// Y LOOP
 	for(int i = 0; i < city.size(); i++)
 	{
 			vector<zone*> temp2;
-
+			//X LOOP
 			for(int j = 0; j < city[i].size(); j++)
 			{
 				y = i;
 				x = j;
 				if(city[i][j] == ' ')
-					continue;
+				{
+					temp2.push_back(new zone(x, y));
+				}
 				if(city[i][j] == 'I')
 				{
 					temp2.push_back(new industrial(x, y));
@@ -98,9 +100,9 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 				{
 					temp2.push_back(new powered_road(x, y));
 				}
-
-				map.push_back(temp2);
 			}
+			//After X loop is done, push back the row before Y Loop Completes
+			map.push_back(temp2);
 	}
 	cout << map.size() << " " << map.at(1).size() << endl;
 }

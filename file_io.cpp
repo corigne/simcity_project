@@ -5,7 +5,7 @@
 #include "definitions.hpp";
 using namespace std;
 
-void fileIO(string config, zone &map, int time, int refresh)
+vector fileio()
 {
 	ifstream  in_f;
 	vector<string> data;
@@ -50,7 +50,7 @@ void fileIO(string config, zone &map, int time, int refresh)
 
 	int x, y;
 
-	for(int i = 0; i < city.size(); i++)
+	/*for(int i = 0; i < city.size(); i++)
 	{
 			for(int j = 0; j < city[i].size; j++)
 			{
@@ -87,5 +87,7 @@ void fileIO(string config, zone &map, int time, int refresh)
 					map.push_back(new powered_road(x, y));
 				}
 			}
-	}
+	}*/
+
+	return city;
 }

@@ -60,31 +60,31 @@ void fileIO(string config, zone &map, int time, int refresh)
 					continue;
 				if(city[i][j] == 'I')
 				{
-					map.map_grid.push_back(new industrial(x, y));
+					map.pus_back(new industrial(x, y));
 				}
 				if(city[i][j] == 'R')
 				{
-					map.map_grid.push_back(new residential(x, y));
+					map.push_back(new residential(x, y));
 				}
 				if(city[i][j] == 'C')
 				{
-					map.map_grid.push_back(new commercial(x, y));
+					map.push_back(new commercial(x, y));
 				}
 				if(city[i][j] == 'T')
 				{
-					map.map_grid.push_back(new powerline(x, y));
+					map.push_back(new powerline(x, y));
 				}
 				if(city[i][j] == 'P')
 				{
-					map.map_grid.push_back(new powerplant(x, y));
+					map.push_back(new powerplant(x, y));
 				}
 				if(city[i][j] == '-')
 				{
-					map.map_grid.push_back(new road(x, y));
+					map.push_back(new road(x, y));
 				}
 				if(city[i][j] == '#')
 				{
-					map.map_grid.push_back(new powered_road(x, y));
+					map.push_back(new powered_road(x, y));
 				}
 			}
 	}

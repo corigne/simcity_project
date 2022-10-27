@@ -36,42 +36,8 @@ class industrial : public zone
     }
 
 //This may be moved to update_map.cpp
-void IndustiralGrowth(industrial * industryNodeUpdate){
-int currentPopulation = industryNodeUpdate->getPopulation();
-if(currentPopulation>4)
-currentpopulation =4;
-switch (currentPopulation){
 
-case 0;
-      for(int PGI :  )
-
-break;
-
-  case 1:
-
-
-break;
-
-  case 2:
-
-break;
-
-  case 3:
-
-break;
-
-  case 4:
-
-break;
-
-  default:
-
-cout<<"Industrial growth update error invalid population retrival"<<endl;
-
-break;
-};
-
-   /* void incPopulation()
+    void incPopulation()
     {
       this->population += 1;
     }

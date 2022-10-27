@@ -1,5 +1,4 @@
-//Why is this here?-chandler
-
+#include "definitions.hpp"
 
 // update function definitions here
 
@@ -17,7 +16,7 @@ currentpopulation =4;
 switch (currentPopulation){
 
 case 0;
-      for(int PGI :  )
+      for(int PGI : industryNodeUpdate.locallyAdjacent )
 
 break;
 

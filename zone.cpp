@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // zone superclass definition here
 
 class zone {
@@ -10,7 +10,6 @@ class zone {
     pair<int,int> Location;
     int pollution = 0;
 
-=======
 //Author: Nathan Jodoin
 //CSCE2110 SimCity
 //Recitation Sec. 213 Group 6

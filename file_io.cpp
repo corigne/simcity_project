@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include "definitions.hpp";
+#include "definitions.hpp"
 using namespace std;
 
 void fileio(string filename, vector<vector<zone*>> &map)
@@ -88,10 +88,10 @@ void fileio(string filename, vector<vector<zone*>> &map)
 					temp2.push_back(new powered_road(x, y));
 				}
 
-				map->push_back(zones);
+				map.push_back(temp2);
 			}
 
-			map.at(i).push_back(temp2);
+			
 	}
 
 }

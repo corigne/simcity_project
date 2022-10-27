@@ -5,7 +5,7 @@
 #include "definitions.hpp";
 using namespace std;
 
-void fileio(string filename, vector<vector<zone>> map)
+void fileio(string filename, vector<vector<zone>> &map)
 {
 	ifstream  in_f;
 	vector<string> data;

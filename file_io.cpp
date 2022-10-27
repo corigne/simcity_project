@@ -2,16 +2,16 @@
 #include <string>
 #include <fstream>
 #include <vector>
-
+#include "definitions.hpp"
 using namespace std;
 
-vector fileIO(string config)
+void fileio(string config, int &time, int &refresh, vector<vector<zone*>> &map)
 {
 	ifstream  in_f;
 	vector<string> data;
 	vector<vector<char>> city;
 	string line, temp, filename;
-	int position, refresh, time;
+	int position;
 	int row = 0;
 
 	in_f.open(config);
@@ -47,5 +47,51 @@ vector fileIO(string config)
 	}
 
 	in_f.close();
-	return city;
+
+	int x, y;
+
+	for(int i = 0; i < city.size(); i++)
+	{
+			vector<zone*> temp2;
+			for(int j = 0; j < city[i].size(); j++)
+			{
+				y = i;
+				x = j;
+				if(city[i][j] == ' ')
+					continue;
+				if(city[i][j] == 'I')
+				{
+					temp2.push_back(new industrial(x, y));
+				}
+				if(city[i][j] == 'R')
+				{
+					temp2.push_back(new residential(x, y));
+				}
+				if(city[i][j] == 'C')
+				{
+					temp2.push_back(new commercial(x, y));
+				}
+				if(city[i][j] == 'T')
+				{
+					temp2.push_back(new powerline(x, y));
+				}
+				if(city[i][j] == 'P')
+				{
+					temp2.push_back(new powerplant(x, y));
+				}
+				if(city[i][j] == '-')
+				{
+					temp2.push_back(new road(x, y));
+				}
+				if(city[i][j] == '#')
+				{
+					temp2.push_back(new powered_road(x, y));
+				}
+
+				map.push_back(temp2);
+			}
+
+			
+	}
+
 }

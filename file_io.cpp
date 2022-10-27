@@ -53,6 +53,7 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 	for(int i = 0; i < city.size(); i++)
 	{
 			vector<zone*> temp2;
+			map.push_back(zone);
 			for(int j = 0; j < city[i].size(); j++)
 			{
 				y = i;
@@ -88,7 +89,7 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 					temp2.push_back(new powered_road(x, y));
 				}
 
-				map.push_back(temp2);
+				map.at(i).push_back(temp2);
 			}
 
 			

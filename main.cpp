@@ -9,8 +9,7 @@ int main(int argc, char *argv[]){
   Map * city_map = new Map;
   //read file + populate map struct
   string config = argv[1];
-  int time, refresh;
-  fileIO(config, time, refresh, map);
+  fileio(config, city_map->max_time, city_map->refresh_rate, city_map->map_grid);
   city_map->x_size = city_map->map_grid.size();
   city_map->y_size = city_map->map_grid.at(0).size();
 

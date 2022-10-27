@@ -30,5 +30,4 @@ typedef struct Map
 } Map;
 
 //Leave additional useful definitions here.
-
 #endif

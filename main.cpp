@@ -13,8 +13,8 @@ int main(int argc, char *argv[]){
   //read file + populate map struct
   string config = "config1.txt";
   fileio(config, city_map->max_time, city_map->refresh_rate, city_map->map_grid);
-  city_map->x_size = city_map->map_grid.size();
-  city_map->y_size = city_map->map_grid.at(0).size();
+  city_map->y_size = city_map->map_grid.size();
+  city_map->x_size = city_map->map_grid.at(0).size();
 
   //calculate adjacencies by Jodoin, NJ
   
@@ -34,8 +34,9 @@ int main(int argc, char *argv[]){
       }
     }
   }
+
   //first time display map
-  //display(city_map);
+  displayMap(city_map);
   
   //// MILESTONE 1 /////
 

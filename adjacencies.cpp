@@ -80,28 +80,92 @@ void calcLocalAdjacencies(Map * map)
   }
 }
 
+void zoneBFS(Map * city, zone * origin)
+{
+  //we don't need remote adjacencies for non Comm and Industrial nodes
+  if(origin->getType() == 'C' || origin->getType() == 'I')
+  {
+    std::list<zone*> temp_residential;
+    std::list<zone*> temp_industrial;
+    //this array with the same bounds as the city provides O(n)=1 truth checking for visited condition
+    bool visited[city->x_size][city->y_size];
+    //used as a queue to track nodes to visit
+    std::list<zone*> discQueue;
+    discQueue.push_back(origin);
+
+    //add origin to visited
+    visited[origin->getLocation().first][origin->getLocation().second] = true;
+    //then start BFS traversal
+    while( !(discQueue.empty()))
+    {
+      zone* curr = &*discQueue.front();
+      char curr_type = curr->getType();
+      discQueue.pop_front();
+      // traverse adjacent nodes to the current node
+      // add traversable adjacent nodes to the discovery queue
+      // note: CAN traverse along roads, powered_roads, and R/C/I/P
+      for(zone* adj : curr->getLocallyAdjacent())
+      {
+        //If adj was not visited, and is not null add it to the disc queue.
+        if(adj != nullptr && !(visited[adj->getLocation().first][adj->getLocation().second]))
+        {
+          char adjType = adj->getType();
+          switch(adjType)
+          {
+            //case chaining, for all of these cases, do the same thing
+            case '-': case '#': case 'R': case 'C': case 'I': case 'P':
+            {
+              discQueue.push_back(adj);
+              visited[adj->getLocation().first][adj->getLocation().second] = true;
+              break;
+            }
+            case 'T': case ' ':
+            {
+              //Do nothing, these are not traversable!
+              break;
+            }
+          }
+        }
+      }
+
+      // if current isn't the origin, and origin is a Commercial or Industrial
+      // add residential and industrial nodes to the correct lists
+      if(curr != origin)
+      {
+        if(curr->getType() == 'R')
+        {
+          temp_residential.push_back(curr);
+        }
+        if(curr->getType() == 'I')
+        {
+          temp_industrial.push_back(curr);
+        }  
+      }
+    }
+
+    //add the appropriate lists by dynamic casting
+    if(origin->getType() == 'I')
+    {
+      industrial* temp_i = dynamic_cast<industrial*>(&*origin);
+      temp_i->setResidentialAdj(temp_residential);
+    }
+
+    if(origin->getType() == 'C')
+    {
+      commercial* temp_c = dynamic_cast<commercial*>(&*origin);
+      temp_c->setResidentialAdj(temp_residential);
+      temp_c->setIndustrialAdj(temp_industrial);
+    }
+  }
+}
+
 void calcRemoteAdjacencies(Map * map)
 {
   for(std::vector<zone*> rows : map->map_grid)
   {
-    for(zone * curr : rows)
+    for(zone* curr : rows)
     {
-      //is zone industrial or commercial?
-        //yes, populate residential adjacencies
-      
-        //no, goto end
-
-      //is zone commercial?
-        //yes, populate industrial adjacencies
-      
-        //no, goto end
+      zoneBFS(map, curr);
     }
   }
-  
-
-}
-
-void breadthFirstTraverse(zone * current_zone, char zone_type)
-{
-
 }

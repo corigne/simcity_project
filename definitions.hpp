@@ -25,6 +25,8 @@ typedef struct Map
   std::vector< std::vector<zone*> > map_grid;
   int x_size;
   int y_size;
+  int refresh_rate;
+  int max_time;
 } Map;
 
 //Leave additional useful definitions here.

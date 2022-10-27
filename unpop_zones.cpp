@@ -61,12 +61,21 @@ class powerplant: public zone
 {
   public:
 
+<<<<<<< HEAD
     setPoweredState(*zone){
 
         for(zone *PSI :zone.adjacencyList ){
             if(PSI ==NULL||PSI->getType()=='-')
             continue;
             else{setPoweredState(*PSI}
+=======
+    void setPoweredState(*zone currentZone){
+
+        for(zone *PSI :currentZone.adjacencyList ){
+            if(PSI ==nullptr||PSI->getType()=='-')
+            continue;
+            else{setPoweredState(PSI)}
+>>>>>>> origin/sprint1
     }
 
 

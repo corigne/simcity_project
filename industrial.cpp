@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-//industrial class definition here
-
-class IndustryZone: public zone {
-
-public:
-
-
-private:
-
-
-
-}
-=======
 // Author: Nathan Jodoin
 // CSCE2110 - SimCity
 // Recitation Section 213 - Group 6
@@ -25,7 +11,6 @@ class industrial : public zone
     int goods;
     //residential adjacency list, by distance
     std::list<zone *> residential_adj;
-    //The population is updated by ANY adjacent zone not just residential
   public:
     //constructor
     industrial()
@@ -51,14 +36,14 @@ class industrial : public zone
     }
 
 //This may be moved to update_map.cpp
-void IndustiralGrowth(){
-int currentPopulation = getPopulation();
+void IndustiralGrowth(industrial * industryNodeUpdate){
+int currentPopulation = industryNodeUpdate->getPopulation();
 if(currentPopulation>4)
 currentpopulation =4;
 switch (currentPopulation){
 
 case 0;
-
+      for(int PGI :  )
 
 break;
 
@@ -84,15 +69,13 @@ break;
 cout<<"Industrial growth update error invalid population retrival"<<endl;
 
 break;
-
-
 };
 
    /* void incPopulation()
     {
       this->population += 1;
     }
-            */
+
     bool hasGoods()
     {
       if(goods > 0)
@@ -128,4 +111,3 @@ break;
       this->residential_adj = residentialAdj;
     }
 };
->>>>>>> bc6c626524711bf36c86fa24f6ddad76f94e52c2

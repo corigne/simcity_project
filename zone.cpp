@@ -1,15 +1,3 @@
-
-// zone superclass definition here
-
-class zone {
-
-
-    public:
-    char cellType = NULL;
-    int power = 0;
-    pair<int,int> Location;
-    int pollution = 0;
-
 //Author: Nathan Jodoin
 //CSCE2110 SimCity
 //Recitation Sec. 213 Group 6
@@ -21,7 +9,7 @@ class zone
   private:
     std::pair<int,int> location;
     int pollution;
-    //I moved these to public so my power function can access them - chandler
+  
     bool powered;
     //local adjacency list, should be reserved size 8 in constructor
     std::vector<zone*> locallyAdjacent;
@@ -84,5 +72,4 @@ class zone
       //remember this must be size 8, top left adjacent first
       this->locallyAdjacent = locallyAdjacentNodes;
     }
->>>>>>> bc6c626524711bf36c86fa24f6ddad76f94e52c2
 };

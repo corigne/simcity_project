@@ -22,5 +22,6 @@ void displayMap(Map * map){
             zone* tempZone = temp.at(y).at(x);
             cout << " " << tempZone->getType() << " ";
             }
+            cout << endl;
         }
 }

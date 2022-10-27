@@ -3,6 +3,7 @@ a.out
 test
 *.dSYM
 tasks.JSON
+settings.JSON
 
 # Compiled source #
 ###################

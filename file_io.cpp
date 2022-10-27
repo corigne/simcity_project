@@ -5,7 +5,7 @@
 #include "definitions.hpp";
 using namespace std;
 
-vector fileio()
+void fileio(string filename, vector<vector<zone>> map)
 {
 	ifstream  in_f;
 	vector<string> data;
@@ -50,7 +50,7 @@ vector fileio()
 
 	int x, y;
 
-	/*for(int i = 0; i < city.size(); i++)
+	for(int i = 0; i < city.size(); i++)
 	{
 			for(int j = 0; j < city[i].size; j++)
 			{
@@ -60,7 +60,7 @@ vector fileio()
 					continue;
 				if(city[i][j] == 'I')
 				{
-					map.pus_back(new industrial(x, y));
+					map.push_back(new industrial(x, y));
 				}
 				if(city[i][j] == 'R')
 				{
@@ -87,7 +87,7 @@ vector fileio()
 					map.push_back(new powered_road(x, y));
 				}
 			}
-	}*/
+	}
 
 	return city;
 }

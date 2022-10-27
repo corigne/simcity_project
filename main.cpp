@@ -4,11 +4,13 @@
 #include "adjacencies.cpp"
 #include "display.cpp"
 
-int main(){
+int main(int argc, char *argv[]){
   
   Map * city_map = new Map;
   //read file + populate map struct
-  fileIO(config, map);
+  string config = argv[1];
+  int time, refresh;
+  fileIO(config, time, refresh, map);
   city_map->x_size = city_map->map_grid.size();
   city_map->y_size = city_map->map_grid.at(0).size();
 

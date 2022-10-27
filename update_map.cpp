@@ -45,18 +45,35 @@ void populate_zlist(Map &city_map, z_list &m_list)
 }
 
 //sorts populated z_list struct members by population
-void popsort_zlist(z_list &m_list)
+void popsort_zl(z_list &m_list, int low, int high)
 {
   
 }
 
+//paritions given populated* list by population, given (size/2)-1 pivot
+void pop_part(std::vector<populated*> list)
+{
+
+}
+
 //sorts populated z_list struct members by Y coord
-void ysort_zlist(z_list &m_list)
+void ysort_zl(z_list &m_list)
 {
 
 }
 
-void xsort_zlist(z_list &m_list)
+void xsort_zl(z_list &m_list)
 {
 
 }
+
+//returns an ideal pivot for quicksort given 3 integers
+int median_of_3(int a, int b, int c)
+{
+  if((a >= b && a <= c)||(a >= c && a <= b)){return a;}
+  if((b >= a && b <= c)||(b >= c && b <= a)){return b;}
+  if((c >= a && c <= b)||(c >= b && c <= a)){return c;}
+  //in case of failure?
+  return b;
+}
+  

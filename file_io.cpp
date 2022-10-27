@@ -5,13 +5,13 @@
 #include "definitions.hpp"
 using namespace std;
 
-void fileio(string config, vector<vector<zone*>> &map)
+void fileio(string config, int &time, int &refresh, vector<vector<zone*>> &map)
 {
 	ifstream  in_f;
 	vector<string> data;
 	vector<vector<char>> city;
 	string line, temp, filename;
-	int position, refresh, time;
+	int position;
 	int row = 0;
 
 	in_f.open(config);

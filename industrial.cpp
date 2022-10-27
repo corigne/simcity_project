@@ -25,6 +25,7 @@ class industrial : public zone
     int goods;
     //residential adjacency list, by distance
     std::list<zone *> residential_adj;
+    //The population is updated by ANY adjacent zone not just residential
   public:
     //constructor
     industrial()
@@ -49,11 +50,49 @@ class industrial : public zone
       return this->population;
     }
 
-    void incPopulation()
+//This may be moved to update_map.cpp
+void IndustiralGrowth(){
+int currentPopulation = getPopulation();
+if(currentPopulation>4)
+currentpopulation =4;
+switch (currentPopulation){
+
+case 0;
+
+
+break;
+
+  case 1:
+
+
+break;
+
+  case 2:
+
+break;
+
+  case 3:
+
+break;
+
+  case 4:
+
+break;
+
+  default:
+
+cout<<"Industrial growth update error invalid population retrival"<<endl;
+
+break;
+
+
+};
+
+   /* void incPopulation()
     {
       this->population += 1;
     }
-
+            */
     bool hasGoods()
     {
       if(goods > 0)

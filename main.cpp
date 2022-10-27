@@ -18,8 +18,6 @@ int main(int argc, char *argv[]){
   city_map->x_size = city_map->map_grid.at(0).size();
 
   //calculate adjacencies by Jodoin, NJ
-  
-  // currently throwing error due to vector sizing
   calcLocalAdjacencies(city_map);
   calcRemoteAdjacencies(city_map);
 

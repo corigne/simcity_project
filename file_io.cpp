@@ -53,7 +53,6 @@ void fileio(string filename, vector<vector<zone*>> &map)
 	for(int i = 0; i < city.size(); i++)
 	{
 			vector<zone*> temp2;
-			map.push_back(temp2);
 			for(int j = 0; j < city[i].size(); j++)
 			{
 				y = i;

@@ -30,7 +30,8 @@ int main(int argc, char *argv[]){
     }
   }
   //first time display map
-  display(city_map);
+  //display(city_map);
+  
   //// MILESTONE 1 /////
 
   //start menu

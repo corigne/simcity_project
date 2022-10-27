@@ -12,6 +12,7 @@ int x = 0;
 
 //update after milestone 1 with switch case statements for outputting any possible populated zones 
 
+//in main the parameters will be what fileio returns 
 
 void displayMap(Map * map){
 

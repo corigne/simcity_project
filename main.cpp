@@ -23,14 +23,14 @@ int main(int argc, char *argv[]){
   calcLocalAdjacencies(city_map);
   calcRemoteAdjacencies(city_map);
 
-  //calculate power
+  //calculate powered state for the whole map
   for(vector<zone*> row : city_map->map_grid)
   {
     for(zone* curr : row)
     {
       if(curr->getType() == 'P')
       {
-        //allows you to call powerplant functions
+        //dynamic casting allows you to call powerplant child functions
         powerplant* pplt_ptr = dynamic_cast<powerplant*>(curr);
 
         vector<bool> vis_temp (city_map->x_size, false);

@@ -1,6 +1,7 @@
 test.cpp
 a.out
 test
+main
 *.dSYM
 tasks.JSON
 settings.JSON

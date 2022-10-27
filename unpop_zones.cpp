@@ -2,7 +2,7 @@
 //CSCE2110 SimCity
 //Recitation Sec. 213 Group 6
 //Unpopulated zone class definitions.
-#include "definitions.hpp"
+#include "zone.cpp"
 
 //road class
 class road: public zone

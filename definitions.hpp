@@ -12,10 +12,12 @@
 #include <iostream>
 #include <iomanip>
 #include <typeinfo>
+
 // class includes here
 // avoid functional includes here
-#include "zone.cpp"
 #include "unpop_zones.cpp"
+//unpop_zone.cpp includes zone.cpp
+//DO NOT ADD zone.cpp
 #include "commercial.cpp"
 #include "industrial.cpp"
 #include "residential.cpp"

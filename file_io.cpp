@@ -88,7 +88,7 @@ void fileio(string filename, vector<vector<zone*>> &map)
 					temp2.push_back(new powered_road(x, y));
 				}
 
-				map->map_grid.push_back(zones);
+				map->push_back(zones);
 			}
 
 			map.at(i).push_back(temp2);

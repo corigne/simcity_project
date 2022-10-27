@@ -16,6 +16,7 @@
 // class includes here
 // avoid functional includes here
 #include "zone.cpp"
+#include "populated.cpp"
 #include "unpop_zones.cpp"
 #include "commercial.cpp"
 #include "industrial.cpp"
@@ -32,9 +33,15 @@ typedef struct Map
 
 typedef struct z_list
 {
-  std::vector<residential*> res;
-  std::vector<industrial*> ind;
-  std::vector<commercial*> com;
+  //residential list
+  std::vector<populated *> res;
+
+  //industrial list
+  std::vector<populated *> ind;
+
+  //commerical list
+  std::vector<populated*> com;
+  
 } z_list;
 
 //Leave additional useful definitions here.

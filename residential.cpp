@@ -4,7 +4,7 @@
 // Commercial zone Class Def.
 #include"definitions.hpp"
 
-class residential : public zone
+class residential : public populated
 {
   private:
     int population;

@@ -4,7 +4,7 @@
 // industrial zone Class Def.
 #include "definitions.hpp"
 
-class industrial : public zone
+class industrial : public populated
 {
   private:
     int population;

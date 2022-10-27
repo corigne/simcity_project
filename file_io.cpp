@@ -48,12 +48,22 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 
 	in_f.close();
 
+	for(int i = 0; i < city.size(); i++)
+	{
+		for(int j = 0; j < city.at(i).size(); j++)
+		{
+			cout << city[i][j] << " ";
+		}
+
+		cout << endl;
+	}
+
 	int x, y;
 
 	for(int i = 0; i < city.size(); i++)
 	{
 			vector<zone*> temp2;
-			map.push_back(temp2);
+
 			for(int j = 0; j < city[i].size(); j++)
 			{
 				y = i;
@@ -89,10 +99,8 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 					temp2.push_back(new powered_road(x, y));
 				}
 
-				map.at(i).push_back(temp2);
+				map.push_back(temp2);
 			}
-
-			
 	}
-
+	cout << map.size() << " " << map.at(1).size() << endl;
 }

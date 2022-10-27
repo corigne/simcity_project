@@ -2,22 +2,19 @@
 //CSCE2110 SimCity
 //Recitation Sec. 213 Group 6
 //zone class definition
+#include "definitions.hpp"
 
 class zone
 {
   private:
     std::pair<int,int> location;
     int pollution;
-   
-
-    
-
-  public:
-//I moved these to public so my power function can access them - chandler
-  bool powered;
-  //local adjacency list, should be reserved size 8 in constructor
+    //I moved these to public so my power function can access them - chandler
+    bool powered;
+    //local adjacency list, should be reserved size 8 in constructor
     std::vector<zone*> locallyAdjacent;
 
+  public:
     //constructor
     zone()
     {

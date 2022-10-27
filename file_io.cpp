@@ -52,6 +52,8 @@ void fileio(string filename, vector<vector<zone*>> &map)
 
 	for(int i = 0; i < city.size(); i++)
 	{
+			vector<zone*> temp2;
+			map.push_back(temp2);
 			for(int j = 0; j < city[i].size(); j++)
 			{
 				y = i;
@@ -60,33 +62,35 @@ void fileio(string filename, vector<vector<zone*>> &map)
 					continue;
 				if(city[i][j] == 'I')
 				{
-					map.push_back(new industrial(x, y));
+					temp2.push_back(new industrial(x, y));
 				}
 				if(city[i][j] == 'R')
 				{
-					map.push_back(new residential(x, y));
+					temp2.push_back(new residential(x, y));
 				}
 				if(city[i][j] == 'C')
 				{
-					map.push_back(new commercial(x, y));
+					temp2.push_back(new commercial(x, y));
 				}
 				if(city[i][j] == 'T')
 				{
-					map.push_back(new powerline(x, y));
+					temp2.push_back(new powerline(x, y));
 				}
 				if(city[i][j] == 'P')
 				{
-					map.push_back(new powerplant(x, y));
+					temp2.push_back(new powerplant(x, y));
 				}
 				if(city[i][j] == '-')
 				{
-					map.push_back(new road(x, y));
+					temp2.push_back(new road(x, y));
 				}
 				if(city[i][j] == '#')
 				{
-					map.push_back(new powered_road(x, y));
+					temp2.push_back(new powered_road(x, y));
 				}
 			}
+
+			map.at(i).push_back(temp2);
 	}
 
 }

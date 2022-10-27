@@ -3,7 +3,11 @@
 //Recitation Sec. 213 Group 6
 //Unpopulated zone class definitions.
 #include "definitions.hpp"
+<<<<<<< HEAD
 
+=======
+/*
+>>>>>>> bc6c626524711bf36c86fa24f6ddad76f94e52c2
 //road class
 class road: public zone
 {
@@ -57,18 +61,33 @@ class powered_road: public zone
       return '#';
     }
 };
+<<<<<<< HEAD
 
+=======
+*/
+>>>>>>> bc6c626524711bf36c86fa24f6ddad76f94e52c2
 //powerplant class
 class powerplant: public zone
 {
   public:
 
+<<<<<<< HEAD
     setPoweredState(*zone){
 
         for(zone PSI :zone.adjacencyList ){
             if(PSI ==NULL||zone.getType()=='-')
             continue;
             else{setPoweredState(*PSI}
+=======
+   void setPoweredState(zone *cell){
+        cell->powered=true;
+        
+        for(zone *PSI : cell->locallyAdjacent){
+            if(PSI == NULL||PSI->getType()=='-')
+            continue;
+
+            else{setPoweredState(PSI);}
+>>>>>>> bc6c626524711bf36c86fa24f6ddad76f94e52c2
     }
 
 

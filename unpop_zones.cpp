@@ -62,12 +62,12 @@ class powerplant: public zone
   public:
 
 
-    void setPoweredState(*zone currentZone){
+    void setPoweredState(zone * currentZone){
 
-        for(zone *PSI :currentZone.adjacencyList ){
+        for(zone *PSI :currentZone->getLocallyAdjacent() ){
             if(PSI ==nullptr||PSI->getType()=='-')
             continue;
-            else{setPoweredState(PSI)}
+            else{setPoweredState(PSI);}
 
     }
 

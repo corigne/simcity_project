@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
-
+#include "definitions.hpp";
 using namespace std;
 
 vector fileIO(string config, zone &map)
@@ -60,38 +60,31 @@ vector fileIO(string config, zone &map)
 					continue;
 				if(city[i][j] == 'I')
 				{
-					industrial tempi(x, y);
-					map.push_back(tempi);
+					map.map_grid.push_back(new industrial(x, y));
 				}
 				if(city[i][j] == 'R')
 				{
-					residential tempr(x, y);
-					map.push_back(tempr);
+					map.map_grid.push_back(new residential(x, y));
 				}
 				if(city[i][j] == 'C')
 				{
-					commercial tempc(xy);
-					map.push_back(tempc);
+					map.map_grid.push_back(new commercial(x, y));
 				}
 				if(city[i][j] == 'T')
 				{
-					commercial tempt(xy);
-					map.push_back(tempt);
+					map.map_grid.push_back(new powerline(x, y));
 				}
 				if(city[i][j] == 'P')
 				{
-					commercial tempc(xy);
-					map.push_back(tempc);
+					map.map_grid.push_back(new powerplant(x, y));
 				}
 				if(city[i][j] == '-')
 				{
-					road tempr(xy);
-					map.push_back(tempr);
+					map.map_grid.push_back(new road(x, y));
 				}
 				if(city[i][j] == '#')
 				{
-					powerplant temppow(xy);
-					map.push_back(temppow);
+					map.map_grid.push_back(new powered_road(x, y));
 				}
 			}
 	}

@@ -26,27 +26,26 @@ class commercial : public populated
     {
       return 'C';
     }
-    
-    int getPopulation()
-    {
-      return this->population;
-    }
-    void incPopulation()
-    {
-      this->population += 1;
-    }
+
+    //returns a list of residential Adjacencies in order of distance
     std::list<zone*> getResidentialAdj()
     {
       return this->residentialAdj;
     }
+
+    // set the residential adjacencies
     void setResidentialAdj(std::list<zone*> residentialAdj)
     {
       this->residentialAdj = residentialAdj;
     }
+
+    //returns a list of industrial zone adjacencies
     std::list<zone*> getIndustrialAdj()
     {
       return this->industrialAdj;
     }
+
+    //set the industrial adjacency list
     void setIndustrialAdj(std::list<zone*> industrialAdj)
     {
       this->industrialAdj = industrialAdj;

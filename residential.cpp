@@ -27,17 +27,6 @@ class residential : public populated
       return 'R';
     }
 
-    int getPopulation()
-    {
-      return this->population;
-    }
-
-    //increments population
-    void incPopulation()
-    {
-      this->population += 1;
-    }
-
     int availableWorkers()
     {
       return this->workers;

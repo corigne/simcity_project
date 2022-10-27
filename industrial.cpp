@@ -29,17 +29,8 @@ class industrial : public populated
     {
       return 'I';
     }
-
-    int getPopulation()
-    {
-      return this->population;
-    }
-
-    void incPopulation()
-    {
-      this->population += 1;
-    }
-
+    
+    //returns true is goods > 0
     bool hasGoods()
     {
       if(goods > 0)
@@ -49,6 +40,7 @@ class industrial : public populated
       return false;
     }
 
+    //returns the total # of available goods
     int availableGoods()
     {
       return this->goods;
@@ -66,10 +58,13 @@ class industrial : public populated
       this->goods -= 1;
     }
 
+    //returns the list of residential adjacencies by distance
     std::list<zone*> getResidentialAdj()
     {
       return this->residential_adj;
     }
+
+    //set the residential adjacency list
     void setResidentialAdj(std::list<zone*> residentialAdj)
     {
       this->residential_adj = residentialAdj;

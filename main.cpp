@@ -1,4 +1,7 @@
-// main function here
+// Authors: GROUP 6
+// CSCE2110
+// Main function and program loop.
+// CURRENTLY MILESTONE 1
 #include "definitions.hpp"
 #include "file_io.cpp"
 #include "adjacencies.cpp"
@@ -8,12 +11,14 @@ int main(int argc, char *argv[]){
   
   Map * city_map = new Map;
   //read file + populate map struct
-  string config = argv[1];
+  string config = "config1.txt";
   fileio(config, city_map->max_time, city_map->refresh_rate, city_map->map_grid);
   city_map->x_size = city_map->map_grid.size();
   city_map->y_size = city_map->map_grid.at(0).size();
 
-  //calculate adjacencies
+  //calculate adjacencies by Jodoin, NJ
+  
+  // currently throwing error due to vector sizing
   calcLocalAdjacencies(city_map);
   calcRemoteAdjacencies(city_map);
 

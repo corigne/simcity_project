@@ -30,5 +30,12 @@ typedef struct Map
   int max_time;
 } Map;
 
+typedef struct z_list
+{
+  std::vector<residential*> res;
+  std::vector<industrial*> ind;
+  std::vector<commercial*> com;
+} z_list;
+
 //Leave additional useful definitions here.
 #endif

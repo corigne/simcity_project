@@ -73,7 +73,7 @@ class powerplant: public zone
 
     // this template allows the user to pass an array w/o size
     
-    void setPoweredState(zone* cell, vector< vector<bool> > (&visited)){
+    void setPoweredState(zone* cell, std::vector<std::vector<bool> > (&visited)){
       
       cell->setPowered(true);
       visited[cell->getLocation().second][cell->getLocation().first] = true;

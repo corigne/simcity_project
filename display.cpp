@@ -25,4 +25,11 @@ void displayMap(Map * map){
             }
             cout << endl;
         }
+    /*
+    The code above works successfully for outputting the initial region (population 0); thus, 
+    the update that is going to need to be implemented is outputting the map when 
+    population > 0. My plan is to do this via if and switch case statements. So if population = 0, then above
+    will be the code for that. Else, {either else if(I or R or C) or switch case}
+
+    */
 }

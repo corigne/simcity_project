@@ -5,7 +5,7 @@
 #include "definitions.hpp";
 using namespace std;
 
-vector fileIO(string config, zone &map)
+void fileIO(string config, zone &map, int time, int refresh)
 {
 	ifstream  in_f;
 	vector<string> data;
@@ -88,6 +88,4 @@ vector fileIO(string config, zone &map)
 				}
 			}
 	}
-
-	return city;
 }

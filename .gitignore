@@ -1,6 +1,6 @@
 test*.cpp
 a.out
-test
+test*
 main
 *.dSYM
 tasks.JSON

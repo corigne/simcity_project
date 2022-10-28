@@ -3,7 +3,6 @@
 
 #include "definitions.hpp"
 #include <iostream>
-using namespace std;
 
 //X Y coordinates initialized to X=0 and Y=0
 int y = 0;
@@ -15,7 +14,7 @@ int x = 0;
 
 void displayMap(Map * map){
 
-    vector<vector<zone*> > temp = map->map_grid;
+    std::vector<std::vector<zone*> > temp = map->map_grid;
     for(int y = 0; y < map->y_size; y++){
         
         for(int x = 0; x < map->x_size; x++){

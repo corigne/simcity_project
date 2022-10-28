@@ -6,6 +6,7 @@
 #include "file_io.cpp"
 #include "adjacencies.cpp"
 #include "display.cpp"
+#include "update_map.cpp"
 
 int main(int argc, char *argv[]){
   

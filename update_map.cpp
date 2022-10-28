@@ -44,33 +44,6 @@ void populate_zlist(Map &city_map, z_list &m_list)
   }
 }
 
-void pop_zone_sort(z_list &lists)
-{
-  //recursively sort residential, then industrial, then commercial lists
-  quicksort_vec_asc(lists.res, 0, lists.res.size()-1);
-  
-  quicksort_vec_asc(lists.ind, 0, lists.ind.size()-1);
-
-  quicksort_vec_asc(lists.com, 0, lists.com.size()-1);
-}
-
-//sorts populated z_list struct members by population
-void quicksort_vec_asc(std::vector<populated*> &vec, int low, int high)
-{
-  //don't try to sort in a way that will cause an error
-  if(low < high)
-  {
-    //partition
-    int piv = partition(vec, low, high);
-
-    //sort high recursive
-    quicksort_vec_asc(vec, low, piv - 1);
-
-    //sort low recursive
-    quicksort_vec_asc(vec, piv + 1, high);
-  }
-}
-
 //paritions given  list by population, returns integer index
 int partition(std::vector<populated*> &vec, int low, int high)
 {
@@ -95,4 +68,31 @@ int partition(std::vector<populated*> &vec, int low, int high)
   
   return i + 1;
 
+}
+
+//sorts populated z_list struct members by population
+void quicksort_vec_asc(std::vector<populated*> &vec, int low, int high)
+{
+  //don't try to sort in a way that will cause an error
+  if(low < high)
+  {
+    //partition
+    int piv = partition(vec, low, high);
+
+    //sort high recursive
+    quicksort_vec_asc(vec, low, piv - 1);
+
+    //sort low recursive
+    quicksort_vec_asc(vec, piv + 1, high);
+  }
+}
+
+void pop_zone_sort(z_list &lists)
+{
+  //recursively sort residential, then industrial, then commercial lists
+  quicksort_vec_asc(lists.res, 0, lists.res.size()-1);
+  
+  quicksort_vec_asc(lists.ind, 0, lists.ind.size()-1);
+
+  quicksort_vec_asc(lists.com, 0, lists.com.size()-1);
 }

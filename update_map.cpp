@@ -44,36 +44,55 @@ void populate_zlist(Map &city_map, z_list &m_list)
   }
 }
 
+void pop_zone_sort(z_list &lists)
+{
+  //recursively sort residential, then industrial, then commercial lists
+  quicksort_vec_asc(lists.res, 0, lists.res.size()-1);
+  
+  quicksort_vec_asc(lists.ind, 0, lists.ind.size()-1);
+
+  quicksort_vec_asc(lists.com, 0, lists.com.size()-1);
+}
+
 //sorts populated z_list struct members by population
-void popsort_zl(z_list &m_list, int low, int high)
+void quicksort_vec_asc(std::vector<populated*> &vec, int low, int high)
 {
+  //don't try to sort in a way that will cause an error
+  if(low < high)
+  {
+    //partition
+    int piv = partition(vec, low, high);
+
+    //sort high recursive
+    quicksort_vec_asc(vec, low, piv - 1);
+
+    //sort low recursive
+    quicksort_vec_asc(vec, piv + 1, high);
+  }
+}
+
+//paritions given  list by population, returns integer index
+int partition(std::vector<populated*> &vec, int low, int high)
+{
+  int pivot = (low + high)/2;
+
+  //will only stay -1 if there is nothing in the array smaller than the pivot
+  int i = low - 1; 
+  for(int j = 0; j <= high; j++)
+  {
+    if(vec[j]->getPopulation() > vec[pivot]->getPopulation())
+    {
+      i++;
+      populated* temp = vec[i];
+      vec[i] = vec[j];
+      vec[j] = temp;
+    }
+  }
+  //swap lowest index and pivot, return
+  populated* temp_low = vec[low];
+  vec[low] = vec[i+1];
+  vec[i+1] = temp_low;
   
-}
-
-//paritions given populated* list by population, given (size/2)-1 pivot
-void pop_part(std::vector<populated*> list)
-{
+  return i + 1;
 
 }
-
-//sorts populated z_list struct members by Y coord
-void ysort_zl(z_list &m_list)
-{
-
-}
-
-void xsort_zl(z_list &m_list)
-{
-
-}
-
-//returns an ideal pivot for quicksort given 3 integers
-int median_of_3(int a, int b, int c)
-{
-  if((a >= b && a <= c)||(a >= c && a <= b)){return a;}
-  if((b >= a && b <= c)||(b >= c && b <= a)){return b;}
-  if((c >= a && c <= b)||(c >= b && c <= a)){return c;}
-  //in case of failure?
-  return b;
-}
-  

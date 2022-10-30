@@ -3,7 +3,14 @@
 // update function definitions here
 
 //residential
+void residentialGrowth(residential * residentialZoneUpdate)
+{
+  int PopCounterResidential = 0;
+  
+for()
 
+
+}
 
 //commercial
 
@@ -12,11 +19,13 @@
 void IndustiralGrowth(industrial * industryNodeUpdate){
 int currentPopulation = industryNodeUpdate->getPopulation();
 if(currentPopulation>4)
-currentpopulation =4;
+currentPopulation =4;
+
+
 switch (currentPopulation){
 
-case 0;
-      for(int PGI : industryNodeUpdate.locallyAdjacent )
+case 0:
+      for(zone* PGI : industryNodeUpdate->getLocallyAdjacent() )
 
 break;
 
@@ -39,7 +48,7 @@ break;
 
   default:
 
-cout<<"Industrial growth update error invalid population retrival"<<endl;
+std::cout<<"Industrial growth update error invalid population retrival"<<std::endl;
 
 break;
 };

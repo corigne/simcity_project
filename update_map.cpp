@@ -39,17 +39,40 @@ for(populated * PRGI : residentialZone->getLocallyAdjacent())
 
   if(PRGI->getPopulation()==1)
   {
-    PRGI->incPopulation();
-
+    PopCounterResidential++
   }else
   {
     continue;
   }
 
+if(PopCounterResidential=2)
+{
+PRGI->incPopulation();
+}
 }
 break;
 
-};
+case 2:
+
+for(populated * PRGI : residentialZone->getLocallyAdjacent())
+{
+
+  if(PRGI->getPopulation()==2)
+  {
+    PopCounterResidential++
+  }else
+  {
+    continue;
+  }
+  
+if(PopCounterResidential=4)
+{
+PRGI->incPopulation();
+}
+}
+
+
+}; //End Switch
 
 //commercial
 

@@ -55,19 +55,22 @@ class zone
       return this->locallyAdjacent;
     }
 
-    //Mutators
+    //MUTATORS
     void setLocation(int X, int Y)
     {
       this->location.first = X;
       this->location.second = Y;
     }
+
     void setPollution(int pollutionVal)
     {
       this->pollution = pollutionVal;
     }
+
     void setPowered(bool isPoweredOrNot){
       this->powered = isPoweredOrNot;
     }
+
     void setLocallyAdjacent(std::vector<zone*> locallyAdjacentNodes){
       //remember this must be size 8, top left adjacent first
       this->locallyAdjacent = locallyAdjacentNodes;

@@ -4,7 +4,7 @@
 // industrial zone Class Def.
 #include "definitions.hpp"
 
-class industrial : public zone
+class industrial : public populated
 {
   private:
     int population;
@@ -51,6 +51,7 @@ class industrial : public zone
       return false;
     }
 
+    //returns the total # of available goods
     int availableGoods()
     {
       return this->goods;
@@ -68,10 +69,13 @@ class industrial : public zone
       this->goods -= 1;
     }
 
+    //returns the list of residential adjacencies by distance
     std::list<zone*> getResidentialAdj()
     {
       return this->residential_adj;
     }
+
+    //set the residential adjacency list
     void setResidentialAdj(std::list<zone*> residentialAdj)
     {
       this->residential_adj = residentialAdj;

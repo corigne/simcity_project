@@ -7,12 +7,15 @@
 - Nathan Jodoin
 
 ### Compiling
-Unfortunately, due to time restrictions we were unable to make it to a compilable state for the first milestone. We didn't recieve the testfile or configfile until Monday afternoon, and as such we were unable to start major components of our program until then.
+To compile, please use the following command:
+
+  >``g++ main.cpp -o main``
 
 ### Running
-Normally you would pass the config filename as an arg to the program in the command line, however our program currently doesn't compile.
+To run the application with a supplied config text file and CSV:
 
-Several functional components have been tested individually, but not yet together successfully.
+  1. Place the .CSV in the project folder.
+  2. Run >``./main "config_text_filename.txt"``
 
 ### Make
 We do not currently have a makefile, however this may change in the future once we real a stable build.

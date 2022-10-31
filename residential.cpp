@@ -7,7 +7,6 @@
 class residential : public populated
 {
   private:
-    int population;
     int workers;
   public:
     residential()

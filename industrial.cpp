@@ -7,7 +7,6 @@
 class industrial : public populated
 {
   private:
-    int population;
     int goods;
     //residential adjacency list, by distance
     std::list<zone *> residential_adj;

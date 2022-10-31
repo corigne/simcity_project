@@ -7,19 +7,18 @@
 class commercial : public populated
 {
   private:
-    int population;
     std::list<zone*> residentialAdj;
     std::list<zone*> industrialAdj;
 
   public:
     commercial()
     {
-      population = 0;
+      this->population = 0;
     }
     commercial(int x, int y)
     {
-      population = 0;
       setLocation(x, y);
+      this->population = 0;
     }
 
     char getType()

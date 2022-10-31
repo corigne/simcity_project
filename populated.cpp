@@ -5,11 +5,14 @@
 
 class populated: public zone{
 
-  private:
+  protected:
     int population;
   
   public:
-
+    populated()
+    {
+      population = 0;
+    }
     //returns integer population of zone
     int getPopulation(){
       return this->population;

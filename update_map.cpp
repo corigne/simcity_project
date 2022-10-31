@@ -135,14 +135,25 @@ std::cout<<"Failed to correctly get population in Residential."<<std::endl;
 }
 //commercial
 
+bool checkWorker(){
+if(true)
+return true;
+}
+
+bool checkGood(){
+  if(true)
+  return true;
+}
 
 void commercialGrowth(commercial * commercialZone){
 int commercialZonePop = 0;
 commercialZonePop = commercialZone->getPopulation();
-if (commercialZonePop >2)
+
+if (commercialZonePop >3)
 {
-commercialZonePop =2;
+commercialZonePop =3;
 }
+
 int PopCounterCommercial = 0;
 
 switch(commercialZonePop){
@@ -152,8 +163,11 @@ for(commercial * CGI : commercialZone->getLocallyAdjacent() )
 {
   if(CGI->getType()=='T')
   {
-    for(auto * CWI: )
+      if (checkWorker()&&checkGood())
+      {
   CGI->incPopulation();
+  break;
+      }
   }
 
 }
@@ -162,7 +176,11 @@ for(commercial * CGI : commercialZone->getLocallyAdjacent())
 
   if(CGI->getPopulation()==1)
   {
+     if (checkWorker()&&checkGood())
+     {
     CGI->incPopulation();
+    break;
+     }
 
   }else
   {
@@ -184,32 +202,19 @@ for(commercial * PCGI : commercialZone->getLocallyAdjacent())
     continue;
   }
 
-if(PopCounterCommercial=2)
+if(PopCounterCommercial=1)
 {
+  if (checkWorker()&&checkGood())
+  {
 PCGI->incPopulation();
+break;
+  }
 }
 }
 break;
 
 case 2:
-for(commercial * PCGI : commercialZone->getLocallyAdjacent())
-{
-
-  if(PCGI->getPopulation()==2)
-  {
-    PopCounterCommercial++;
-  }else
-  {
-    continue;
-  }
-  
-if(PopCounterCommercial=4)
-{
-PCGI->incPopulation();
-}
-
-
-}
+//the zone will do nothing
 break;
 
 default:
@@ -220,5 +225,20 @@ std::cout<<"Failed to correctly get population in commercial."<<std::endl;
 
 
 //industrial
+void industrialGrowth(industrial * industrialZone)
+  int PopCounterIndustrial = 0;
+  int industrialZonePop = 0;
+  industrialZonePop =industrialZone->getPopulation();
 
+  if(industrialZonePop>3)
+  residentialZonePop=2; 
+void industrialGrowth(){
+
+
+
+switch(industrialZonePop)
+
+
+
+}
 

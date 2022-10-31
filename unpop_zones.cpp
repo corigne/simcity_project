@@ -60,7 +60,6 @@ class powered_road: public zone
 class powerplant: public zone
 {
   public:
-<<<<<<< HEAD
 
 
     void setPoweredState(zone * currentZone){
@@ -75,9 +74,6 @@ class powerplant: public zone
 
     }
 
-=======
-    //Constructor
->>>>>>> 5fa49874fd122a0b61be5c5b8e8d1665044b7cc3
     powerplant(){
       
     }

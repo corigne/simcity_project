@@ -6,36 +6,40 @@
 void residentialGrowth(populated * residentialZone){
   int PopCounterResidential = 0;
   int residentialZonePop = residentialZone->getPopulation();
+  bool reqMet = false;
   if(residentialZonePop>4)
   residentialZonePop=4; 
 switch(residentialZonePop){
 
 case 0:
-for(populated * RGI : residentialZone->getLocallyAdjacent() )
+for(residential * RGI : residentialZone->getLocallyAdjacent() )
 {
   if(RGI->getType()=='T')
   {
-  RGI->incPopulation();
+    reqMet=true;
   }
-
 }
-for(populated * PRGI : residentialZone->getLocallyAdjacent())
+for(residential * PRGI : residentialZone->getLocallyAdjacent())
 {
 
   if(PRGI->getPopulation()==1)
   {
-    PRGI->incPopulation();
-
+    reqMet=true;
   }else
   {
     continue;
   }
 
 }
+if(reqMet=true)
+    {
+PRGI->incPopulation();
+PRGI->giveWorker();
+    }
 break;
 
 case 1:
-for(populated * PRGI : residentialZone->getLocallyAdjacent())
+for(residential * PRGI : residentialZone->getLocallyAdjacent())
 {
 
   if(PRGI->getPopulation()==1)
@@ -49,12 +53,13 @@ for(populated * PRGI : residentialZone->getLocallyAdjacent())
 if(PopCounterResidential=2)
 {
 PRGI->incPopulation();
+PRGI->giveWorker();
 }
 }
 break;
 
 case 2:
-for(populated * PRGI : residentialZone->getLocallyAdjacent())
+for(residential * PRGI : residentialZone->getLocallyAdjacent())
 {
 
   if(PRGI->getPopulation()==2)
@@ -75,7 +80,7 @@ PRGI->incPopulation();
 break;
 
 case 3:
-for(populated * PRGI : residentialZone->getLocallyAdjacent())
+for(residential * PRGI : residentialZone->getLocallyAdjacent())
 {
 
   if(PRGI->getPopulation()==3)
@@ -95,7 +100,7 @@ PRGI->incPopulation();
 }
 break;
 case 4:
-for(populated * PRGI : residentialZone->getLocallyAdjacent())
+for(residential * PRGI : residentialZone->getLocallyAdjacent())
 {
 
   if(PRGI->getPopulation()==4)
@@ -139,6 +144,7 @@ for(commercial * CGI : commercialZone->getLocallyAdjacent() )
 {
   if(CGI->getType()=='T')
   {
+    for(auto * CWI: )
   CGI->incPopulation();
   }
 

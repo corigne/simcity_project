@@ -1,5 +1,5 @@
 #include "definitions.hpp"
-
+/*
 //residential EVERY INCPOP NEEDS AN INCWORKER FUNCTION
 void residentialGrowth(populated * residentialZone)
 {
@@ -244,7 +244,6 @@ void commercialGrowth(commercial * commercialZone)
   } //End Switch
 }
 
-/* Commented out because it appears incomplete...
 //industrial
 void industrialGrowth(industrial * industrialZone)
   int PopCounterIndustrial = 0;
@@ -264,7 +263,6 @@ switch(industrialZonePop)
 
 }
 */
-
 
 /////// MERGED by nathan, Please do not overwrite the code below, it is working... //////
 

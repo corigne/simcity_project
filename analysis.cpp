@@ -31,7 +31,7 @@ void analysis(Map finalmap, z_list list) //edit  here, changed from map to Map, 
     {
         for(zone* curr : row)
         {
-            totalpol += curr->getPolution(); //changed spelling bc this is how it was spelled in zone.cpp
+            totalpol += curr->getPolution(); //edit here changed spelling bc this is how it was spelled in zone.cpp
         }
     }
 

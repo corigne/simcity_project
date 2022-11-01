@@ -65,21 +65,25 @@ void analysis(Map finalmap, z_list list) //edit  here, changed from map to Map, 
         }
         else
         {
+            std::vector<std::vector<zone*> > temp = finalmap.map_grid;
             for(int y = row; y < endrow; y++)
             {
                 for(int x = col; x < endcol; x++)
                 {
                     zone* tempZone = temp.at(y).at(x);
+                    populated* curr = dynamic_cast<populated*>(tempZone); /*edit here:
+                    dynamically cast a populated pointer to be equal to the zone to access population of that zone*/
+
                     switch(tempZone->getType())
                     {
                         case 'R':
-                            respop += tempzone->population;
+                            respop += curr->getPopulation();//edit here fixed syntax
                             break;
                         case 'C':
-                            compop += tempzone->population;
+                            compop += curr->getPopulation();// edit here fixed syntax
                             break;
                         case 'I':
-                            indpop += tempzone->population;
+                            indpop += curr->getPopulation();// edit here fixed syntax
                             break;
                     }
                 }

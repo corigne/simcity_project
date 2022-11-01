@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
         }
       }
     }
-  
+  }
   // The zlist is a struct with a list for residential, industrial, and commercial nodes each.
   // This is the working datastructure for the bulk of the work, such as population updates.
   z_list master_list;
@@ -88,7 +88,7 @@ int main(int argc, char *argv[]){
 
     }else if(user_in == 'y' || user_in == 'c'){
       //continue simulation
-      validated == true;
+      validated = true;
     }
   }
   //if simulation was cancelled, return from main with 0, intended
@@ -111,7 +111,7 @@ int main(int argc, char *argv[]){
 */
 
 //DEBUG DISPLAY
-displayMap(city_map);
+  displayMap(city_map);
 
   //analysis
 

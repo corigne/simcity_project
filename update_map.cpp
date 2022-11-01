@@ -225,20 +225,31 @@ std::cout<<"Failed to correctly get population in commercial."<<std::endl;
 
 
 //industrial
-void industrialGrowth(industrial * industrialZone)
+void industrialGrowth(industrial * industrialZone){
   int PopCounterIndustrial = 0;
   int industrialZonePop = 0;
   industrialZonePop =industrialZone->getPopulation();
 
   if(industrialZonePop>3)
-  residentialZonePop=2; 
-void industrialGrowth(){
+  industrialZonePop=2;
+
+switch(industrialZonePop){
+case 0:
+
+break;
+
+case 1:
+
+break;
+
+case 2:
+
+break;
+
+default:
+std::cout<<"Failed to correctly get industrial population."<<std::endl;
+break;
 
 
-
-switch(industrialZonePop)
-
-
-
+};
 }
-

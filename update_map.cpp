@@ -25,7 +25,7 @@ void residentialGrowth(residential * residentialZone)
       for(zone * PRGI : residentialZone->getLocallyAdjacent())
       {
 
-        if(PRGI->getPopulation()==1)
+        if(residentialZone->getPopulation()==1)
         {
           residentialZone->incPopulation();
           residentialZone->giveWorker();
@@ -52,7 +52,7 @@ void residentialGrowth(residential * residentialZone)
           continue;
         }
 
-        if(PopCounterResidential=2)
+        if(PopCounterResidential==2)
         {
           residentialZone->incPopulation();
           residentialZone->giveWorker();
@@ -125,8 +125,8 @@ void residentialGrowth(residential * residentialZone)
         
         if(PopCounterResidential==8)
         {
-            PRGI->incPopulation();
-            PRGI->giveWorker();
+            residentialZone->incPopulation();
+            residentialZone->giveWorker();
             break;
         }
 
@@ -168,29 +168,29 @@ void commercialGrowth(commercial * commercialZone)
   {
     case 0:
     {
-      // what do these do?
-      for(commercial * CGI : commercialZone->getLocallyAdjacent() )
+    
+      for(zone * CGI : commercialZone->getLocallyAdjacent() )
       {
-        if(CGI->getType()=='T')
+        if(commercialZone->getType()=='T')
         {
           if (checkWorker()&&checkGood())
           {
-            CGI->incPopulation();
+            commercialZone->incPopulation();
             break;
           }
         }
 
       }
 
-      // what is this for?
-      for(commercial * CGI : commercialZone->getLocallyAdjacent())
+  
+      for(zone * CGI : commercialZone->getLocallyAdjacent())
       {
 
-        if(CGI->getPopulation()==1)
+        if(commercialZone->getPopulation()==1)
         {
           if (checkWorker()&&checkGood())
           {
-            CGI->incPopulation();
+            commercialZone->incPopulation();
             break;
           }
 
@@ -206,10 +206,10 @@ void commercialGrowth(commercial * commercialZone)
     case 1:
     { 
       // need comment
-      for(commercial * PCGI : commercialZone->getLocallyAdjacent())
+      for(zone * PCGI : commercialZone->getLocallyAdjacent())
       {
 
-        if(PCGI->getPopulation()==1)
+        if(commercialZone->getPopulation()==1)
         {
           PopCounterCommercial++;
         }else
@@ -217,17 +217,17 @@ void commercialGrowth(commercial * commercialZone)
           continue;
         }
 
-        if(PopCounterCommercial=1)
+        if(PopCounterCommercial==1)
         {
           if (checkWorker()&&checkGood())
           {
-            PCGI->incPopulation();
+            commercialZone->incPopulation();
             break;
           }
         }
 
+      
       }
-
       break;
     }
 
@@ -241,60 +241,7 @@ void commercialGrowth(commercial * commercialZone)
     {
     std::cout<<"Failed to correctly get population in commercial."<<std::endl;
     }
-  } //End Switch
-}
-for(commercial * CGI : commercialZone->getLocallyAdjacent())
-{
-
-  if(CGI->getPopulation()==1)
-  {
-     if (checkWorker()&&checkGood())
-     {
-    CGI->incPopulation();
-    break;
-     }
-
-  }else
-  {
-    continue;
-  }
-
-}
-break;
-
-case 1:
-for(commercial * PCGI : commercialZone->getLocallyAdjacent())
-{
-
-  if(PCGI->getPopulation()==1)
-  {
-    PopCounterCommercial++;
-  }else
-  {
-    continue;
-  }
-
-if(PopCounterCommercial==1)
-{
-  if (checkWorker()&&checkGood())
-  {
-PCGI->incPopulation();
-break;
-  }
-}
-}
-break;
-
-case 2:
-//the zone will do nothing
-break;
-
-default:
-std::cout<<"Failed to correctly get population in commercial."<<std::endl;
-
-}; //End Switch
-}
-
+  }; //End Switch
 
 //industrial
 void industrialGrowth(industrial * industrialZone){

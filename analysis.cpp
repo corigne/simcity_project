@@ -65,13 +65,24 @@ void analysis(Map finalmap, z_list list) //edit  here, changed from map to Map, 
         }
         else
         {
-            for(int i = row; i <= endrow; i++)
+            for(int y = row; y < endrow; y++)
             {
-                for(int j = col; i <= endcol; j++)
+                for(int x = col; x < endcol; x++)
                 {
-                    totalpol += finalmap.map_grid[i][j].getPollution();
+                    zone* tempZone = temp.at(y).at(x);
+                    switch(tempZone->getType())
+                    {
+                        case 'R':
+                            respop += tempzone->population;
+                            break;
+                        case 'C':
+                            compop += tempzone->population;
+                            break;
+                        case 'I':
+                            indpop += tempzone->population;
+                            break;
+                    }
                 }
-            }
         }
 
         cout << "Would you like to specify another area to analyze? (y for yes, n for no) : ";

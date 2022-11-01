@@ -138,7 +138,7 @@ void residentialGrowth(residential * residentialZone)
     {
       std::cout<<"Failed to correctly get population in Residential."<<std::endl;
     }
-  } //End Switch
+  }; //End Switch
 }
 //commercial
 
@@ -241,41 +241,37 @@ void commercialGrowth(commercial * commercialZone)
     {
     std::cout<<"Failed to correctly get population in commercial."<<std::endl;
     }
+    break;
   }; //End Switch
-
+}
 //industrial
-void industrialGrowth(industrial * industrialZone){
+void industrialGrowth(industrial * industrialZone)
+{
   int PopCounterIndustrial = 0;
   int industrialZonePop = 0;
   industrialZonePop =industrialZone->getPopulation();
 
   if(industrialZonePop>3)
-  residentialZonePop=2; 
-void industrialGrowth(){
-
-
-
-switch(industrialZonePop)
-{
-
+  industrialZonePop=2; 
 
 switch(industrialZonePop){
 case 0:
-for(industrial * IGI : industrialZone-> getLocallyAdjacent())
+for(zone * IGI : industrialZone-> getLocallyAdjacent())
 {
   if(IGI->getType()=='T')
   {
       if (checkWorker())
       {
-  IGI->incPopulation();
-  IGI->addGoods();
+  industrialZone->incPopulation();
+  industrialZone->addGoods();
   break;
       }
   }
 
 }
 
-
+};// end switch
+}
 /////// MERGED by nathan, Please do not overwrite the code below, it is working... //////
 
 //populates provided list struct with res, ind, and comm nodes
@@ -306,7 +302,7 @@ void populate_zlist(Map &city_map, z_list &m_list)
           m_list.com.push_back(temp_c);
           break;
         }
-      }
+      };
     }
   }
 }

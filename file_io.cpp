@@ -103,3 +103,4 @@ void fileio(std::string config, int &time, int &refresh, std::vector<std::vector
 				map.push_back(temp2);
 			}
 	}
+}

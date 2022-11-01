@@ -14,17 +14,17 @@ void analysis(Map finalmap, z_list list) //edit  here, changed from map to Map, 
 
     for(int i = 0; i < list.res.size(); i++)
     {
-        respop += list.res[i];
+        respop += list.res.at(i)->getPopulation(); //edit here fixed syntax
     }
 
     for(int i = 0; i < list.com.size(); i++)
     {
-        compop += list.com[i];
+        compop += list.com.at(i)->getPopulation(); //edit here fixed syntax
     }
 
     for(int i = 0; i < list.ind.size(); i++)
     {
-        indpop += list.ind[i];
+        indpop += list.ind.at(i)->getPopulation(); //edit here fixed syntax
     }
 
     for(std::vector<zone*> row : finalmap.map_grid)
@@ -69,7 +69,7 @@ void analysis(Map finalmap, z_list list) //edit  here, changed from map to Map, 
             {
                 for(int j = col; i <= endcol; j++)
                 {
-                    totalpol += finalmap.map_grid[i][j].getPollution();
+                    totalpol += finalmap.map_grid.at(i).at(j)->getPolution();//edit here fixed syntax
                 }
             }
         }

@@ -16,7 +16,8 @@ void displayMap(Map * map)
         for(int x = 0; x < map->x_size; x++){
             zone* tempZone = temp.at(y).at(x);
             switch(tempZone->getType()){
-                case 'R':case 'C':case 'I':{
+                case 'R':case 'C':case 'I':
+                {
                     populated* curr = dynamic_cast<populated*>(tempZone);
                     int population = curr->getPopulation();
                     if(population > 0){
@@ -26,12 +27,13 @@ void displayMap(Map * map)
                     }
                     break;
                 }
-                default:{
+                default:
+                {
                     std::cout << " " << tempZone->getType() << " ";
                 }
             }
             
-            }
-            std::cout << std::endl;
         }
+        std::cout << std::endl;
+    }
 }

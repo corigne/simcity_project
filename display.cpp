@@ -1,5 +1,5 @@
-//Output of initial region at the beginning of the simulation
-//assuming that all zones are unpopulated 
+//Salma Omary
+//Outputs the map according to population
 
 #include "definitions.hpp"
 #include <iostream>
@@ -9,7 +9,8 @@ int y = 0;
 int x = 0;
 
 
-//update after milestone 1 with switch case statements for outputting any possible populated zones 
+//update after milestone 1 with switch case statements for outputting any possible populated zones
+//above update complete 
 
 //in main the parameters will be what fileio returns 
 
@@ -29,7 +30,6 @@ void displayMap(Map * map){
                     }else{
                         cout << " " << tempZone->getType() << " ";
                     }
-                    // cout << " Hi ";
                     break;
                 }
                 default:{
@@ -40,8 +40,4 @@ void displayMap(Map * map){
             }
             cout << endl;
         }
-    /*
-    Current function will be case for if population = 0. 
-    Else, {either else if(I or R or C) or switch case} if(currentZone.getType = I or R or C) 
-    */
 }

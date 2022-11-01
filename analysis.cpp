@@ -3,7 +3,7 @@
 #include "definitions.hpp"
 using namespace std;
 
-void analysis(Map finalmap, z_list list) //edit  here, changed from map to Map, z_lists to z_list
+void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map * (Map pointer), z_lists to z_list
 {
     char selection;
     int respop = 0;
@@ -27,7 +27,7 @@ void analysis(Map finalmap, z_list list) //edit  here, changed from map to Map, 
         indpop += list.ind.at(i)->getPopulation(); //edit here fixed syntax
     }
 
-    for(std::vector<zone*> row : finalmap.map_grid)
+    for(std::vector<zone*> row : finalmap->map_grid)
     {
         for(zone* curr : row)
         {
@@ -59,13 +59,13 @@ void analysis(Map finalmap, z_list list) //edit  here, changed from map to Map, 
         cout << "Please enter a ending column: ";
         cin >> endcol;
 
-        if(row < 0 || col < 0 || endrow > finalmap.map_grid.size() || endcol > finalmap.map_grid.at(endrow).size())
+        if(row < 0 || col < 0 || endrow > finalmap->map_grid.size() || endcol > finalmap->map_grid.at(endrow).size())
         {
             cout << "The coordinates you have entered are invalid." << endl; //edit here typo
         }
         else
         {
-            std::vector<std::vector<zone*> > temp = finalmap.map_grid;
+            std::vector<std::vector<zone*> > temp = finalmap->map_grid;
             for(int y = row; y < endrow; y++)
             {
                 for(int x = col; x < endcol; x++)

@@ -59,9 +59,11 @@ int main(int argc, char *argv[]){
   //Display simulation settings and prompt user for simulation start.
 
   // Welcome/credit banner:
-  std::cout
-  << "~~~~~ Welcome to SimCity ~~~~~" << std::endl
-  << "~~~~~ Designed by Group6 ~~~~~" << std::endl;
+  std::cout << std::endl
+  << "~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl
+  << "~~~ Welcome to SimCity ~~~" << std::endl
+  << "~~~ Designed by Group6 ~~~" << std::endl
+  << "~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
 
   char user_in = 0;
@@ -70,9 +72,9 @@ int main(int argc, char *argv[]){
   while(!validated)
   {
     // Simulation Settings Confirmation
-    std::cout << "Simulation Settings "
-      << "  Refresh Rate: every " << city_map->refresh_rate << " steps."<< std::endl
-      << "  Max Steps   : " << city_map->max_time << " steps." << std::endl
+    std::cout << std::endl << "==== Simulation Settings ====" << std::endl
+      << "Refresh Rate: every " << city_map->refresh_rate << " steps"<< std::endl
+      << "Max Steps   : " << city_map->max_time << " steps" << std::endl
       << "Start simulation? [(y)es/(c)ancel]: ";
 
     //user prompt
@@ -108,9 +110,9 @@ int main(int argc, char *argv[]){
     //if no update from last frame
   }
 
-*/
+  */
 
-//DEBUG DISPLAY
+  //DEBUG DISPLAY
   displayMap(city_map);
 
   //analysis

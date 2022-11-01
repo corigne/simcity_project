@@ -44,55 +44,83 @@ void populate_zlist(Map &city_map, z_list &m_list)
   }
 }
 
-//paritions given  list by population, returns integer index
-int partition(std::vector<populated*> &vec, int low, int high)
+void merge_populated_vectors(std::vector<populated*> &vec, 
+  const int low, const int midpoint, const int high)
 {
-  int pivot = (low + high)/2;
+  //created our new halves and midpoint
+  std::vector<populated*> left_half, right_half;
 
-  //will only stay -1 if there is nothing in the array smaller than the pivot
-  int i = low - 1; 
-  for(int j = 0; j <= high; j++)
+  //populate low to mid for left subvec
+  for(int i = low; i <= midpoint; i++)
   {
-    if(vec[j]->getPopulation() > vec[pivot]->getPopulation())
-    {
-      i++;
-      populated* temp = vec[i];
-      vec[i] = vec[j];
-      vec[j] = temp;
-    }
+    left_half.push_back(vec[i]);
   }
-  //swap lowest index and pivot, return
-  populated* temp_low = vec[low];
-  vec[low] = vec[i+1];
-  vec[i+1] = temp_low;
-  
-  return i + 1;
+  // from mid + 1 to the end for right subvec
+  for(int i = midpoint+1; i <= high; i++)
+  {
+    right_half.push_back(vec[i]);
+  }
 
+  uint left_i = 0, right_i = 0, merged_i = low;
+  
+  while(left_i < left_half.size() && right_i < right_half.size())
+  {
+    //adds the subvector items back in descending order
+    if(left_half[left_i]->getPopulation() >= right_half[right_i]->getPopulation())
+    {
+      vec[merged_i] = left_half[left_i];
+      left_i ++;
+    }else{
+      vec[merged_i] = right_half[right_i];
+      right_i ++;
+    }
+    //iterate merged index
+    merged_i ++;
+  }
+
+  // copy remaining left + right elements, left priority
+  while(left_i < left_half.size())
+  {
+    vec[merged_i] = left_half[left_i];
+    left_i ++;
+    merged_i ++;
+  }
+  while(right_i < right_half.size())
+  {
+    vec[merged_i] = right_half[right_i];
+    right_i ++;
+    merged_i ++;
+  }
+  //to avoid memory bloat in recursion
+  left_half.clear();
+  right_half.clear();
 }
 
 //sorts populated z_list struct members by population
-void quicksort_vec_asc(std::vector<populated*> &vec, int low, int high)
+void mergesort_vec_asc(std::vector<populated*> &vec, const int low, const int high)
 {
-  //don't try to sort in a way that will cause an error
-  if(low < high)
+  //base case
+  if(low >= high)
   {
-    //partition
-    int piv = partition(vec, low, high);
-
-    //sort high recursive
-    quicksort_vec_asc(vec, low, piv - 1);
-
-    //sort low recursive
-    quicksort_vec_asc(vec, piv + 1, high);
+    return;
   }
+  //this way, if beginning is not 0, we still get a good midpoint
+  int midpoint = low + (high - low) / 2;
+
+  //sort recursion begins
+  mergesort_vec_asc(vec, low, midpoint);
+  mergesort_vec_asc(vec, midpoint+1, high);
+
+  //merge the final results
+  merge_populated_vectors(vec, low, midpoint, high);
 }
 
 void pop_zone_sort(z_list &lists)
 {
   //recursively sort residential, then industrial, then commercial lists
-  quicksort_vec_asc(lists.res, 0, lists.res.size()-1);
+  mergesort_vec_asc(lists.res, 0, lists.res.size()-1);
   
-  quicksort_vec_asc(lists.ind, 0, lists.ind.size()-1);
+  mergesort_vec_asc(lists.ind, 0, lists.ind.size()-1);
 
-  quicksort_vec_asc(lists.com, 0, lists.com.size()-1);
+  mergesort_vec_asc(lists.com, 0, lists.com.size()-1);
 }

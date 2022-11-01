@@ -20,7 +20,21 @@ void displayMap(Map * map){
         
         for(int x = 0; x < map->x_size; x++){
             zone* tempZone = temp.at(y).at(x);
-            cout << " " << tempZone->getType() << " ";
+            switch(tempZone->getType()){
+                case 'R':case 'C':case 'I':{
+                    populated* curr;
+                    int population = curr->getPopulation();
+                    if(population > 0){
+                        cout << " " << population << " ";
+                    }else{
+                        cout << " " << tempZone->getType() << " ";
+                    }
+                }
+                default:{
+                    cout << " " << tempZone->getType() << " ";
+                }
+            }
+            
             }
             cout << endl;
         }

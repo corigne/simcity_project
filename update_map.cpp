@@ -149,9 +149,9 @@ void commercialGrowth(commercial * commercialZone){
 int commercialZonePop = 0;
 commercialZonePop = commercialZone->getPopulation();
 
-if (commercialZonePop >3)
+if (commercialZonePop >2)
 {
-commercialZonePop =3;
+commercialZonePop =2;
 }
 
 int PopCounterCommercial = 0;
@@ -202,7 +202,7 @@ for(commercial * PCGI : commercialZone->getLocallyAdjacent())
     continue;
   }
 
-if(PopCounterCommercial=1)
+if(PopCounterCommercial==1)
 {
   if (checkWorker()&&checkGood())
   {
@@ -235,11 +235,61 @@ void industrialGrowth(industrial * industrialZone){
 
 switch(industrialZonePop){
 case 0:
+for(industrial * IGI : industrialZone-> getLocallyAdjacent())
+{
+  if(IGI->getType()=='T')
+  {
+      if (checkWorker())
+      {
+  IGI->incPopulation();
+  IGI->addGoods();
+  break;
+      }
+  }
 
+}
+for(industrial * IGI : industrialZone->getLocallyAdjacent())
+{
+
+  if(IGI->getPopulation()==1)
+  {
+     if (checkWorker())
+     {
+    IGI->incPopulation();
+    IGI->addGoods();
+    break;
+     }
+
+  }else
+  {
+    continue;
+  }
+
+}
 break;
 
 case 1:
+for(industrial * IGI : industrialZone->getLocallyAdjacent())
+{
 
+  if(IGI->getPopulation()==1)
+  {
+    PopCounterIndustrial++;
+  }else
+  {
+    continue;
+  }
+
+if(PopCounterIndustrial==1)
+{
+  if (checkWorker())
+  {
+IGI->incPopulation();
+IGI->addGoods();
+break;
+  }
+}
+}
 break;
 
 case 2:

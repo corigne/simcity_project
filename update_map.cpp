@@ -1,7 +1,7 @@
 #include "definitions.hpp"
-/*
+
 //residential EVERY INCPOP NEEDS AN INCWORKER FUNCTION
-void residentialGrowth(populated * residentialZone)
+void residentialGrowth(residential * residentialZone)
 {
   int PopCounterResidential = 0;
   int residentialZonePop = residentialZone->getPopulation();
@@ -13,22 +13,22 @@ void residentialGrowth(populated * residentialZone)
   {
     case 0:
     {
-      for(residential * PRGI : residentialZone->getLocallyAdjacent() )
+      for(zone * PRGI : residentialZone->getLocallyAdjacent() )
       {
         if(PRGI->getType()=='T')
         {
-          PRGI->incPopulation();
-          PRGI->giveWorker();
+          residentialZone->incPopulation();
+          residentialZone->giveWorker();
           break;
         }
       }
-      for(residential * PRGI : residentialZone->getLocallyAdjacent())
+      for(zone * PRGI : residentialZone->getLocallyAdjacent())
       {
 
         if(PRGI->getPopulation()==1)
         {
-          PRGI->incPopulation();
-          PRGI->giveWorker();
+          residentialZone->incPopulation();
+          residentialZone->giveWorker();
           break;
         }else
         {
@@ -41,10 +41,10 @@ void residentialGrowth(populated * residentialZone)
     }
     case 1:
     {
-      for(residential * PRGI : residentialZone->getLocallyAdjacent())
+      for(zone * PRGI : residentialZone->getLocallyAdjacent())
       {
 
-        if(PRGI->getPopulation()==1)
+        if(residentialZone->getPopulation()==1)
         {
           PopCounterResidential++;
         }else
@@ -54,8 +54,8 @@ void residentialGrowth(populated * residentialZone)
 
         if(PopCounterResidential=2)
         {
-          PRGI->incPopulation();
-          PRGI->giveWorker();
+          residentialZone->incPopulation();
+          residentialZone->giveWorker();
           break;
         }
       }
@@ -64,10 +64,10 @@ void residentialGrowth(populated * residentialZone)
 
     case 2:
     {
-      for(residential * PRGI : residentialZone->getLocallyAdjacent())
+      for(zone * PRGI : residentialZone->getLocallyAdjacent())
       {
 
-        if(PRGI->getPopulation()==2)
+        if(residentialZone->getPopulation()==2)
         {
           PopCounterResidential++;
         }else
@@ -75,10 +75,10 @@ void residentialGrowth(populated * residentialZone)
           continue;
         }
         
-        if(PopCounterResidential=4)
+        if(PopCounterResidential==4)
         {
-            PRGI->incPopulation();
-            PRGI->giveWorker();
+            residentialZone->incPopulation();
+            residentialZone->giveWorker();
             break;
         }
 
@@ -88,10 +88,10 @@ void residentialGrowth(populated * residentialZone)
 
     case 3:
     {
-      for(residential * PRGI : residentialZone->getLocallyAdjacent())
+      for(zone * PRGI : residentialZone->getLocallyAdjacent())
       {
 
-        if(PRGI->getPopulation()==3)
+        if(residentialZone->getPopulation()==3)
         {
           PopCounterResidential++;
         }else
@@ -99,10 +99,10 @@ void residentialGrowth(populated * residentialZone)
           continue;
         }
         
-        if(PopCounterResidential=6)
+        if(PopCounterResidential==6)
         {
-            PRGI->incPopulation();
-            PRGI->giveWorker();
+            residentialZone->incPopulation();
+            residentialZone->giveWorker();
             break;
         }
 
@@ -112,10 +112,10 @@ void residentialGrowth(populated * residentialZone)
 
     case 4:
     {
-      for(residential * PRGI : residentialZone->getLocallyAdjacent())
+      for(zone * PRGI : residentialZone->getLocallyAdjacent())
       {
 
-        if(PRGI->getPopulation()==4)
+        if(residentialZone->getPopulation()==4)
         {
           PopCounterResidential++;
         }else
@@ -123,7 +123,7 @@ void residentialGrowth(populated * residentialZone)
           continue;
         }
         
-        if(PopCounterResidential=8)
+        if(PopCounterResidential==8)
         {
             PRGI->incPopulation();
             PRGI->giveWorker();
@@ -152,21 +152,10 @@ bool checkGood(){
   return true;
 }
 
-<<<<<<< HEAD
-void commercialGrowth(commercial * commercialZone){
-int commercialZonePop = 0;
-commercialZonePop = commercialZone->getPopulation();
-
-if (commercialZonePop >2)
-{
-commercialZonePop =2;
-}
-=======
 void commercialGrowth(commercial * commercialZone)
 {
   int commercialZonePop = 0;
   commercialZonePop = commercialZone->getPopulation();
->>>>>>> f3cd855da083d5ee3a59f6d790868418e734c00b
 
   if (commercialZonePop >3)
   {
@@ -254,7 +243,6 @@ void commercialGrowth(commercial * commercialZone)
     }
   } //End Switch
 }
-<<<<<<< HEAD
 for(commercial * CGI : commercialZone->getLocallyAdjacent())
 {
 
@@ -307,8 +295,6 @@ std::cout<<"Failed to correctly get population in commercial."<<std::endl;
 }; //End Switch
 }
 
-=======
->>>>>>> f3cd855da083d5ee3a59f6d790868418e734c00b
 
 //industrial
 void industrialGrowth(industrial * industrialZone){
@@ -317,9 +303,6 @@ void industrialGrowth(industrial * industrialZone){
   industrialZonePop =industrialZone->getPopulation();
 
   if(industrialZonePop>3)
-<<<<<<< HEAD
-  industrialZonePop=2;
-=======
   residentialZonePop=2; 
 void industrialGrowth(){
 
@@ -328,7 +311,6 @@ void industrialGrowth(){
 switch(industrialZonePop)
 {
 
->>>>>>> f3cd855da083d5ee3a59f6d790868418e734c00b
 
 switch(industrialZonePop){
 case 0:
@@ -345,64 +327,7 @@ for(industrial * IGI : industrialZone-> getLocallyAdjacent())
   }
 
 }
-<<<<<<< HEAD
-for(industrial * IGI : industrialZone->getLocallyAdjacent())
-{
 
-  if(IGI->getPopulation()==1)
-  {
-     if (checkWorker())
-     {
-    IGI->incPopulation();
-    IGI->addGoods();
-    break;
-     }
-
-  }else
-  {
-    continue;
-  }
-
-}
-break;
-
-case 1:
-for(industrial * IGI : industrialZone->getLocallyAdjacent())
-{
-
-  if(IGI->getPopulation()==1)
-  {
-    PopCounterIndustrial++;
-  }else
-  {
-    continue;
-  }
-
-if(PopCounterIndustrial==1)
-{
-  if (checkWorker())
-  {
-IGI->incPopulation();
-IGI->addGoods();
-break;
-  }
-}
-}
-break;
-
-case 2:
-
-break;
-
-default:
-std::cout<<"Failed to correctly get industrial population."<<std::endl;
-break;
-
-
-};
-}
-=======
-*/
 
 /////// MERGED by nathan, Please do not overwrite the code below, it is working... //////
 
@@ -519,4 +444,3 @@ void pop_zone_sort(z_list &lists)
 
   mergesort_vec_asc(lists.com, 0, lists.com.size()-1);
 }
->>>>>>> f3cd855da083d5ee3a59f6d790868418e734c00b

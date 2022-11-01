@@ -7,7 +7,6 @@
 class industrial : public populated
 {
   private:
-    int population;
     int goods;
     //residential adjacency list, by distance
     std::list<zone *> residential_adj;
@@ -28,18 +27,6 @@ class industrial : public populated
     char getType()
     {
       return 'I';
-    }
-
-    int getPopulation()
-    {
-      return this->population;
-    }
-
-//This may be moved to update_map.cpp
-
-    void incPopulation()
-    {
-      this->population += 1;
     }
 
     bool hasGoods()

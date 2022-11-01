@@ -64,19 +64,16 @@ class powerplant: public zone
 
     void setPoweredState(zone * currentZone){
 
-        for(zone *PSI :currentZone->getLocallyAdjacent() ){
-            if(PSI ==nullptr||PSI->getType()=='-')
-            continue;
-            else{setPoweredState(PSI);}
-
+      for(zone *PSI :currentZone->getLocallyAdjacent() )
+      {
+          if(PSI ==nullptr||PSI->getType()=='-')
+          continue;
+          else{setPoweredState(PSI);}
+      }
     }
 
+    powerplant(){}
 
-    }
-
-    powerplant(){
-      
-    }
     powerplant(int x, int y)
     {
       setLocation(x, y);
@@ -84,8 +81,8 @@ class powerplant: public zone
 
     // this template allows the user to pass an array w/o size
     
-    void setPoweredState(zone* cell, std::vector<std::vector<bool> > (&visited)){
-      
+    void setPoweredState(zone* cell, std::vector<std::vector<bool> > (&visited))
+    {
       cell->setPowered(true);
       visited[cell->getLocation().second][cell->getLocation().first] = true;
 

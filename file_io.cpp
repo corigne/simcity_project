@@ -1,16 +1,11 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
 #include "definitions.hpp"
-using namespace std;
 
-void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
+void fileio(std::string config, int &time, int &refresh, std::vector<std::vector<zone*> > &map)
 {
-	ifstream  in_f;
-	vector<string> data;
-	vector<vector<char> > city;
-	string line, temp, filename;
+	std::ifstream  in_f;
+	std::vector<std::string> data;
+	std::vector<std::vector<char> > city;
+	std::string line, temp, filename;
 	int position;
 	int row = 0;
 
@@ -18,7 +13,7 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 
 	if(!in_f.is_open())
 	{
-   		cout<<"Can't open the file";
+   		std::cout<<"Can't open the file";
 	}
 
 	while(getline(in_f,line))
@@ -39,7 +34,7 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 
 	while(getline(in_f,line))
 	{
-		vector<char> temp1;
+		std::vector<char> temp1;
 		city.push_back(temp1);
 		for(int i = 0; i < line.length(); i++)
 		{
@@ -57,17 +52,17 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 	{
 		for(int j = 0; j < city.at(i).size(); j++)
 		{
-			cout << city[i][j] << " ";
+			std::cout << city[i][j] << " ";
 		}
 
-		cout << endl;
+		std::cout << std::endl;
 	}
 
 	int x, y;
 // Y LOOP
 	for(int i = 0; i < city.size(); i++)
 	{
-			vector<zone*> temp2;
+			std::vector<zone*> temp2;
 			//X LOOP
 			for(int j = 0; j < city[i].size(); j++)
 			{
@@ -105,6 +100,7 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 				{
 					temp2.push_back(new powered_road(x, y));
 				}
-				map.push_back(temp2);
 			}
+			map.push_back(temp2);
 	}
+}

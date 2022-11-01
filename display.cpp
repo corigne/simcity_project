@@ -1,26 +1,39 @@
-//Output of initial region at the beginning of the simulation
-//assuming that all zones are unpopulated 
+//Salma Omary
+//Outputs the map according to population
 
 #include "definitions.hpp"
-#include <iostream>
 
-//X Y coordinates initialized to X=0 and Y=0
-int y = 0;
-int x = 0;
+//update after milestone 1 with switch case statements for outputting any possible populated zones
+//above update complete 
 
-
-//update after milestone 1 with switch case statements for outputting any possible populated zones 
-
-
-void displayMap(Map * map){
-
+void displayMap(Map * map)
+{
+    //X Y coordinates initialized to X=0 and Y=0
     std::vector<std::vector<zone*> > temp = map->map_grid;
-    for(int y = 0; y < map->y_size; y++){
+    for(int y = 0; y < map->y_size; y++)
+    {
         
         for(int x = 0; x < map->x_size; x++){
             zone* tempZone = temp.at(y).at(x);
-            cout << " " << tempZone->getType() << " ";
+            switch(tempZone->getType()){
+                case 'R':case 'C':case 'I':
+                {
+                    populated* curr = dynamic_cast<populated*>(tempZone);
+                    int population = curr->getPopulation();
+                    if(population > 0){
+                        std::cout << " " << population << " ";
+                    }else{
+                        std::cout << " " << tempZone->getType() << " ";
+                    }
+                    break;
+                }
+                default:
+                {
+                    std::cout << " " << tempZone->getType() << " ";
+                }
             }
-            cout << endl;
+            
         }
+        std::cout << std::endl;
+    }
 }

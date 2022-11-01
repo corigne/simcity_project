@@ -4,10 +4,9 @@
 // Commercial zone Class Def.
 #include"definitions.hpp"
 
-class residential : public zone
+class residential : public populated
 {
   private:
-    int population;
     int workers;
   public:
     residential()
@@ -25,17 +24,6 @@ class residential : public zone
     char getType()
     {
       return 'R';
-    }
-
-    int getPopulation()
-    {
-      return this->population;
-    }
-
-    //increments population
-    void incPopulation()
-    {
-      this->population += 1;
     }
 
     int availableWorkers()

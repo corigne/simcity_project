@@ -94,3 +94,4 @@ void analysis(Map finalmap, z_list list) //edit  here, changed from map to Map, 
     }
         
 }
+}

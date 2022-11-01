@@ -1,16 +1,11 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
 #include "definitions.hpp"
-using namespace std;
 
-void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
+void fileio(std::string config, int &time, int &refresh, std::vector<std::vector<zone*> > &map)
 {
-	ifstream  in_f;
-	vector<string> data;
-	vector<vector<char> > city;
-	string line, temp, filename;
+	std::ifstream  in_f;
+	std::vector<std::string> data;
+	std::vector<std::vector<char> > city;
+	std::string line, temp, filename;
 	int position;
 	int row = 0;
 
@@ -34,7 +29,7 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 
 	while(getline(in_f,line))
 	{
-		vector<char> temp1;
+		std::vector<char> temp1;
 		city.push_back(temp1);
 		for(int i = 0; i < line.length(); i++)
 		{
@@ -52,7 +47,7 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 // Y LOOP
 	for(int i = 0; i < city.size(); i++)
 	{
-			vector<zone*> temp2;
+			std::vector<zone*> temp2;
 			//X LOOP
 			for(int j = 0; j < city[i].size(); j++)
 			{

@@ -2,7 +2,6 @@
 //assuming that all zones are unpopulated 
 
 #include "definitions.hpp"
-#include <iostream>
 
 //X Y coordinates initialized to X=0 and Y=0
 int y = 0;
@@ -19,8 +18,8 @@ void displayMap(Map * map){
         
         for(int x = 0; x < map->x_size; x++){
             zone* tempZone = temp.at(y).at(x);
-            cout << " " << tempZone->getType() << " ";
+            std::cout << " " << tempZone->getType() << " ";
             }
-            cout << endl;
+            std::cout << std::endl;
         }
 }

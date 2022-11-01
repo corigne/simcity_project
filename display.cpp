@@ -22,13 +22,15 @@ void displayMap(Map * map){
             zone* tempZone = temp.at(y).at(x);
             switch(tempZone->getType()){
                 case 'R':case 'C':case 'I':{
-                    populated* curr;
+                    populated* curr = dynamic_cast<populated*>(tempZone);
                     int population = curr->getPopulation();
                     if(population > 0){
                         cout << " " << population << " ";
                     }else{
                         cout << " " << tempZone->getType() << " ";
                     }
+                    // cout << " Hi ";
+                    break;
                 }
                 default:{
                     cout << " " << tempZone->getType() << " ";

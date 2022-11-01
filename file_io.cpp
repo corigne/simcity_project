@@ -100,7 +100,7 @@ void fileio(std::string config, int &time, int &refresh, std::vector<std::vector
 				{
 					temp2.push_back(new powered_road(x, y));
 				}
-				map.push_back(temp2);
 			}
+			map.push_back(temp2);
 	}
 }

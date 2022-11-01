@@ -11,6 +11,11 @@ void fileio(std::string config, int &time, int &refresh, std::vector<std::vector
 
 	in_f.open(config);
 
+	if(!in_f.is_open())
+	{
+   		std::cout<<"Can't open the file";
+	}
+
 	while(getline(in_f,line))
 	{
 		position = line.find(":");
@@ -42,6 +47,16 @@ void fileio(std::string config, int &time, int &refresh, std::vector<std::vector
 	}
 
 	in_f.close();
+
+	for(int i = 0; i < city.size(); i++)
+	{
+		for(int j = 0; j < city.at(i).size(); j++)
+		{
+			std::cout << city[i][j] << " ";
+		}
+
+		std::cout << std::endl;
+	}
 
 	int x, y;
 // Y LOOP
@@ -85,8 +100,6 @@ void fileio(std::string config, int &time, int &refresh, std::vector<std::vector
 				{
 					temp2.push_back(new powered_road(x, y));
 				}
+				map.push_back(temp2);
 			}
-			//After X loop is done, push back the row before Y Loop Completes
-			map.push_back(temp2);
 	}
-}

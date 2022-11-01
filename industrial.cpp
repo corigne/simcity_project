@@ -28,8 +28,7 @@ class industrial : public populated
     {
       return 'I';
     }
-    
-    //returns true is goods > 0
+
     bool hasGoods()
     {
       if(goods > 0)

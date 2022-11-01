@@ -3,7 +3,6 @@
 //Recitation Sec. 213 Group 6
 //Unpopulated zone class definitions.
 #include "definitions.hpp"
-
 //road class
 class road: public zone
 {
@@ -57,12 +56,24 @@ class powered_road: public zone
       return '#';
     }
 };
-
 //powerplant class
 class powerplant: public zone
 {
   public:
-    //Constructor
+
+
+    void setPoweredState(zone * currentZone){
+
+        for(zone *PSI :currentZone->getLocallyAdjacent() ){
+            if(PSI ==nullptr||PSI->getType()=='-')
+            continue;
+            else{setPoweredState(PSI);}
+
+    }
+
+
+    }
+
     powerplant(){
       
     }

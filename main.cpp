@@ -44,6 +44,16 @@ int main(int argc, char *argv[]){
         }
       }
     }
+  
+  // The zlist is a struct with a list for residential, industrial, and commercial nodes each.
+  // This is the working datastructure for the bulk of the work, such as population updates.
+  z_list master_list;
+  
+  //populate the zlist from the current map
+  populate_zlist(*city_map, master_list);
+  //FIRST LIST SORT
+  pop_zone_sort(master_list);
+
 
   //start menu
   //Display simulation settings and prompt user for simulation start.
@@ -87,6 +97,8 @@ int main(int argc, char *argv[]){
     return 0;
   }
 
+  /* TODO
+
   //display & update loop
   int curr_frame = 0;
   while (curr_frame <= city_map->max_time)
@@ -96,6 +108,7 @@ int main(int argc, char *argv[]){
     //if no update from last frame
   }
 
+*/
 
   //analysis
 

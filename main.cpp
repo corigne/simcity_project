@@ -110,6 +110,9 @@ int main(int argc, char *argv[]){
 
 */
 
+//DEBUG DISPLAY
+displayMap(city_map);
+
   //analysis
 
   return 0;

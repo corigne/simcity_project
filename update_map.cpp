@@ -1,7 +1,36 @@
 #include "definitions.hpp"
+bool checkWorkerCommercial()
+{
+    return true;
+}
+bool checkWorkerIndustrial(industrial * industrialWorkers)
+{
+  /*
+  int workerCount=0;
+  for(zone * ICWI: industrialWorkers->getResidentialAdj())
+  {
+    if(ICWI->hasWorker())
+    {
+      ICWI->takeWorker();
+      workerCount++;
+      if(ICWI->hasWorker()&&workerCount<2)
+      {ICWI->takeWorker();
+
+      }
+    }
+  }
+  */
+return true;
+}
+// need to be done
+bool checkGood()
+{
+    return true;
+}
+
 
 // residential EVERY INCPOP NEEDS AN INCWORKER FUNCTION
-void residentialGrowth(residential *residentialZone)
+void residentialGrowth(residential * residentialZone)
 {
   int PopCounterResidential = 0;
   int residentialZonePop = residentialZone->getPopulation();
@@ -142,19 +171,6 @@ void residentialGrowth(residential *residentialZone)
   }; // End Switch
 }
 // commercial
-
-bool checkWorker()
-{
-  if (true)
-    return true;
-}
-// need to be done
-bool checkGood()
-{
-  if (true)
-    return true;
-}
-
 void commercialGrowth(commercial *commercialZone)
 {
   int commercialZonePop = 0;
@@ -176,7 +192,7 @@ void commercialGrowth(commercial *commercialZone)
     {
       if (commercialZone->getType() == 'T')
       {
-        if (checkWorker() && checkGood())
+        if (checkWorkerCommercial() && checkGood())
         {
           commercialZone->incPopulation();
           break;
@@ -189,7 +205,7 @@ void commercialGrowth(commercial *commercialZone)
 
       if (commercialZone->getPopulation() == 1)
       {
-        if (checkWorker() && checkGood())
+        if (checkWorkerCommercial() && checkGood())
         {
           commercialZone->incPopulation();
           break;
@@ -220,7 +236,7 @@ void commercialGrowth(commercial *commercialZone)
 
       if (PopCounterCommercial == 1)
       {
-        if (checkWorker() && checkGood())
+        if (checkWorkerCommercial() && checkGood())
         {
           commercialZone->incPopulation();
           break;
@@ -260,7 +276,7 @@ void industrialGrowth(industrial *industrialZone)
     {
       if (IGI->getType() == 'T')
       {
-        if (checkWorker())
+        if (checkWorkerIndustrial(industrialZone))
         {
           industrialZone->incPopulation();
           industrialZone->addGoods();
@@ -277,7 +293,7 @@ void industrialGrowth(industrial *industrialZone)
       // Adjacent zones meet population requirement for industrial growth
       if (PopCounterIndustrial == 2)
       {
-        if (checkWorker())
+        if (checkWorkerIndustrial(industrialZone))
         {
           industrialZone->incPopulation();
           industrialZone->addGoods();
@@ -301,7 +317,7 @@ void industrialGrowth(industrial *industrialZone)
         PopCounterIndustrial++;
       }
       if (PopCounterIndustrial == 4)
-      if(checkWorker())
+      if(checkWorkerIndustrial(industrialZone))
       {
       {
         industrialZone->incPopulation();

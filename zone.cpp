@@ -9,7 +9,7 @@ class zone
   private:
     std::pair<int,int> location;
     int pollution;
-    //I moved these to public so my power function can access them - chandler
+  
     bool powered;
     //local adjacency list, should be reserved size 8 in constructor
     std::vector<zone*> locallyAdjacent;
@@ -39,14 +39,17 @@ class zone
     {
       return ' ';
     }
+    
     std::pair<int,int> getLocation() const
     {
       return this->location;
     }
+
     int getPolution() const
     {
       return this->pollution;
     }
+
     bool isPowered() const{
       return this->powered;
     }

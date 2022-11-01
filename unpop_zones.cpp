@@ -3,7 +3,6 @@
 //Recitation Sec. 213 Group 6
 //Unpopulated zone class definitions.
 #include "definitions.hpp"
-
 //road class
 class road: public zone
 {
@@ -57,15 +56,24 @@ class powered_road: public zone
       return '#';
     }
 };
-
 //powerplant class
 class powerplant: public zone
 {
   public:
-    //Constructor
-    powerplant(){
-      
+
+
+    void setPoweredState(zone * currentZone){
+
+      for(zone *PSI :currentZone->getLocallyAdjacent() )
+      {
+          if(PSI ==nullptr||PSI->getType()=='-')
+          continue;
+          else{setPoweredState(PSI);}
+      }
     }
+
+    powerplant(){}
+
     powerplant(int x, int y)
     {
       setLocation(x, y);
@@ -73,8 +81,8 @@ class powerplant: public zone
 
     // this template allows the user to pass an array w/o size
     
-    void setPoweredState(zone* cell, std::vector<std::vector<bool> > (&visited)){
-      
+    void setPoweredState(zone* cell, std::vector<std::vector<bool> > (&visited))
+    {
       cell->setPowered(true);
       visited[cell->getLocation().second][cell->getLocation().first] = true;
 

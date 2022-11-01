@@ -20,18 +20,18 @@ void displayMap(Map * map)
                     populated* curr = dynamic_cast<populated*>(tempZone);
                     int population = curr->getPopulation();
                     if(population > 0){
-                        cout << " " << population << " ";
+                        std::cout << " " << population << " ";
                     }else{
-                        cout << " " << tempZone->getType() << " ";
+                        std::cout << " " << tempZone->getType() << " ";
                     }
                     break;
                 }
                 default:{
-                    cout << " " << tempZone->getType() << " ";
+                    std::cout << " " << tempZone->getType() << " ";
                 }
             }
             
             }
-            cout << endl;
+            std::cout << std::endl;
         }
 }

@@ -62,20 +62,7 @@ class powered_road: public zone
 class powerplant: public zone
 {
   public:
-
-   void setPoweredState(zone *cell){
-        cell->setPowered(true);
-        
-        for(zone *PSI : cell->getLocallyAdjacent()){
-            if(PSI == NULL||PSI->getType()=='-')
-            continue;
-
-            else{setPoweredState(PSI);}
-    }
-
-
-    }
-
+    //Constructor
     powerplant(){
       
     }
@@ -84,9 +71,41 @@ class powerplant: public zone
       setLocation(x, y);
     }
 
+    // this template allows the user to pass an array w/o size
+    
+    void setPoweredState(zone* cell, std::vector<std::vector<bool> > (&visited)){
+      
+      cell->setPowered(true);
+      visited[cell->getLocation().second][cell->getLocation().first] = true;
+
+      for(zone *PSI : cell->getLocallyAdjacent()){
+        
+        //if PSI is adjacent to the powerline, powered road, or powerplant, it has power
+        if(PSI != NULL)
+        { 
+          PSI->setPowered(true);
+        }else{ //if NULL, continue to next zone
+          continue;
+        }
+
+        //TRAVERSAL TO NEXT POWERLINE BY DFS RECUSIVELY
+        if(!(PSI->getType() == 'T' || PSI->getType() == '#'))
+        {
+          continue;
+        }
+        else
+        {
+          //if not visited, visit next node
+          if(!(visited[PSI->getLocation().second][PSI->getLocation().first]))
+           { 
+            setPoweredState(PSI, visited);
+           }
+        }
+      }
+    }
+
     char getType()
     {
       return 'P';
     }
-
 };

@@ -48,16 +48,6 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 
 	in_f.close();
 
-	for(int i = 0; i < city.size(); i++)
-	{
-		for(int j = 0; j < city.at(i).size(); j++)
-		{
-			cout << city[i][j] << " ";
-		}
-
-		cout << endl;
-	}
-
 	int x, y;
 // Y LOOP
 	for(int i = 0; i < city.size(); i++)
@@ -104,5 +94,4 @@ void fileio(string config, int &time, int &refresh, vector<vector<zone*> > &map)
 			//After X loop is done, push back the row before Y Loop Completes
 			map.push_back(temp2);
 	}
-	cout << map.size() << " " << map.at(1).size() << endl;
 }

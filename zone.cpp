@@ -39,14 +39,17 @@ class zone
     {
       return ' ';
     }
+    
     std::pair<int,int> getLocation() const
     {
       return this->location;
     }
+
     int getPolution() const
     {
       return this->pollution;
     }
+
     bool isPowered() const{
       return this->powered;
     }

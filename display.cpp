@@ -3,23 +3,19 @@
 
 #include "definitions.hpp"
 
-//X Y coordinates initialized to X=0 and Y=0
-int y = 0;
-int x = 0;
-
-
 //update after milestone 1 with switch case statements for outputting any possible populated zones 
 
-
-void displayMap(Map * map){
-
+void displayMap(Map * map)
+{
+    //X Y coordinates initialized to X=0 and Y=0
     std::vector<std::vector<zone*> > temp = map->map_grid;
-    for(int y = 0; y < map->y_size; y++){
+    for(int y = 0; y < map->y_size; y++)
+    {
         
         for(int x = 0; x < map->x_size; x++){
             zone* tempZone = temp.at(y).at(x);
             std::cout << " " << tempZone->getType() << " ";
-            }
-            std::cout << std::endl;
         }
+        std::cout << std::endl;
+    }
 }

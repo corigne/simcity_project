@@ -12,7 +12,6 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
-#include <typeinfo>
 
 // class includes here
 // avoid functional includes here

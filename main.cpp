@@ -99,23 +99,37 @@ int main(int argc, char *argv[]){
     return 0;
   }
 
-  /* TODO
+
 
   //display & update loop
   int curr_frame = 0;
+  bool no_change = false;
+
   while (curr_frame <= city_map->max_time)
   {
-    //updatemap
+    //updatemap should return true if nothing was updated between 2 timesteps
+    // else it should return false
+    // no_change = update_map();
+    
+    //if (refresh divisible) then: display post-update
+    if(curr_frame % city_map->refresh_rate == 0)
+    {
+      std::cout << "Current Time Step: " << curr_frame << std::endl;
+      displayMap(city_map);
+      std::cout << std::endl;
+    }
+    
+    //if no updates in from last to current time step
+    if(no_change == true)
+    {
+      break;
+    }
 
-    //if no update from last frame
+    curr_frame += 1;
   }
 
-  */
-
-  //DEBUG DISPLAY
-  displayMap(city_map);
-
   //analysis
+
 
   return 0;
 }

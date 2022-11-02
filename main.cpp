@@ -106,11 +106,7 @@ int main(int argc, char *argv[]){
   bool no_change = false;
 
   while (curr_frame <= city_map->max_time)
-  {
-    //updatemap should return true if nothing was updated between 2 timesteps
-    // else it should return false
-    // no_change = update_map();
-    
+  { 
     //if (refresh divisible) then: display post-update
     if(curr_frame % city_map->refresh_rate == 0)
     {
@@ -118,17 +114,30 @@ int main(int argc, char *argv[]){
       displayMap(city_map);
       std::cout << std::endl;
     }
+
     
-    //if no updates in from last to current time step
+    //updatemap should return true if nothing was updated between 2 timesteps
+    // else it should return false
+    // no_change = update_map();
+    
+    //pollution updates
+    for(populated* curr : master_list.ind)
+    {
+      industrial* temp_ind = dynamic_cast<industrial*>(curr);
+      temp_ind->updatePollution();
+    }
+
+    //update frame
+    curr_frame += 1; 
+    
+    //if no updates in from last to current time step, break display/update loop...
     if(no_change == true)
     {
       break;
-    }
-
-    curr_frame += 1;
+    }    
   }
 
-  //analysis
+  //...and begin analysis
 
 
   return 0;

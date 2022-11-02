@@ -280,6 +280,7 @@ bool industrialGrowth(industrial *industrialZone)
   switch (industrialZonePop)
   {
   case 0:
+  {
     for (zone *IGI : industrialZone->getLocallyAdjacent())
     {
       if (IGI->getType() == 'T')
@@ -289,11 +290,29 @@ bool industrialGrowth(industrial *industrialZone)
           industrialZone->incPopulation();
           industrialZone->addGoods();
           return true;
-          break;
+        }
+      }
+      if(industrialZone->getPopulation()==1)
+      {
+        PopCounterIndustrial++;
+        if(PopCounterIndustrial==1)
+        {
+      if(checkWorkerIndustrial(industrialZone))
+      {
+          industrialZone->incPopulation();
+          industrialZone->addGoods();
+          return true;
+      }else
+      {
+        return false;
+      }
         }
       }
     }
+  }
+  return false;
   case 1:
+  {
     for (zone *PIGI : industrialZone->getLocallyAdjacent())
     {
       if (industrialZone->getPopulation() == 1)
@@ -313,14 +332,12 @@ bool industrialGrowth(industrial *industrialZone)
         {
           return false;
         }
-      }else
-      {
-        return false;
       }
     }
-
+  }
+  return false;
   case 2:
-
+{
     for (zone *PIGI : industrialZone->getLocallyAdjacent())
     {
       if (industrialZone->getPopulation() == 2)
@@ -340,11 +357,12 @@ bool industrialGrowth(industrial *industrialZone)
         return false;
       }
     }
-    break;
+}
+    return false;
 
   default:
     std::cout << "Failed to correctlly get population for industrial zone." << std::endl;
-    break;
+    return false;
   }; // end switch
 }
 
@@ -356,7 +374,9 @@ for(populated* curr : list.res)
     {
       residential* temp_res = dynamic_cast<residential*>(curr);
       if(residentialGrowth(temp_res)==true)
-      {changed=true}
+      {
+        changed=true;
+      }
     }
 //for list of commercial commercialGrowth()
 for(populated* curr : list.com)

@@ -32,7 +32,7 @@ bool checkGood()
 
 
 // residential EVERY INCPOP NEEDS AN INCWORKER FUNCTION
-void residentialGrowth(residential * residentialZone)
+bool residentialGrowth(residential * residentialZone)
 {
   int PopCounterResidential = 0;
   int residentialZonePop = residentialZone->getPopulation();
@@ -179,7 +179,7 @@ void residentialGrowth(residential * residentialZone)
   }; // End Switch
 }
 // commercial
-void commercialGrowth(commercial *commercialZone)
+bool commercialGrowth(commercial *commercialZone)
 {
   int commercialZonePop = 0;
   commercialZonePop = commercialZone->getPopulation();
@@ -268,7 +268,7 @@ void commercialGrowth(commercial *commercialZone)
   }; // End Switch
 }
 // industrial
-void industrialGrowth(industrial *industrialZone)
+bool industrialGrowth(industrial *industrialZone)
 {
   int PopCounterIndustrial = 0;
   int industrialZonePop = 0;
@@ -288,6 +288,7 @@ void industrialGrowth(industrial *industrialZone)
         {
           industrialZone->incPopulation();
           industrialZone->addGoods();
+          return true;
           break;
         }
       }
@@ -305,16 +306,18 @@ void industrialGrowth(industrial *industrialZone)
         {
           industrialZone->incPopulation();
           industrialZone->addGoods();
-          break;
+          return true;
           // If there are no available workers end the loop
         }
         else
         {
-          break;
+          return false;
         }
+      }else
+      {
+        return false;
       }
     }
-    break;
 
   case 2:
 
@@ -344,13 +347,13 @@ void industrialGrowth(industrial *industrialZone)
 
 bool update_map(z_list &list)
   {
-    short C=0;
 bool changed = false;
 //for list of residential residentialGrowth()
 for(populated* curr : list.res)
     {
       residential* temp_res = dynamic_cast<residential*>(curr);
-      residentialGrowth(temp_res);
+      if(residentialGrowth(temp_res)==true)
+      {changed=true}
     }
 //for list of commercial commercialGrowth()
 for(populated* curr : list.com)

@@ -116,7 +116,10 @@ int main(int argc, char *argv[]){
     //updatemap should return true if nothing was updated between 2 timesteps
     // else it should return false
     // no_change = update_map();
-    
+    if(no_change == false)
+    {
+      pop_zone_sort(master_list);
+    }
     //pollution updates
     for(populated* curr : master_list.ind)
     {

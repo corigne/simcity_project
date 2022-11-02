@@ -99,8 +99,6 @@ int main(int argc, char *argv[]){
     return 0;
   }
 
-
-
   //display & update loop
   int curr_frame = 0;
   bool no_change = false;
@@ -114,7 +112,6 @@ int main(int argc, char *argv[]){
       displayMap(city_map);
       std::cout << std::endl;
     }
-
     
     //updatemap should return true if nothing was updated between 2 timesteps
     // else it should return false

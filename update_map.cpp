@@ -1,4 +1,6 @@
 #include "definitions.hpp"
+
+
 bool checkWorkerCommercial()
 {
     return true;
@@ -35,13 +37,17 @@ void residentialGrowth(residential * residentialZone)
   int PopCounterResidential = 0;
   int residentialZonePop = residentialZone->getPopulation();
 
+//4 is the largest value that changes the growth rules
   if (residentialZonePop > 4)
     residentialZonePop = 4;
 
+//Input zone population to determine growth rules
   switch (residentialZonePop)
   {
+    //population zero
   case 0:
   {
+    //case for powerline adjacency
     for (zone *PRGI : residentialZone->getLocallyAdjacent())
     {
       if (PRGI->getType() == 'T')
@@ -51,6 +57,7 @@ void residentialGrowth(residential * residentialZone)
         break;
       }
     }
+    //case for population adjacency
     for (zone *PRGI : residentialZone->getLocallyAdjacent())
     {
 
@@ -70,9 +77,10 @@ void residentialGrowth(residential * residentialZone)
   }
   case 1:
   {
+      //Iterate through each residential zone tracking adjacent zones that meet required population
     for (zone *PRGI : residentialZone->getLocallyAdjacent())
     {
-
+    
       if (residentialZone->getPopulation() == 1)
       {
         PopCounterResidential++;
@@ -333,8 +341,36 @@ void industrialGrowth(industrial *industrialZone)
     break;
   }; // end switch
 }
-/////// MERGED by nathan, Please do not overwrite the code below, it is working... //////
 
+bool update_map(z_list &list)
+  {
+    short C=0;
+bool changed = false;
+//for list of residential residentialGrowth()
+for(populated* curr : list.res)
+    {
+      residential* temp_res = dynamic_cast<residential*>(curr);
+      residentialGrowth(temp_res);
+    }
+//for list of commercial commercialGrowth()
+for(populated* curr : list.com)
+    {
+      commercial* temp_com = dynamic_cast<commercial*>(curr);
+      commercialGrowth(temp_com);
+    }
+
+//for list of industrail industrialGrowth()
+for(populated* curr : list.ind)
+    {
+      industrial* temp_ind = dynamic_cast<industrial*>(curr);
+      C=C+industrialGrowth(temp_ind);
+    }
+    if(C>=1)
+    changed=true;
+  return changed;
+  }
+
+/////// MERGED by nathan, Please do not overwrite the code below, it is working... //////
 // populates provided list struct with res, ind, and comm nodes
 void populate_zlist(Map &city_map, z_list &m_list)
 {
@@ -385,7 +421,7 @@ void merge_populated_vectors(std::vector<populated *> &vec,
     right_half.push_back(vec[i]);
   }
 
-  uint left_i = 0, right_i = 0, merged_i = low;
+  int left_i = 0, right_i = 0, merged_i = low;
 
   while (left_i < left_half.size() && right_i < right_half.size())
   {

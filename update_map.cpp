@@ -333,9 +333,12 @@ bool industrialGrowth(industrial *industrialZone)
       {
         industrialZone->incPopulation();
         industrialZone->addGoods();
-        break;
+        return true;
       }
-      }else{break;}
+      }else
+      {
+        return false;
+      }
     }
     break;
 

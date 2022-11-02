@@ -45,7 +45,7 @@ class zone
       return this->location;
     }
 
-    int getPolution() const
+    int getPollution() const
     {
       return this->pollution;
     }

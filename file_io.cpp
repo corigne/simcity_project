@@ -48,16 +48,6 @@ void fileio(std::string config, int &time, int &refresh, std::vector<std::vector
 
 	in_f.close();
 
-	for(int i = 0; i < city.size(); i++)
-	{
-		for(int j = 0; j < city.at(i).size(); j++)
-		{
-			std::cout << city[i][j] << " ";
-		}
-
-		std::cout << std::endl;
-	}
-
 	int x, y;
 // Y LOOP
 	for(int i = 0; i < city.size(); i++)

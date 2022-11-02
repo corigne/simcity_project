@@ -54,7 +54,7 @@ bool residentialGrowth(residential * residentialZone)
       {
         residentialZone->incPopulation();
         residentialZone->giveWorker();
-        break;
+        return true;
       }
     }
     //case for population adjacency
@@ -65,7 +65,7 @@ bool residentialGrowth(residential * residentialZone)
       {
         residentialZone->incPopulation();
         residentialZone->giveWorker();
-        break;
+        return true;
       }
       else
       {
@@ -73,7 +73,7 @@ bool residentialGrowth(residential * residentialZone)
       }
     }
 
-    break;
+    return false;
   }
   case 1:
   {
@@ -94,10 +94,10 @@ bool residentialGrowth(residential * residentialZone)
       {
         residentialZone->incPopulation();
         residentialZone->giveWorker();
-        break;
+        return true;
       }
     }
-    break;
+    return false;
   }
 
   case 2:
@@ -118,10 +118,10 @@ bool residentialGrowth(residential * residentialZone)
       {
         residentialZone->incPopulation();
         residentialZone->giveWorker();
-        break;
+        return true;
       }
     }
-    break;
+    return false;
   }
 
   case 3:
@@ -142,10 +142,10 @@ bool residentialGrowth(residential * residentialZone)
       {
         residentialZone->incPopulation();
         residentialZone->giveWorker();
-        break;
+        return true;
       }
     }
-    break;
+    return false;
   }
 
   case 4:
@@ -166,15 +166,16 @@ bool residentialGrowth(residential * residentialZone)
       {
         residentialZone->incPopulation();
         residentialZone->giveWorker();
-        break;
+        return true;
       }
     }
-    break;
+    return false;
   }
 
   default:
   {
     std::cout << "Failed to correctly get population in Residential." << std::endl;
+    return false;
   }
   }; // End Switch
 }
@@ -184,9 +185,9 @@ bool commercialGrowth(commercial *commercialZone)
   int commercialZonePop = 0;
   commercialZonePop = commercialZone->getPopulation();
 
-  if (commercialZonePop > 3)
+  if (commercialZonePop > 1)
   {
-    commercialZonePop = 3;
+    commercialZonePop = 1;
   }
 
   int PopCounterCommercial = 0;
@@ -203,7 +204,7 @@ bool commercialGrowth(commercial *commercialZone)
         if (checkWorkerCommercial() && checkGood())
         {
           commercialZone->incPopulation();
-          break;
+          return true;
         }
       }
     }
@@ -216,7 +217,10 @@ bool commercialGrowth(commercial *commercialZone)
         if (checkWorkerCommercial() && checkGood())
         {
           commercialZone->incPopulation();
-          break;
+          return true;
+        }else
+        {
+            return false;
         }
       }
       else
@@ -224,9 +228,9 @@ bool commercialGrowth(commercial *commercialZone)
         continue;
       }
     }
-    break;
-  }
-
+     return false;
+  }// case 0 end
+ 
   case 1:
   {
     // need comment
@@ -247,24 +251,24 @@ bool commercialGrowth(commercial *commercialZone)
         if (checkWorkerCommercial() && checkGood())
         {
           commercialZone->incPopulation();
-          break;
+          return true;
         }
       }
     }
-    break;
+    return false;
   }
 
   case 2:
   {
     // the zone will do nothing
-    break;
+    return false;
   }
 
   default:
   {
     std::cout << "Failed to correctly get population in commercial." << std::endl;
+    return false;
   }
-  break;
   }; // End Switch
 }
 // industrial
@@ -382,17 +386,21 @@ for(populated* curr : list.res)
 for(populated* curr : list.com)
     {
       commercial* temp_com = dynamic_cast<commercial*>(curr);
-      commercialGrowth(temp_com);
+      if(commercialGrowth(temp_com)==true)
+      {
+        changed = true;
+      }
     }
 
 //for list of industrail industrialGrowth()
 for(populated* curr : list.ind)
     {
       industrial* temp_ind = dynamic_cast<industrial*>(curr);
-      C=C+industrialGrowth(temp_ind);
+      if(industrialGrowth(temp_ind)==true)
+      {
+        changed = true;
+      }
     }
-    if(C>=1)
-    changed=true;
   return changed;
   }
 

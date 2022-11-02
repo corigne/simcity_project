@@ -101,7 +101,7 @@ int main(int argc, char *argv[]){
 
   //display & update loop
   int curr_frame = 0;
-  bool no_change = false;
+  bool changed = false;
 
   while (curr_frame <= city_map->max_time)
   { 
@@ -113,28 +113,31 @@ int main(int argc, char *argv[]){
       std::cout << std::endl;
     }
     
-    //updatemap should return true if nothing was updated between 2 timesteps
+    //updatemap should return true if something changed between timesteps
     // else it should return false
-    // no_change = update_map();
-    if(no_change == false)
-    {
-      pop_zone_sort(master_list);
-    }
-    //pollution updates
-    for(populated* curr : master_list.ind)
-    {
-      industrial* temp_ind = dynamic_cast<industrial*>(curr);
-      temp_ind->updatePollution();
-    }
+    // changed = update_map();
 
     //update frame
     curr_frame += 1; 
+
+    //additional calculations only need to be redone if something changed
+    if(changed == true)
+    {
+      //master list sort
+      pop_zone_sort(master_list);
+
+      //pollution updates
+      for(populated* curr : master_list.ind)
+      {
+        industrial* temp_ind = dynamic_cast<industrial*>(curr);
+        temp_ind->updatePollution();
+      }
+    }else{
+      break;
+    }
     
     //if no updates in from last to current time step, break display/update loop...
-    if(no_change == true)
-    {
-      break;
-    }    
+        
   }
 
   //...and begin analysis

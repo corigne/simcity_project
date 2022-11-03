@@ -1,10 +1,11 @@
 //started working on trevonne code at 9:25 Oct 31
 
 #include "definitions.hpp"
-using namespace std;
+// using namespace std;
 
 void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map * (Map pointer), z_lists to z_list
 {
+    // displayMap(finalmap);
     char selection;
     int respop = 0;
     int compop = 0;
@@ -35,13 +36,13 @@ void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map
         }
     }
 
-    cout << "Total Residential Population: " << respop << endl;
-    cout << "Total Industrial Workers: " << indpop << endl;
-    cout << "Total Commercial Workers: " << compop << endl;
-    cout << "Total Regional Pollution: " << totalpol << endl;
+    std::cout << "Total Residential Population: " << respop << std::endl;
+    std::cout << "Total Industrial Workers: " << indpop << std::endl;
+    std::cout << "Total Commercial Workers: " << compop << std::endl;
+    std::cout << "Total Regional Pollution: " << totalpol << std::endl;
 
-    cout << "Would you like to specify an area to analyze? (y for yes, n for no) : ";
-    cin >> selection;
+    std::cout << "Would you like to specify an area to analyze? (y for yes, n for no) : ";
+    std::cin >> selection;
 
     respop = 0;
     indpop = 0;
@@ -50,20 +51,20 @@ void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map
 
     while(selection == 'y')
     {
-        cout << "Please enter a starting row: ";
-        cin >> row;
-        cout << "Please enter a starting column: ";
-        cin >> col;
-        cout << "Please enter a ending row: ";
-        cin >> endrow;
-        cout << "Please enter a ending column: ";
-        cin >> endcol;
+        std::cout << "Please enter a starting row: ";
+        std::cin >> row;
+        std::cout << "Please enter a starting column: ";
+        std::cin >> col;
+        std::cout << "Please enter a ending row: ";
+        std::cin >> endrow;
+        std::cout << "Please enter a ending column: ";
+        std::cin >> endcol;
 
         if(row < 0 || col < 0 || endrow > finalmap->map_grid.size() || endcol > finalmap->map_grid.at(endrow).size())
         {
-            cout << "The coordinates you have entered are invalid." << endl; //edit here typo
-            cout << "Would you like to specify another area to analyze? (y for yes, n for no) : ";
-            cin >> selection;
+            std::cout << "The coordinates you have entered are invalid." << std::endl; //edit here typo
+            std::cout << "Would you like to specify another area to analyze? (y for yes, n for no) : ";
+            std::cin >> selection;
         }
         else
         {
@@ -76,7 +77,7 @@ void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map
                     zone* tempZone = temp.at(y).at(x);
                     populated* curr = dynamic_cast<populated*>(tempZone); /*edit here:
                     dynamically cast a populated pointer to be equal to the zone to access population of that zone*/
-                    
+                    totalpol += tempZone->getPollution(); 
                     switch(tempZone->getType())
                     {
                         case 'R':
@@ -88,24 +89,19 @@ void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map
                         case 'I':
                             indpop += curr->getPopulation();// edit here fixed syntax            
                             break;
-                        default:
-                            // cout << "Non-populated zone (road/powerline/powered road), population 0." <<endl; //edit here added default output statement for testing, remove later
-                            break;
                     }
                     
                 }
-                //uncomment these when testing with populations > 0
-                // cout << "Total residential population in this row: " << respop << endl;
-                // cout << "Total commercial population in this row: " << compop << endl; 
-                // cout << "Total Industrial population in this row: " << indpop << endl; 
+                displayMap(finalmap, col, row, endcol, endrow);
         }
 
-        cout << "Total residential population in this region: " << respop << endl;//edit here added output statement
-        cout << "Total commercial population in this region: " << compop << endl; //edit here added output statement
-        cout << "Total Industrial population in this region: " << indpop << endl; //edit here added output statement
+        std::cout << "Total residential population in this region: " << respop << std::endl;//edit here added output statement
+        std::cout << "Total commercial population in this region: " << compop << std::endl; //edit here added output statement
+        std::cout << "Total Industrial population in this region: " << indpop << std::endl; //edit here added output statement
+        std::cout << "Total pollution in this region: " << totalpol << std::endl;
 
-        cout << "Would you like to specify another area to analyze? (y for yes, n for no) : ";
-        cin >> selection;
+        std::cout << "Would you like to specify another area to analyze? (y for yes, n for no) : ";
+        std::cin >> selection;
     }
         
 }

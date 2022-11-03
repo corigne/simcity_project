@@ -112,7 +112,7 @@ int main(int argc, char *argv[]){
     if(curr_frame % city_map->refresh_rate == 0)
     {
       std::cout << "Current Time Step: " << curr_frame << std::endl;
-      displayMap(city_map);
+      displayMap(city_map, 0, 0, city_map->x_size-1,city_map->y_size-1);
       std::cout << std::endl;
     }
     

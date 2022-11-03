@@ -250,6 +250,10 @@ bool commercialGrowth(commercial *commercialZone)
               }
             }
           }
+          if(update == true)
+          {
+            break;
+          }
         }
       }
 
@@ -588,6 +592,11 @@ bool update_map(z_list &list)
   for(populated* each : growing)
   {
     each->incPopulation();
+    if(each->getType() == 'I')
+    {
+      industrial* temp_i = dynamic_cast<industrial*>(each);
+      temp_i->addGoods();
+    }
   }
   return changed;
 }

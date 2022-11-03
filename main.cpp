@@ -63,13 +63,13 @@ int main(int argc, char *argv[]){
   << "~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl
   << "~~~ Welcome to SimCity ~~~" << std::endl
   << "~~~ Designed by Group6 ~~~" << std::endl
-  << "~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  << "~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl << std::endl;
 
   std::cout << std::endl << "==== Simulation Settings ====" << std::endl
     << "Refresh Rate: every " << city_map->refresh_rate << " steps"<< std::endl
-    << "Max Steps   : " << city_map->max_time << " steps" << std::endl;
+    << "Max Steps   : " << city_map->max_time << " steps" << std::endl << std::endl;
   
-  /*
+  /* Temporarily Commented Out Until We Consult the TA
   char user_in = 0;
   bool validated = false;
 

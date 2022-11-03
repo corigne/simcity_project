@@ -39,16 +39,16 @@ void displayMap(Map * map, int x_1, int y_1, int x_2, int y_2)
     }
 }
 
-void displayPollutedMap(Map * map)//function same as above but displays pollution
+void displayPollutedMap(Map * map, int x_1, int y_1, int x_2, int y_2)//function same as above but displays pollution
 {
     std::cout << std::endl;
      std::cout << "POLLUTION MAP: "<< std::endl;
     //X Y coordinates initialized to X=0 and Y=0
     std::vector<std::vector<zone*> > temp = map->map_grid;
-    for(int y = 0; y < map->y_size; y++)
+    for(int y = y_1; y <= y_2; y++)
     {
         
-        for(int x = 0; x < map->x_size; x++){
+        for(int x = x_1; x <= x_2; x++){
             zone* tempZone = temp.at(y).at(x);
             int pollution = tempZone->getPollution();
             std::cout << " " << pollution << " ";

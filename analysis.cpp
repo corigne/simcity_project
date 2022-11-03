@@ -51,14 +51,15 @@ void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map
 
     while(selection == 'y')
     {
-        std::cout << "Please enter a starting row: ";
-        std::cin >> row;
-        std::cout << "Please enter a starting column: ";
+        std::cout << "Please enter a starting column (X): ";
         std::cin >> col;
-        std::cout << "Please enter a ending row: ";
-        std::cin >> endrow;
-        std::cout << "Please enter a ending column: ";
+        std::cout << "Please enter a starting row (Y): ";
+        std::cin >> row;
+        std::cout << "Please enter a ending column (X): ";
         std::cin >> endcol;
+        std::cout << "Please enter a ending row (Y): ";
+        std::cin >> endrow;
+        
 
         if(row < 0 || col < 0 || endrow > finalmap->map_grid.size() || endcol > finalmap->map_grid.at(endrow).size())
         {
@@ -68,6 +69,7 @@ void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map
         }
         else
         {
+            std:: cout << "DISPLAY POP MAP FROM (X:" << col << ", Y:" << row << ") TO (" << endcol << ", " << endrow <<")" << std::endl;
             std::vector<std::vector<zone*> > temp = finalmap->map_grid;
             for(int y = row; y <= endrow; y++)
             {
@@ -92,8 +94,10 @@ void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map
                     }
                     
                 }
-                displayMap(finalmap, col, row, endcol, endrow);
+                
         }
+        displayMap(finalmap, col, row, endcol, endrow);
+        displayPollutedMap(finalmap, col, row, endcol, endrow);
 
         std::cout << "Total residential population in this region: " << respop << std::endl;//edit here added output statement
         std::cout << "Total commercial population in this region: " << compop << std::endl; //edit here added output statement

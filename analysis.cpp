@@ -1,7 +1,8 @@
-//started working on trevonne code at 9:25 Oct 31
+//Trevonne Bridges, Salma Omary
+//allows user to input region, checks for out of bounds coords, and outputs analysis of given region
 
 #include "definitions.hpp"
-// using namespace std;
+
 
 void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map * (Map pointer), z_lists to z_list
 {

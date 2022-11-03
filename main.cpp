@@ -151,7 +151,7 @@ int main(int argc, char *argv[]){
     }    
   }
   //...display final pollution values
-  displayPollutedMap(city_map);
+  displayPollutedMap(city_map, 0, 0, city_map->x_size-1, city_map->y_size-1);
   std::cout << std::endl;
   //...and begin analysis
   analysis(city_map, master_list);

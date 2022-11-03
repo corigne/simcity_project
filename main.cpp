@@ -7,13 +7,20 @@
 #include "adjacencies.cpp"
 #include "display.cpp"
 #include "update_map.cpp"
+#include "analysis.cpp"
 
 int main(int argc, char *argv[]){
   
+  if(argc < 2){
+    std::cout << "Please specify an input filename as an argument." << std::endl;
+    std::cout << std::endl;
+    return 1;
+  }
+
   Map * city_map = new Map;
   //read file + populate map struct
   //CHANGE THIS BACK TO argv[1] before submission this is for debugging
-  std::string config = "config1.txt";
+  std::string config = argv[1];
   fileio(config, city_map->max_time, city_map->refresh_rate, city_map->map_grid);
   city_map->y_size = city_map->map_grid.size();
   city_map->x_size = city_map->map_grid.at(0).size();
@@ -143,9 +150,11 @@ int main(int argc, char *argv[]){
       break;
     }    
   }
-
+  //...display final pollution values
+  displayPollutedMap(city_map);
+  std::cout << std::endl;
   //...and begin analysis
-
+  analysis(city_map, master_list);
 
   return 0;
 }

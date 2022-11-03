@@ -7,72 +7,6 @@
 #include "adjacencies.cpp"
 #include "display.cpp"
 #include "update_map.cpp"
-using namespace std;
-
-// REMOVE ME
-void print_adjacencies(Map * map)
-{
-  int i, y = 0, x = 0;
-  for(vector<zone*> row : map->map_grid)
-  {
-    
-    for(zone* zones : row)
-    {
-      i = 0;
-      cout << y << ", " << x << ": Local: ";
-      for(zone * adjacent : zones->getLocallyAdjacent())
-      {
-        if(adjacent != nullptr){
-          cout << i << ": " << adjacent->getType() << " ";
-        }else
-        {
-          cout << i << ": " << "OOB "; 
-        }
-        i++;
-      }
-      cout << endl;
-
-      //print remote adjacencies
-      if(zones->getType() == 'C' || zones->getType() == 'I')
-      {
-        cout << "|Remote: ";
-        switch(zones->getType())
-        {
-          case 'C':
-            i = 0;
-            cout << endl <<  "|| Residential: ";
-            for(zone* curr : dynamic_cast<commercial*>(zones)->getResidentialAdj())
-            {
-              cout << i << ": " << curr->getType() << " ";
-              i++;
-            }
-            cout << endl << "|| Industrial: ";
-            for(zone* curr : dynamic_cast<commercial*>(zones)->getIndustrialAdj())
-            {
-              cout << i << ": " << curr->getType() << " ";
-              i++;
-            }
-            break;
-          
-          case 'I':
-            i = 0;
-            cout << endl <<  "|| Residential: ";
-            for(zone* curr : dynamic_cast<industrial*>(zones)->getResidentialAdj())
-            {
-              cout << i << ": " << curr->getType() << " ";
-              i++;
-            }
-            break;
-        }
-        cout << endl;
-      }
-      
-      x++;
-    }
-    x = 0;
-    y++;
-  }
-}
 
 int main(int argc, char *argv[]){
   
@@ -87,8 +21,6 @@ int main(int argc, char *argv[]){
   //calculate adjacencies by Jodoin, NJ
   calcLocalAdjacencies(city_map);
   calcRemoteAdjacencies(city_map);
-
-  print_adjacencies(city_map);
 
   //calculate powered state for the whole map
   for(std::vector<zone*> row : city_map->map_grid)

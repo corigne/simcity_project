@@ -24,7 +24,6 @@ bool residentialGrowth(residential * residentialZone)
       {
         if (PRGI != nullptr && PRGI->getType() == 'T')
         {
-          residentialZone->incPopulation();
           residentialZone->giveWorker();
           return true;
         }
@@ -43,7 +42,6 @@ bool residentialGrowth(residential * residentialZone)
               populated* temp_pop = dynamic_cast<populated*>(PRGI);
               if (temp_pop->getPopulation() >= 1)
               {
-                residentialZone->incPopulation();
                 residentialZone->giveWorker();
                 return true;
               }
@@ -84,7 +82,6 @@ bool residentialGrowth(residential * residentialZone)
 
               if (PopCounterResidential == 2)
               {
-                residentialZone->incPopulation();
                 residentialZone->giveWorker();
                 return true;
               }
@@ -121,7 +118,6 @@ bool residentialGrowth(residential * residentialZone)
 
               if (PopCounterResidential == 4)
               {
-                residentialZone->incPopulation();
                 residentialZone->giveWorker();
                 return true;
               }
@@ -158,7 +154,6 @@ bool residentialGrowth(residential * residentialZone)
 
               if (PopCounterResidential == 6)
               {
-                residentialZone->incPopulation();
                 residentialZone->giveWorker();
                 return true;
               }
@@ -195,7 +190,6 @@ bool residentialGrowth(residential * residentialZone)
 
               if (PopCounterResidential == 8)
               {
-                residentialZone->incPopulation();
                 residentialZone->giveWorker();
                 return true;
               }
@@ -276,7 +270,6 @@ bool commercialGrowth(commercial *commercialZone)
                 //only if both worker and goods are available
                 curr_res->takeWorker();
                 curr_ind->sendGoods();
-                commercialZone->incPopulation();
                 return true;
               }
             }
@@ -333,7 +326,6 @@ bool commercialGrowth(commercial *commercialZone)
                 //only if both worker and goods are available
                 curr_res->takeWorker();
                 curr_ind->sendGoods();
-                commercialZone->incPopulation();
                 return true;
               }
             }
@@ -416,7 +408,7 @@ bool industrialGrowth(industrial *industrialZone)
             {
               worker1.second->takeWorker();
               curr_r->takeWorker();
-              industrialZone->incPopulation();
+              return true;
             }
           }
         }
@@ -476,7 +468,7 @@ bool industrialGrowth(industrial *industrialZone)
             {
               worker1.second->takeWorker();
               curr_r->takeWorker();
-              industrialZone->incPopulation();
+              return true;
             }
           }
         }
@@ -537,7 +529,7 @@ bool industrialGrowth(industrial *industrialZone)
             {
               worker1.second->takeWorker();
               curr_r->takeWorker();
-              industrialZone->incPopulation();
+              return true;
             }
           }
         }
@@ -555,24 +547,17 @@ bool industrialGrowth(industrial *industrialZone)
 }
 
 bool update_map(z_list &list)
-{
+{ 
   bool changed = false;
-  //for list of residential residentialGrowth()
-  for(populated* curr : list.res)
-  {
-    residential* temp_res = dynamic_cast<residential*>(curr);
-    if(residentialGrowth(temp_res)==true)
-    {
-      changed=true;
-    }
-  }
-
+  //populate growing and inc at the end to avoid ripple growth
+  std::vector<populated*> growing;
   //for list of commercial commercialGrowth()
   for(populated* curr : list.com)
   {
     commercial* temp_com = dynamic_cast<commercial*>(curr);
     if(commercialGrowth(temp_com)==true)
     {
+      growing.push_back(curr);
       changed = true;
     }
   }
@@ -583,8 +568,26 @@ bool update_map(z_list &list)
     industrial* temp_ind = dynamic_cast<industrial*>(curr);
     if(industrialGrowth(temp_ind)==true)
     {
+      growing.push_back(curr);
       changed = true;
     }
+  }
+
+  //for list of residential residentialGrowth()
+  for(populated* curr : list.res)
+  {
+    residential* temp_res = dynamic_cast<residential*>(curr);
+    if(residentialGrowth(temp_res)==true)
+    {
+      growing.push_back(curr);
+      changed=true;
+    }
+  }
+
+  //update all populations at once to avoid ripple effect
+  for(populated* each : growing)
+  {
+    each->incPopulation();
   }
   return changed;
 }
@@ -696,12 +699,129 @@ void mergesort_vec_asc(std::vector<populated *> &vec, const int low, const int h
   merge_populated_vectors(vec, low, midpoint, high);
 }
 
+// calculate the adjacent population of a populated* zone
+int calc_adj_pop(populated* &zn)
+{
+  int adj_pop = 0;
+  for(zone* adj : zn->getLocallyAdjacent())
+  {
+    populated* tmp_pop_ptr = dynamic_cast<populated*>(adj);
+    if(tmp_pop_ptr != nullptr)
+    {
+      adj_pop += tmp_pop_ptr->getPopulation();
+    }
+  }
+  return adj_pop;
+}
+
+//insertion sort by adjacent population within == local population bubbles
+void adj_population_sort(std::vector<populated*> &vec)
+{
+  for(int i = 1; i < vec.size(); i++)
+  {
+    //calculate adj population for j
+    int adj_pop_i = calc_adj_pop(vec[i]);
+
+    for(int j = i - 1; j > 0; j--)
+    {
+      //calculate adj population for j
+      int adj_pop_j = calc_adj_pop(vec[j]);
+
+      bool same_loc_pop;
+      // are the local populations the same?
+      same_loc_pop = (vec[i]->getPopulation() == vec[j]->getPopulation());
+      // if yes shift larger adj population to the left
+      if(same_loc_pop && (adj_pop_i > adj_pop_j))
+      {
+        populated* temp = vec[i];
+        vec[i] = vec[j];
+        vec[j] = temp;
+      }
+    }
+  }
+}
+
+//insertion sort by y location within local & adj population == subsets
+void y_loc_sort(std::vector<populated*> &vec)
+{
+  for(int i = 1; i < vec.size(); i++)
+  {
+    int loc_pop_i = vec[i]->getPopulation();
+    int adj_pop_i = calc_adj_pop(vec[i]);
+    int y_i = vec[i]->getLocation().second;
+
+    for(int j = i - 1; j > 0; j--)
+    {
+      int loc_pop_j = vec[j]->getPopulation();
+      int adj_pop_j = calc_adj_pop(vec[j]);
+      int y_j = vec[j]->getLocation().second;
+
+      bool same_adj_pop, same_loc_pop;
+      // are the local and adjacent populations the same?
+      same_loc_pop = (loc_pop_i == loc_pop_j);
+      same_adj_pop = (adj_pop_i == adj_pop_j);
+      // if yes shift larger adj population to the left
+      if(same_loc_pop && same_adj_pop && (y_i < y_j))
+      {
+        populated* temp = vec[i];
+        vec[i] = vec[j];
+        vec[j] = temp;
+      }
+    }
+  }
+}
+
+//insertion sort by x location within local & adj population & y loc == subsets
+void x_loc_sort(std::vector<populated*> &vec)
+{
+  for(int i = 1; i < vec.size(); i++)
+  {
+    int loc_pop_i = vec[i]->getPopulation();
+    int adj_pop_i = calc_adj_pop(vec[i]);
+    int y_i = vec[i]->getLocation().second;
+    int x_i = vec[i]->getLocation().first;
+
+    for(int j = i - 1; j > 0; j--)
+    {
+      int loc_pop_j = vec[j]->getPopulation();
+      int adj_pop_j = calc_adj_pop(vec[j]);
+      int y_j = vec[j]->getLocation().second;
+      int x_j = vec[j]->getLocation().first;
+
+      bool same_adj_pop, same_loc_pop, same_y;
+      // are the local and adjacent populations the same?
+      same_loc_pop = (loc_pop_i == loc_pop_j);
+      same_adj_pop = (adj_pop_i == adj_pop_j);
+      same_y = (y_i == y_j);
+      // if yes shift larger adj population to the left
+      if(same_loc_pop && same_adj_pop && same_y && (x_i < x_j))
+      {
+        populated* temp = vec[i];
+        vec[i] = vec[j];
+        vec[j] = temp;
+      }
+    }
+  }
+}
+
 void pop_zone_sort(z_list &lists)
 {
   // recursively sort residential, then industrial, then commercial lists
+  // population
   mergesort_vec_asc(lists.res, 0, lists.res.size() - 1);
-
   mergesort_vec_asc(lists.ind, 0, lists.ind.size() - 1);
-
   mergesort_vec_asc(lists.com, 0, lists.com.size() - 1);
+
+  //resort by adj population within == local population
+  adj_population_sort(lists.com);
+  adj_population_sort(lists.ind);
+
+  //resort by Y location
+  y_loc_sort(lists.com);
+  y_loc_sort(lists.ind);
+
+  //resort by X location
+  x_loc_sort(lists.com);
+  x_loc_sort(lists.ind);
+
 }

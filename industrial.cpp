@@ -9,7 +9,7 @@ class industrial : public populated
   private:
     int goods;
     //residential adjacency list, by distance
-    std::list<residential *> residential_adj;
+    std::list<residential*> residential_adj;
   public:
     //constructor
     industrial()
@@ -63,7 +63,7 @@ class industrial : public populated
     }
 
     //set the residential adjacency list
-    void setResidentialAdj(std::list<residential*> residentialAdj)
+    void setResidentialAdj(std::list<residential*> &residentialAdj)
     {
       this->residential_adj = residentialAdj;
     }

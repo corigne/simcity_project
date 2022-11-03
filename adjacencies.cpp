@@ -85,8 +85,8 @@ void zoneBFS(Map * city, zone * origin)
   //we don't need remote adjacencies for non Comm and Industrial nodes
   if(origin->getType() == 'C' || origin->getType() == 'I')
   {
-    std::list<residential*> temp_residential;
-    std::list<industrial*> temp_industrial;
+    std::list<residential*>* temp_res = new std::list<residential*>;
+    std::list<industrial*>* temp_ind = new std::list<industrial*>;
     //this array with the same bounds as the city provides O(n)=1 truth checking for visited condition
     bool visited[city->x_size][city->y_size];
     //used as a queue to track nodes to visit
@@ -94,11 +94,13 @@ void zoneBFS(Map * city, zone * origin)
     discQueue.push_back(origin);
 
     //add origin to visited
-    visited[origin->getLocation().first][origin->getLocation().second] = true;
+    int origin_X = origin->getLocation().first;
+    int origin_Y = origin->getLocation().second;
+    visited[origin_X][origin_Y] = true;
     //then start BFS traversal
-    while( !(discQueue.empty()))
+    while(!(discQueue.empty()))
     {
-      zone* curr = &*discQueue.front();
+      zone* curr = discQueue.front();
       char curr_type = curr->getType();
       discQueue.pop_front();
       // traverse adjacent nodes to the current node
@@ -106,23 +108,19 @@ void zoneBFS(Map * city, zone * origin)
       // note: CAN traverse along roads, powered_roads, and R/C/I/P
       for(zone* adj : curr->getLocallyAdjacent())
       {
-        //If adj was not visited, and is not null add it to the disc queue.
-        if(adj != nullptr && !(visited[adj->getLocation().first][adj->getLocation().second]))
+        if(adj != nullptr)
         {
-          char adjType = adj->getType();
-          switch(adjType)
+
+        int x = adj->getLocation().first;
+        int y = adj->getLocation().second;
+        //If adj was not visited, and is not null add it to the disc queue.
+        
+          if(visited[x][y] != true)
           {
-            //case chaining, for all of these cases, do the same thing
-            case '-': case '#': case 'R': case 'C': case 'I': case 'P':
+            if((adj->getType() != 'T') || (adj->getType() != ' '))
             {
               discQueue.push_back(adj);
-              visited[adj->getLocation().first][adj->getLocation().second] = true;
-              break;
-            }
-            case 'T': case ' ':
-            {
-              //Do nothing, these are not traversable!
-              break;
+              visited[x][y] = true;
             }
           }
         }
@@ -134,13 +132,13 @@ void zoneBFS(Map * city, zone * origin)
       {
         if(curr->getType() == 'R')
         {
-          residential* temp_r = dynamic_cast<residential*>(&*curr);
-          temp_residential.push_back(temp_r);
+          residential* temp_r = dynamic_cast<residential*>(curr);
+          temp_res->push_back(temp_r);
         }
         if(curr->getType() == 'I')
         {
-          industrial* temp_i = dynamic_cast<industrial*>(&*curr);
-          temp_industrial.push_back(temp_i);
+          industrial* temp_i = dynamic_cast<industrial*>(curr);
+          temp_ind->push_back(temp_i);
         }  
       }
     }
@@ -148,15 +146,15 @@ void zoneBFS(Map * city, zone * origin)
     //add the appropriate lists by dynamic casting
     if(origin->getType() == 'I')
     {
-      industrial* temp_i = dynamic_cast<industrial*>(&*origin);
-      temp_i->setResidentialAdj(temp_residential);
+      industrial* temp_i = dynamic_cast<industrial*>(origin);
+      temp_i->setResidentialAdj(*temp_res);
     }
 
     if(origin->getType() == 'C')
     {
-      commercial* temp_c = dynamic_cast<commercial*>(&*origin);
-      temp_c->setResidentialAdj(temp_residential);
-      temp_c->setIndustrialAdj(temp_industrial);
+      commercial* temp_c = dynamic_cast<commercial*>(origin);
+      temp_c->setResidentialAdj(*temp_res);
+      temp_c->setIndustrialAdj(*temp_ind);
     }
   }
 }

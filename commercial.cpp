@@ -33,7 +33,7 @@ class commercial : public populated
     }
 
     // set the residential adjacencies
-    void setResidentialAdj(std::list<residential*> residentialAdj)
+    void setResidentialAdj(std::list<residential*> &residentialAdj)
     {
       this->residentialAdj = residentialAdj;
     }
@@ -45,7 +45,7 @@ class commercial : public populated
     }
 
     //set the industrial adjacency list
-    void setIndustrialAdj(std::list<industrial*> industrialAdj)
+    void setIndustrialAdj(std::list<industrial*> &industrialAdj)
     {
       this->industrialAdj = industrialAdj;
     }

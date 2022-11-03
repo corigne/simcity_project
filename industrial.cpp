@@ -63,7 +63,7 @@ class industrial : public populated
     }
 
     //set the residential adjacency list
-    void setResidentialAdj(std::list<residential*> &residentialAdj)
+    void setResidentialAdj(std::list<residential*> residentialAdj)
     {
       this->residential_adj = residentialAdj;
     }

@@ -80,83 +80,55 @@ void calcLocalAdjacencies(Map * map)
   }
 }
 
-void zoneBFS(Map * city, zone * origin)
+void zoneBFS(std::list<zone*> &q, std::list<residential*> &r,
+  std::list<industrial*> &i, std::vector<std::vector<bool> > (&disc))
 {
-  //we don't need remote adjacencies for non Comm and Industrial nodes
-  if(origin->getType() == 'C' || origin->getType() == 'I')
-  {
-    std::list<residential*>* temp_res = new std::list<residential*>;
-    std::list<industrial*>* temp_ind = new std::list<industrial*>;
-    //this array with the same bounds as the city provides O(n)=1 truth checking for visited condition
-    bool visited[city->x_size][city->y_size];
-    //used as a queue to track nodes to visit
-    std::list<zone*> discQueue;
-    discQueue.push_back(origin);
-
-    //add origin to visited
-    int origin_X = origin->getLocation().first;
-    int origin_Y = origin->getLocation().second;
-    visited[origin_X][origin_Y] = true;
-    //then start BFS traversal
-    while(!(discQueue.empty()))
+    if(q.empty())
     {
-      zone* curr = discQueue.front();
-      char curr_type = curr->getType();
-      discQueue.pop_front();
-      // traverse adjacent nodes to the current node
-      // add traversable adjacent nodes to the discovery queue
-      // note: CAN traverse along roads, powered_roads, and R/C/I/P
-      for(zone* adj : curr->getLocallyAdjacent())
-      {
-        if(adj != nullptr)
-        {
+      return;
+    }
 
+    zone* curr = q.front();
+    
+    // if current is a residential or industrial, add to appropriate list
+    switch(curr->getType())
+    {
+      case 'I':
+      {
+        industrial* tmp_curr = dynamic_cast<industrial*>(curr);
+        i.push_back(tmp_curr);
+        break;
+      }
+      case 'R':
+      {
+        residential* tmp_curr = dynamic_cast<residential*>(curr);
+        r.push_back(tmp_curr);
+        break;
+      }
+      default:
+      {
+        break;
+      }
+    }
+
+    q.pop_front();
+
+    for(zone* adj : curr->getLocallyAdjacent())
+    {
+      if(adj != nullptr)
+      {
         int x = adj->getLocation().first;
         int y = adj->getLocation().second;
-        //If adj was not visited, and is not null add it to the disc queue.
+        bool trav = ((adj->getType() != ' ') && (adj->getType() != 'T'));
         
-          if(visited[x][y] != true)
-          {
-            if((adj->getType() != 'T') || (adj->getType() != ' '))
-            {
-              discQueue.push_back(adj);
-              visited[x][y] = true;
-            }
-          }
+        if(trav && !disc[x][y])
+        {
+          disc[x][y] = true;
+          q.push_back(adj);
         }
       }
-
-      // if current isn't the origin, and origin is a Commercial or Industrial
-      // add residential and industrial nodes to the correct lists
-      if(curr != origin)
-      {
-        if(curr->getType() == 'R')
-        {
-          residential* temp_r = dynamic_cast<residential*>(curr);
-          temp_res->push_back(temp_r);
-        }
-        if(curr->getType() == 'I')
-        {
-          industrial* temp_i = dynamic_cast<industrial*>(curr);
-          temp_ind->push_back(temp_i);
-        }  
-      }
     }
-
-    //add the appropriate lists by dynamic casting
-    if(origin->getType() == 'I')
-    {
-      industrial* temp_i = dynamic_cast<industrial*>(origin);
-      temp_i->setResidentialAdj(*temp_res);
-    }
-
-    if(origin->getType() == 'C')
-    {
-      commercial* temp_c = dynamic_cast<commercial*>(origin);
-      temp_c->setResidentialAdj(*temp_res);
-      temp_c->setIndustrialAdj(*temp_ind);
-    }
-  }
+    zoneBFS(q, r, i, disc);
 }
 
 void calcRemoteAdjacencies(Map * map)
@@ -164,8 +136,29 @@ void calcRemoteAdjacencies(Map * map)
   for(std::vector<zone*> rows : map->map_grid)
   {
     for(zone* curr : rows)
-    {
-      zoneBFS(map, curr);
+    { 
+      std::list<residential*> res;
+      std::list<industrial*> ind;
+      std::list<zone*> q;
+      std::vector<bool> disc_temp (map->x_size, false);
+      std::vector< std::vector<bool> > disc(map->y_size, disc_temp);
+
+      disc[curr->getLocation().first][curr->getLocation().second] = true;
+      q.push_back(curr);
+
+      zoneBFS(q, res, ind, disc);
+
+      if(curr->getType() == 'I')
+      {
+        industrial* temp_i = dynamic_cast<industrial*>(curr);
+        temp_i->setResidentialAdj(res);
+      }
+      if(curr->getType() == 'C')
+      {
+        commercial* temp_c = dynamic_cast<commercial*>(curr);
+        temp_c->setResidentialAdj(res);
+        temp_c->setIndustrialAdj(ind);
+      }
     }
   }
 }

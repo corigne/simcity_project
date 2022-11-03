@@ -63,19 +63,21 @@ int main(int argc, char *argv[]){
   << "~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl
   << "~~~ Welcome to SimCity ~~~" << std::endl
   << "~~~ Designed by Group6 ~~~" << std::endl
-  << "~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+  << "~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl << std::endl;
 
-
+  std::cout << std::endl << "==== Simulation Settings ====" << std::endl
+    << "Refresh Rate: every " << city_map->refresh_rate << " steps"<< std::endl
+    << "Max Steps   : " << city_map->max_time << " steps" << std::endl << std::endl;
+  
+  /* Temporarily Commented Out Until We Consult the TA
   char user_in = 0;
   bool validated = false;
 
   while(!validated)
   {
     // Simulation Settings Confirmation
-    std::cout << std::endl << "==== Simulation Settings ====" << std::endl
-      << "Refresh Rate: every " << city_map->refresh_rate << " steps"<< std::endl
-      << "Max Steps   : " << city_map->max_time << " steps" << std::endl
-      << "Start simulation? [(y)es/(c)ancel]: ";
+ 
+    std::cout << "Start simulation? [(y)es/(c)ancel]: ";
 
     //user prompt
     
@@ -98,6 +100,7 @@ int main(int argc, char *argv[]){
   {
     return 0;
   }
+*/
 
   //display & update loop
   int curr_frame = 0;
@@ -115,14 +118,20 @@ int main(int argc, char *argv[]){
     
     //updatemap should return true if nothing was updated between 2 timesteps
     // else it should return false
-     change = update_map(master_list);
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////
+    change = update_map(master_list);
+
     //pollution updates
     for(populated* curr : master_list.ind)
     {
+      std::list<zone*> q;
+      q.push_back(curr);
+
+      std::vector<bool> d_temp (city_map->x_size, false);
+      std::vector<std::vector<bool> > disc (city_map->y_size, d_temp);
+      disc[curr->getLocation().first][curr->getLocation().second] = true;
+      //setup and call of recursive pollution function here
       industrial* temp_ind = dynamic_cast<industrial*>(curr);
-      temp_ind->updatePollution();
+      temp_ind->updatePollution(temp_ind, q, disc);
     }
 
     //update frame

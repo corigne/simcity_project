@@ -1,36 +1,6 @@
 #include "definitions.hpp"
 
 
-bool checkWorkerCommercial()
-{
-    return true;
-}
-bool checkWorkerIndustrial(industrial * industrialWorkers)
-{
-  /*
-  int workerCount=0;
-  for(zone * ICWI: industrialWorkers->getResidentialAdj())
-  {
-    if(ICWI->hasWorker())
-    {
-      ICWI->takeWorker();
-      workerCount++;
-      if(ICWI->hasWorker()&&workerCount<2)
-      {ICWI->takeWorker();
-
-      }
-    }
-  }
-  */
-return true;
-}
-// need to be done
-bool checkGood()
-{
-    return true;
-}
-
-
 // residential EVERY INCPOP NEEDS AN INCWORKER FUNCTION
 bool residentialGrowth(residential * residentialZone)
 {
@@ -39,150 +9,210 @@ bool residentialGrowth(residential * residentialZone)
 
 //4 is the largest value that changes the growth rules
   if (residentialZonePop > 4)
+  {
     residentialZonePop = 4;
+  }
 
 //Input zone population to determine growth rules
   switch (residentialZonePop)
   {
     //population zero
-  case 0:
-  {
-    //case for powerline adjacency
-    for (zone *PRGI : residentialZone->getLocallyAdjacent())
+    case 0:
     {
-      if (PRGI->getType() == 'T')
+      //case for powerline adjacency
+      for (zone *PRGI : residentialZone->getLocallyAdjacent())
       {
-        residentialZone->incPopulation();
-        residentialZone->giveWorker();
-        return true;
+        if (PRGI != nullptr && PRGI->getType() == 'T')
+        {
+          residentialZone->giveWorker();
+          return true;
+        }
       }
+      //case for population adjacency
+      for (zone *PRGI : residentialZone->getLocallyAdjacent())
+      {
+        //check OOB condition
+        if(PRGI != nullptr)
+        {
+          //need to check if the locally adjacent zones are populated types
+          switch(PRGI->getType())
+          {
+            case 'R': case 'I': case 'C':
+            {
+              populated* temp_pop = dynamic_cast<populated*>(PRGI);
+              if (temp_pop->getPopulation() >= 1)
+              {
+                residentialZone->giveWorker();
+                return true;
+              }
+              else
+              {
+                continue;
+              }
+            }
+          }
+        }
+      }
+      return false;
     }
-    //case for population adjacency
-    for (zone *PRGI : residentialZone->getLocallyAdjacent())
+
+    case 1:
     {
+        //Iterate through each residential zone tracking adjacent zones that meet required population
+      for (zone *PRGI : residentialZone->getLocallyAdjacent())
+      {
+        //check for OOB condition
+        if(PRGI != nullptr)
+        {  
+          //check if populated type zone
+          switch(PRGI->getType())
+          {
+            case 'R': case 'I': case 'C':
+            {
+              //dynamic casting required here to check population
+              populated* temp_pop = dynamic_cast<populated*>(PRGI);
+              if (temp_pop->getPopulation() >= 1)
+              {
+                PopCounterResidential++;
+              }
+              else
+              {
+                continue;
+              }
 
-      if (residentialZone->getPopulation() == 1)
-      {
-        residentialZone->incPopulation();
-        residentialZone->giveWorker();
-        return true;
+              if (PopCounterResidential == 2)
+              {
+                residentialZone->giveWorker();
+                return true;
+              }
+            }
+          }
+        }  
       }
-      else
-      {
-        continue;
-      }
+      return false;
     }
 
-    return false;
-  }
-  case 1:
-  {
-      //Iterate through each residential zone tracking adjacent zones that meet required population
-    for (zone *PRGI : residentialZone->getLocallyAdjacent())
+    case 2:
     {
-    
-      if (residentialZone->getPopulation() == 1)
+        //Iterate through each residential zone tracking adjacent zones that meet required population
+      for (zone *PRGI : residentialZone->getLocallyAdjacent())
       {
-        PopCounterResidential++;
-      }
-      else
-      {
-        continue;
-      }
+        //check for OOB condition
+        if(PRGI != nullptr)
+        {  
+          //check if populated type zone
+          switch(PRGI->getType())
+          {
+            case 'R': case 'I': case 'C':
+            {
+              //dynamic casting required here to check population
+              populated* temp_pop = dynamic_cast<populated*>(PRGI);
+              if (temp_pop->getPopulation() >= 2)
+              {
+                PopCounterResidential++;
+              }
+              else
+              {
+                continue;
+              }
 
-      if (PopCounterResidential == 2)
-      {
-        residentialZone->incPopulation();
-        residentialZone->giveWorker();
-        return true;
+              if (PopCounterResidential == 4)
+              {
+                residentialZone->giveWorker();
+                return true;
+              }
+            }
+          }
+        }  
       }
+      return false;
     }
-    return false;
-  }
 
-  case 2:
-  {
-    for (zone *PRGI : residentialZone->getLocallyAdjacent())
+    case 3:
     {
+        //Iterate through each residential zone tracking adjacent zones that meet required population
+      for (zone *PRGI : residentialZone->getLocallyAdjacent())
+      {
+        //check for OOB condition
+        if(PRGI != nullptr)
+        {  
+          //check if populated type zone
+          switch(PRGI->getType())
+          {
+            case 'R': case 'I': case 'C':
+            {
+              //dynamic casting required here to check population
+              populated* temp_pop = dynamic_cast<populated*>(PRGI);
+              if (temp_pop->getPopulation() >= 3)
+              {
+                PopCounterResidential++;
+              }
+              else
+              {
+                continue;
+              }
 
-      if (residentialZone->getPopulation() == 2)
-      {
-        PopCounterResidential++;
+              if (PopCounterResidential == 6)
+              {
+                residentialZone->giveWorker();
+                return true;
+              }
+            }
+          }
+        }  
       }
-      else
-      {
-        continue;
-      }
-
-      if (PopCounterResidential == 4)
-      {
-        residentialZone->incPopulation();
-        residentialZone->giveWorker();
-        return true;
-      }
+      return false;
     }
-    return false;
-  }
 
-  case 3:
-  {
-    for (zone *PRGI : residentialZone->getLocallyAdjacent())
+    case 4:
     {
+        //Iterate through each residential zone tracking adjacent zones that meet required population
+      for (zone *PRGI : residentialZone->getLocallyAdjacent())
+      {
+        //check for OOB condition
+        if(PRGI != nullptr)
+        {  
+          //check if populated type zone
+          switch(PRGI->getType())
+          {
+            case 'R': case 'I': case 'C':
+            {  
+              //dynamic casting required here to check population
+              populated* temp_pop = dynamic_cast<populated*>(PRGI);
+              if (temp_pop->getPopulation() >= 4)
+              {
+                PopCounterResidential++;
+              }
+              else
+              {
+                continue;
+              }
 
-      if (residentialZone->getPopulation() == 3)
-      {
-        PopCounterResidential++;
+              if (PopCounterResidential == 8)
+              {
+                residentialZone->giveWorker();
+                return true;
+              }
+            }  
+          }
+        }  
       }
-      else
-      {
-        continue;
-      }
-
-      if (PopCounterResidential == 6)
-      {
-        residentialZone->incPopulation();
-        residentialZone->giveWorker();
-        return true;
-      }
+      return false;
     }
-    return false;
-  }
 
-  case 4:
-  {
-    for (zone *PRGI : residentialZone->getLocallyAdjacent())
+    default:
     {
-
-      if (residentialZone->getPopulation() == 4)
-      {
-        PopCounterResidential++;
-      }
-      else
-      {
-        continue;
-      }
-
-      if (PopCounterResidential == 8)
-      {
-        residentialZone->incPopulation();
-        residentialZone->giveWorker();
-        return true;
-      }
+      std::cout << "Failed to correctly get population in Residential." << std::endl;
+      return false;
     }
-    return false;
-  }
-
-  default:
-  {
-    std::cout << "Failed to correctly get population in Residential." << std::endl;
-    return false;
-  }
   }; // End Switch
 }
 // commercial
 bool commercialGrowth(commercial *commercialZone)
 {
+  bool update = false;
   int commercialZonePop = 0;
+  int PopCounterCommercial = 0;
   commercialZonePop = commercialZone->getPopulation();
 
   if (commercialZonePop > 1)
@@ -190,219 +220,386 @@ bool commercialGrowth(commercial *commercialZone)
     commercialZonePop = 1;
   }
 
-  int PopCounterCommercial = 0;
-
   switch (commercialZonePop)
   {
-  case 0:
-  {
-
-    for (zone *CGI : commercialZone->getLocallyAdjacent())
+    case 0:
     {
-      if (commercialZone->getType() == 'T')
+      //check for workers && goods, using appropriate data members
+
+      for (zone *CGI : commercialZone->getLocallyAdjacent())
       {
-        if (checkWorkerCommercial() && checkGood())
+        if(CGI != nullptr)
         {
-          commercialZone->incPopulation();
-          return true;
+          //case where adj to powerline
+          if (CGI->getType() == 'T')
+          {
+            update = true;
+            break;
+          }
+
+          //nearby zone population >=1
+          switch(CGI->getType())
+          {
+            case 'R': case 'I': case 'C':
+            {
+              populated* temp_pop = dynamic_cast<populated*>(CGI);
+              if(temp_pop->getPopulation() >= 1)
+              {
+                update = true;
+                break;
+              }
+            }
+          }
+          if(update == true)
+          {
+            break;
+          }
         }
       }
-    }
 
-    for (zone *CGI : commercialZone->getLocallyAdjacent())
-    {
-
-      if (commercialZone->getPopulation() == 1)
+      //if cell has suff condition to update
+      if(update)
       {
-        if (checkWorkerCommercial() && checkGood())
+        //check for goods + workers
+        for(residential* curr_res : commercialZone->getResidentialAdj())
         {
-          commercialZone->incPopulation();
-          return true;
-        }else
-        {
-            return false;
+          //check for worker
+          if(curr_res->hasWorker())
+          {
+            //check for goods
+            for(industrial* curr_ind : commercialZone->getIndustrialAdj())
+            {
+              if(curr_ind->hasGoods())
+              {
+                //only if both worker and goods are available
+                curr_res->takeWorker();
+                curr_ind->sendGoods();
+                return true;
+              }
+            }
+          }
         }
       }
-      else
-      {
-        continue;
-      }
-    }
-     return false;
-  }// case 0 end
- 
-  case 1:
-  {
-    // need comment
-    for (zone *PCGI : commercialZone->getLocallyAdjacent())
+      return false;
+    }// case 0 end
+  
+    case 1:
     {
-
-      if (commercialZone->getPopulation() == 1)
+      // need comment
+      for (zone *PCGI : commercialZone->getLocallyAdjacent())
       {
-        PopCounterCommercial++;
-      }
-      else
-      {
-        continue;
-      }
-
-      if (PopCounterCommercial == 1)
-      {
-        if (checkWorkerCommercial() && checkGood())
+        if(PCGI != nullptr)
         {
-          commercialZone->incPopulation();
-          return true;
+          switch(PCGI->getType())
+          {
+            case 'R': case 'I': case 'C':
+            {
+              populated* temp_pop = dynamic_cast<populated*>(PCGI);
+              if (temp_pop->getPopulation() >= 1)
+              {
+                PopCounterCommercial++;
+              }
+              else
+              {
+                continue;
+              }
+
+              if (PopCounterCommercial == 2)
+              {
+                update = true;
+                break;
+              }
+            }
+          }
         }
       }
+
+      if(update)
+      {
+        //check for goods + workers
+        for(residential* curr_res : commercialZone->getResidentialAdj())
+        {
+          //check for worker
+          if(curr_res->hasWorker())
+          {
+            //check for goods
+            for(industrial* curr_ind : commercialZone->getIndustrialAdj())
+            {
+              if(curr_ind->hasGoods())
+              {
+                //only if both worker and goods are available
+                curr_res->takeWorker();
+                curr_ind->sendGoods();
+                return true;
+              }
+            }
+          }
+        }
+      }
+      return false;
     }
-    return false;
-  }
 
-  case 2:
-  {
-    // the zone will do nothing
-    return false;
-  }
-
-  default:
-  {
-    std::cout << "Failed to correctly get population in commercial." << std::endl;
-    return false;
-  }
+    default:
+    {
+      std::cout << "Failed to correctly get population in commercial." << std::endl;
+      return false;
+    }
   }; // End Switch
 }
 // industrial
 bool industrialGrowth(industrial *industrialZone)
 {
+  bool update = false;
   int PopCounterIndustrial = 0;
+  std::pair<bool, residential*> worker1;
+
+  //this zone's population
   int industrialZonePop = 0;
   industrialZonePop = industrialZone->getPopulation();
 
   if (industrialZonePop > 3)
+  {
     industrialZonePop = 2;
+  }
 
   switch (industrialZonePop)
   {
-  case 0:
-  {
-    for (zone *IGI : industrialZone->getLocallyAdjacent())
+    case 0:
     {
-      if (IGI->getType() == 'T')
-      {
-        if (checkWorkerIndustrial(industrialZone))
-        {
-          industrialZone->incPopulation();
-          industrialZone->addGoods();
-          return true;
-        }
-      }
-      if(industrialZone->getPopulation()==1)
-      {
-        PopCounterIndustrial++;
-        if(PopCounterIndustrial==1)
-        {
-      if(checkWorkerIndustrial(industrialZone))
-      {
-          industrialZone->incPopulation();
-          industrialZone->addGoods();
-          return true;
-      }else
-      {
-        return false;
-      }
-        }
-      }
-    }
-  }
-  return false;
-  case 1:
-  {
-    for (zone *PIGI : industrialZone->getLocallyAdjacent())
-    {
-      if (industrialZone->getPopulation() == 1)
-        PopCounterIndustrial++;
 
-      // Adjacent zones meet population requirement for industrial growth
-      if (PopCounterIndustrial == 2)
+      for (zone *IGI : industrialZone->getLocallyAdjacent())
       {
-        if (checkWorkerIndustrial(industrialZone))
+        if (IGI != nullptr)
         {
-          industrialZone->incPopulation();
-          industrialZone->addGoods();
-          return true;
-          // If there are no available workers end the loop
-        }
-        else
+          //check for adj powerline
+          if (IGI->getType() == 'T')
+          {
+            update = true;
+            break;
+          }
+          //if not cheak for adj pop >=1
+          switch(IGI->getType())
+          {
+            case 'R': case 'I': case 'C':
+            {
+              populated* temp_pop = dynamic_cast<populated*>(IGI);
+              //check population
+              if(temp_pop->getPopulation()>=1)
+              {
+                update = true;
+                break;
+              }
+            }
+          }
+        }  
+      }
+      
+      //sufficient case conditions have been met if true
+      if(update)
+      {
+        for(residential* curr_r : industrialZone->getResidentialAdj())
         {
-          return false;
-        }
-      }
-    }
-  }
-  return false;
-  case 2:
-{
-    for (zone *PIGI : industrialZone->getLocallyAdjacent())
-    {
-      if (industrialZone->getPopulation() == 2)
-      {
-        PopCounterIndustrial++;
-      }
-      if (PopCounterIndustrial == 4)
-      if(checkWorkerIndustrial(industrialZone))
-      {
-      {
-        industrialZone->incPopulation();
-        industrialZone->addGoods();
-        return true;
-      }
-      }else
-      {
-        return false;
-      }
-    }
-}
-    return false;
+          if(curr_r->hasWorker())
+          {
+            //1st avaiable workers!
+            if(!(worker1.first == true))
+            {
+              worker1.first = true;
+              worker1.second = curr_r;
 
-  default:
-    std::cout << "Failed to correctlly get population for industrial zone." << std::endl;
-    return false;
+            }
+            else //2nd available worker
+            {
+              worker1.second->takeWorker();
+              curr_r->takeWorker();
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    }
+
+    case 1:
+    {
+      //check for at least 2 locally adj zones with population of 1 or higher
+      for (zone *PIGI : industrialZone->getLocallyAdjacent())
+      {
+        if(PIGI != nullptr)
+        {
+          switch(PIGI->getType())
+          {
+            //if adj zone is populated
+            case 'R': case 'I': case 'C':
+            {
+              //dynamicaly cast to a pop*
+              populated * temp_pop;
+              temp_pop = dynamic_cast<populated*>(PIGI);
+              
+              //and check population
+              if(temp_pop->getPopulation() >= 1)
+              {
+                PopCounterIndustrial += 1;
+              }
+
+              //sufficient condition for update
+              if(PopCounterIndustrial == 2)
+              {
+                update = true;
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      //sufficient case conditions have been met if true
+      if(update)
+      {
+        //check for 2 workers available in residential adjacency list
+        for(residential* curr_r : industrialZone->getResidentialAdj())
+        {
+          if(curr_r->hasWorker())
+          {
+            //1st avaiable workers!
+            if(!(worker1.first == true))
+            {
+              worker1.first = true;
+              worker1.second = curr_r;
+
+            }
+            else //2nd available worker
+            {
+              worker1.second->takeWorker();
+              curr_r->takeWorker();
+              return true;
+            }
+          }
+        }
+      }
+      
+      return false;
+    }
+    
+    case 2:
+    {
+      //check for at least 4 locally adj zones with population of 2 or higher
+      for (zone *PIGI : industrialZone->getLocallyAdjacent())
+      {
+        if(PIGI != nullptr)
+        {
+          switch(PIGI->getType())
+          {
+            //if adj zone is populated
+            case 'R': case 'I': case 'C':
+            {
+              //dynamicaly cast to a pop*
+              populated * temp_pop;
+              temp_pop = dynamic_cast<populated*>(PIGI);
+              
+              //and check population
+              if(temp_pop->getPopulation() >= 2)
+              {
+                PopCounterIndustrial += 1;
+              }
+
+              //sufficient condition for update
+              if(PopCounterIndustrial == 4)
+              {
+                update = true;
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      //sufficient case conditions have been met if true
+      if(update)
+      {
+        //check for 2 workers available in residential adjacency list
+        for(residential* curr_r : industrialZone->getResidentialAdj())
+        {
+          if(curr_r->hasWorker())
+          {
+            //1st avaiable workers!
+            if(!(worker1.first == true))
+            {
+              worker1.first = true;
+              worker1.second = curr_r;
+
+            }
+            else //2nd available worker
+            {
+              worker1.second->takeWorker();
+              curr_r->takeWorker();
+              return true;
+            }
+          }
+        }
+      }
+
+      return false;
+    }
+
+    default:
+    {
+      std::cout << "Failed to correctlly get population for industrial zone." << std::endl;
+      return false;
+    }
   }; // end switch
 }
 
 bool update_map(z_list &list)
+{ 
+  bool changed = false;
+  //populate growing and inc at the end to avoid ripple growth
+  std::vector<populated*> growing;
+  //for list of commercial commercialGrowth()
+  for(populated* curr : list.com)
   {
-bool changed = false;
-//for list of residential residentialGrowth()
-for(populated* curr : list.res)
+    commercial* temp_com = dynamic_cast<commercial*>(curr);
+    if(commercialGrowth(temp_com)==true)
     {
-      residential* temp_res = dynamic_cast<residential*>(curr);
-      if(residentialGrowth(temp_res)==true)
-      {
-        changed=true;
-      }
+      growing.push_back(curr);
+      changed = true;
     }
-//for list of commercial commercialGrowth()
-for(populated* curr : list.com)
-    {
-      commercial* temp_com = dynamic_cast<commercial*>(curr);
-      if(commercialGrowth(temp_com)==true)
-      {
-        changed = true;
-      }
-    }
-
-//for list of industrail industrialGrowth()
-for(populated* curr : list.ind)
-    {
-      industrial* temp_ind = dynamic_cast<industrial*>(curr);
-      if(industrialGrowth(temp_ind)==true)
-      {
-        changed = true;
-      }
-    }
-  return changed;
   }
+
+  //for list of industrail industrialGrowth()
+  for(populated* curr : list.ind)
+  {
+    industrial* temp_ind = dynamic_cast<industrial*>(curr);
+    if(industrialGrowth(temp_ind)==true)
+    {
+      growing.push_back(curr);
+      changed = true;
+    }
+  }
+
+  //for list of residential residentialGrowth()
+  for(populated* curr : list.res)
+  {
+    residential* temp_res = dynamic_cast<residential*>(curr);
+    if(residentialGrowth(temp_res)==true)
+    {
+      growing.push_back(curr);
+      changed=true;
+    }
+  }
+
+  //update all populations at once to avoid ripple effect
+  for(populated* each : growing)
+  {
+    each->incPopulation();
+    if(each->getType() == 'I')
+    {
+      industrial* temp_i = dynamic_cast<industrial*>(each);
+      temp_i->addGoods();
+    }
+  }
+  return changed;
+}
 
 /////// MERGED by nathan, Please do not overwrite the code below, it is working... //////
 // populates provided list struct with res, ind, and comm nodes
@@ -511,12 +708,129 @@ void mergesort_vec_asc(std::vector<populated *> &vec, const int low, const int h
   merge_populated_vectors(vec, low, midpoint, high);
 }
 
+// calculate the adjacent population of a populated* zone
+int calc_adj_pop(populated* &zn)
+{
+  int adj_pop = 0;
+  for(zone* adj : zn->getLocallyAdjacent())
+  {
+    populated* tmp_pop_ptr = dynamic_cast<populated*>(adj);
+    if(tmp_pop_ptr != nullptr)
+    {
+      adj_pop += tmp_pop_ptr->getPopulation();
+    }
+  }
+  return adj_pop;
+}
+
+//insertion sort by adjacent population within == local population bubbles
+void adj_population_sort(std::vector<populated*> &vec)
+{
+  for(int i = 1; i < vec.size(); i++)
+  {
+    //calculate adj population for j
+    int adj_pop_i = calc_adj_pop(vec[i]);
+
+    for(int j = i - 1; j > 0; j--)
+    {
+      //calculate adj population for j
+      int adj_pop_j = calc_adj_pop(vec[j]);
+
+      bool same_loc_pop;
+      // are the local populations the same?
+      same_loc_pop = (vec[i]->getPopulation() == vec[j]->getPopulation());
+      // if yes shift larger adj population to the left
+      if(same_loc_pop && (adj_pop_i > adj_pop_j))
+      {
+        populated* temp = vec[i];
+        vec[i] = vec[j];
+        vec[j] = temp;
+      }
+    }
+  }
+}
+
+//insertion sort by y location within local & adj population == subsets
+void y_loc_sort(std::vector<populated*> &vec)
+{
+  for(int i = 1; i < vec.size(); i++)
+  {
+    int loc_pop_i = vec[i]->getPopulation();
+    int adj_pop_i = calc_adj_pop(vec[i]);
+    int y_i = vec[i]->getLocation().second;
+
+    for(int j = i - 1; j > 0; j--)
+    {
+      int loc_pop_j = vec[j]->getPopulation();
+      int adj_pop_j = calc_adj_pop(vec[j]);
+      int y_j = vec[j]->getLocation().second;
+
+      bool same_adj_pop, same_loc_pop;
+      // are the local and adjacent populations the same?
+      same_loc_pop = (loc_pop_i == loc_pop_j);
+      same_adj_pop = (adj_pop_i == adj_pop_j);
+      // if yes shift larger adj population to the left
+      if(same_loc_pop && same_adj_pop && (y_i < y_j))
+      {
+        populated* temp = vec[i];
+        vec[i] = vec[j];
+        vec[j] = temp;
+      }
+    }
+  }
+}
+
+//insertion sort by x location within local & adj population & y loc == subsets
+void x_loc_sort(std::vector<populated*> &vec)
+{
+  for(int i = 1; i < vec.size(); i++)
+  {
+    int loc_pop_i = vec[i]->getPopulation();
+    int adj_pop_i = calc_adj_pop(vec[i]);
+    int y_i = vec[i]->getLocation().second;
+    int x_i = vec[i]->getLocation().first;
+
+    for(int j = i - 1; j > 0; j--)
+    {
+      int loc_pop_j = vec[j]->getPopulation();
+      int adj_pop_j = calc_adj_pop(vec[j]);
+      int y_j = vec[j]->getLocation().second;
+      int x_j = vec[j]->getLocation().first;
+
+      bool same_adj_pop, same_loc_pop, same_y;
+      // are the local and adjacent populations the same?
+      same_loc_pop = (loc_pop_i == loc_pop_j);
+      same_adj_pop = (adj_pop_i == adj_pop_j);
+      same_y = (y_i == y_j);
+      // if yes shift larger adj population to the left
+      if(same_loc_pop && same_adj_pop && same_y && (x_i < x_j))
+      {
+        populated* temp = vec[i];
+        vec[i] = vec[j];
+        vec[j] = temp;
+      }
+    }
+  }
+}
+
 void pop_zone_sort(z_list &lists)
 {
   // recursively sort residential, then industrial, then commercial lists
+  // population
   mergesort_vec_asc(lists.res, 0, lists.res.size() - 1);
-
   mergesort_vec_asc(lists.ind, 0, lists.ind.size() - 1);
-
   mergesort_vec_asc(lists.com, 0, lists.com.size() - 1);
+
+  //resort by adj population within == local population
+  adj_population_sort(lists.com);
+  adj_population_sort(lists.ind);
+
+  //resort by Y location
+  y_loc_sort(lists.com);
+  y_loc_sort(lists.ind);
+
+  //resort by X location
+  x_loc_sort(lists.com);
+  x_loc_sort(lists.ind);
+
 }

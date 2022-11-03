@@ -9,7 +9,7 @@ class industrial : public populated
   private:
     int goods;
     //residential adjacency list, by distance
-    std::list<residential *> residential_adj;
+    std::list<residential*> residential_adj;
   public:
     //constructor
     industrial()
@@ -68,49 +68,50 @@ class industrial : public populated
       this->residential_adj = residentialAdj;
     }
 
-    void updatePollution()
+    void updatePollution(industrial* &org, std::list<zone*> &q,
+       std::vector<std::vector<bool> > &disc)
     {
-      //set starting values
-      zone* origin = this;
-      this->setPollution(this->getPopulation());
-      int poll_lvl = this->getPollution();
 
-      std::vector<std::vector<bool> > visited;
-      std::list<zone*> disc_q;
-
-      //add origin to the disc queue and mark it visited
-      disc_q.push_back(origin);
-      visited[this->getLocation().first][this->getLocation().second] = true;
-      
-      while(disc_q.empty() != true)
+      //if disc q empty return stack
+      if(q.empty())
       {
-        zone* current = &*disc_q.front();
-        disc_q.pop_front();
+        return;
+      }
+      
+      zone* curr = q.front();
+      q.pop_front();
 
-        for(zone* adj : current->getLocallyAdjacent())
+      //initial case, set pollution level of industrial zone
+      if(curr == org)
+      {
+        curr->setPollution(org->getPopulation());
+      }
+
+      //set the pollution level for the adj zones
+      int poll_lvl = curr->getPollution() - 1;
+
+      //recurse to all zones
+      for(zone* adj : curr->getLocallyAdjacent())
+      {
+        if(adj != nullptr)
         {
-          //ignores zones that don't exist (Out of Bounds) and already "visited"
-          if(adj!=nullptr && visited[adj->getLocation().first][adj->getLocation().second]!=true)
-          {  
-            //don't update the pollution of another industrial zone
-            if(!(adj->getType() == 'I'))
+          int x = adj->getLocation().first;
+          int y = adj->getLocation().second;
+
+          if(!disc[x][y])
+          {
+            //if not yet updated, update neighbors with pollution
+            // but only if the poll_lvl is higher than the existing poll lvl
+            if(poll_lvl > adj->getPollution())
             {
-              //if curr pollution is 0 BFS is done
-              if(!(current->getPollution() == 0))
-              {
-                //set poll of adjacent node only if poll-1 is > existing pollution
-                if(adj->getPollution() < current->getPollution() - 1)
-                {
-                  adj->setPollution(current->getPollution() - 1);
-                }
-                
-              }else
-              {
-                break;
-              }
+              adj->setPollution(poll_lvl);
             }
+            //add the adj to the disc q and add it to the disc map
+            q.push_back(adj);
+            disc[x][y] = true;
           }
         }
       }
+      updatePollution(org, q, disc);
     }
 };

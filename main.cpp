@@ -3,7 +3,8 @@
 // Main function and program loop.
 // CURRENTLY MILESTONE 1
 // definitions.hpp are object and class definitions
-#include "definitions.hpp"
+#include "definitions.hpp" //author: Nathan
+
 // the rest are functional definitions
 #include "file_io.cpp" //author: Trevonne
 #include "adjacencies.cpp" //author: Nathan

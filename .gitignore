@@ -5,6 +5,7 @@ main
 *.dSYM
 tasks.JSON
 settings.JSON
+.old
 
 # Compiled source #
 ###################

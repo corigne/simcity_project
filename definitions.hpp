@@ -18,9 +18,10 @@
 #include "zone.cpp"
 #include "populated.cpp"
 #include "unpop_zones.cpp"
-#include "commercial.cpp"
-#include "industrial.cpp"
 #include "residential.cpp"
+#include "industrial.cpp"
+#include "commercial.cpp"
+
 
 typedef struct Map
 {

@@ -7,8 +7,8 @@
 class commercial : public populated
 {
   private:
-    std::list<zone*> residentialAdj;
-    std::list<zone*> industrialAdj;
+    std::list<residential*> residentialAdj;
+    std::list<industrial*> industrialAdj;
 
   public:
     commercial()
@@ -27,25 +27,25 @@ class commercial : public populated
     }
 
     //returns a list of residential Adjacencies in order of distance
-    std::list<zone*> getResidentialAdj()
+    std::list<residential*> getResidentialAdj()
     {
       return this->residentialAdj;
     }
 
     // set the residential adjacencies
-    void setResidentialAdj(std::list<zone*> residentialAdj)
+    void setResidentialAdj(std::list<residential*> residentialAdj)
     {
       this->residentialAdj = residentialAdj;
     }
 
     //returns a list of industrial zone adjacencies
-    std::list<zone*> getIndustrialAdj()
+    std::list<industrial*> getIndustrialAdj()
     {
       return this->industrialAdj;
     }
 
     //set the industrial adjacency list
-    void setIndustrialAdj(std::list<zone*> industrialAdj)
+    void setIndustrialAdj(std::list<industrial*> industrialAdj)
     {
       this->industrialAdj = industrialAdj;
     }

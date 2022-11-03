@@ -85,8 +85,8 @@ void zoneBFS(Map * city, zone * origin)
   //we don't need remote adjacencies for non Comm and Industrial nodes
   if(origin->getType() == 'C' || origin->getType() == 'I')
   {
-    std::list<zone*> temp_residential;
-    std::list<zone*> temp_industrial;
+    std::list<residential*> temp_residential;
+    std::list<industrial*> temp_industrial;
     //this array with the same bounds as the city provides O(n)=1 truth checking for visited condition
     bool visited[city->x_size][city->y_size];
     //used as a queue to track nodes to visit
@@ -134,11 +134,13 @@ void zoneBFS(Map * city, zone * origin)
       {
         if(curr->getType() == 'R')
         {
-          temp_residential.push_back(curr);
+          residential* temp_r = dynamic_cast<residential*>(&*curr);
+          temp_residential.push_back(temp_r);
         }
         if(curr->getType() == 'I')
         {
-          temp_industrial.push_back(curr);
+          industrial* temp_i = dynamic_cast<industrial*>(&*curr);
+          temp_industrial.push_back(temp_i);
         }  
       }
     }

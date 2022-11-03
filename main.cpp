@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
         }
       }
     }
-  
+  }
   // The zlist is a struct with a list for residential, industrial, and commercial nodes each.
   // This is the working datastructure for the bulk of the work, such as population updates.
   z_list master_list;
@@ -59,9 +59,11 @@ int main(int argc, char *argv[]){
   //Display simulation settings and prompt user for simulation start.
 
   // Welcome/credit banner:
-  std::cout
-  << "~~~~~ Welcome to SimCity ~~~~~" << std::endl
-  << "~~~~~ Designed by Group6 ~~~~~" << std::endl;
+  std::cout << std::endl
+  << "~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl
+  << "~~~ Welcome to SimCity ~~~" << std::endl
+  << "~~~ Designed by Group6 ~~~" << std::endl
+  << "~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 
 
   char user_in = 0;
@@ -70,9 +72,9 @@ int main(int argc, char *argv[]){
   while(!validated)
   {
     // Simulation Settings Confirmation
-    std::cout << "Simulation Settings "
-      << "  Refresh Rate: every " << city_map->refresh_rate << " steps."<< std::endl
-      << "  Max Steps   : " << city_map->max_time << " steps." << std::endl
+    std::cout << std::endl << "==== Simulation Settings ====" << std::endl
+      << "Refresh Rate: every " << city_map->refresh_rate << " steps"<< std::endl
+      << "Max Steps   : " << city_map->max_time << " steps" << std::endl
       << "Start simulation? [(y)es/(c)ancel]: ";
 
     //user prompt
@@ -88,7 +90,7 @@ int main(int argc, char *argv[]){
 
     }else if(user_in == 'y' || user_in == 'c'){
       //continue simulation
-      validated == true;
+      validated = true;
     }
   }
   //if simulation was cancelled, return from main with 0, intended
@@ -97,20 +99,44 @@ int main(int argc, char *argv[]){
     return 0;
   }
 
-  /* TODO
-
   //display & update loop
   int curr_frame = 0;
-  while (curr_frame <= city_map->max_time)
-  {
-    //updatemap
+  bool change = false;
 
-    //if no update from last frame
+  while (curr_frame <= city_map->max_time)
+  { 
+    //if (refresh divisible) then: display post-update
+    if(curr_frame % city_map->refresh_rate == 0)
+    {
+      std::cout << "Current Time Step: " << curr_frame << std::endl;
+      displayMap(city_map);
+      std::cout << std::endl;
+    }
+    
+    //updatemap should return true if nothing was updated between 2 timesteps
+    // else it should return false
+     change = update_map(master_list);
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    //pollution updates
+    for(populated* curr : master_list.ind)
+    {
+      industrial* temp_ind = dynamic_cast<industrial*>(curr);
+      temp_ind->updatePollution();
+    }
+
+    //update frame
+    curr_frame += 1; 
+    
+    //if no updates in from last to current time step, break display/update loop...
+    if(change == false)
+    {
+      break;
+    }    
   }
 
-*/
+  //...and begin analysis
 
-  //analysis
 
   return 0;
 }

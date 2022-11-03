@@ -9,7 +9,7 @@ class industrial : public populated
   private:
     int goods;
     //residential adjacency list, by distance
-    std::list<zone *> residential_adj;
+    std::list<residential *> residential_adj;
   public:
     //constructor
     industrial()
@@ -57,14 +57,60 @@ class industrial : public populated
     }
 
     //returns the list of residential adjacencies by distance
-    std::list<zone*> getResidentialAdj()
+    std::list<residential*> getResidentialAdj()
     {
       return this->residential_adj;
     }
 
     //set the residential adjacency list
-    void setResidentialAdj(std::list<zone*> residentialAdj)
+    void setResidentialAdj(std::list<residential*> residentialAdj)
     {
       this->residential_adj = residentialAdj;
+    }
+
+    void updatePollution()
+    {
+      //set starting values
+      zone* origin = this;
+      this->setPollution(this->getPopulation());
+      int poll_lvl = this->getPollution();
+
+      std::vector<std::vector<bool> > visited;
+      std::list<zone*> disc_q;
+
+      //add origin to the disc queue and mark it visited
+      disc_q.push_back(origin);
+      visited[this->getLocation().first][this->getLocation().second] = true;
+      
+      while(disc_q.empty() != true)
+      {
+        zone* current = &*disc_q.front();
+        disc_q.pop_front();
+
+        for(zone* adj : current->getLocallyAdjacent())
+        {
+          //ignores zones that don't exist (Out of Bounds) and already "visited"
+          if(adj!=nullptr && visited[adj->getLocation().first][adj->getLocation().second]!=true)
+          {  
+            //don't update the pollution of another industrial zone
+            if(!(adj->getType() == 'I'))
+            {
+              //if curr pollution is 0 BFS is done
+              if(!(current->getPollution() == 0))
+              {
+                //set poll of adjacent node only if poll-1 is > existing pollution
+                if(adj->getPollution() < current->getPollution() - 1)
+                {
+                  adj->setPollution(current->getPollution() - 1);
+                }
+                
+              }else
+              {
+                break;
+              }
+            }
+          }
+        }
+      }
     }
 };

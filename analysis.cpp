@@ -31,7 +31,7 @@ void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map
     {
         for(zone* curr : row)
         {
-            totalpol += curr->getPolution(); //edit here changed spelling bc this is how it was spelled in zone.cpp
+            totalpol += curr->getPollution(); 
         }
     }
 
@@ -78,14 +78,24 @@ void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map
                     {
                         case 'R':
                             respop += curr->getPopulation();//edit here fixed syntax
+                            cout << "Hi" << endl;
+                            cout << "Residential population: " << respop << endl;
                             break;
                         case 'C':
                             compop += curr->getPopulation();// edit here fixed syntax
+                            cout << "Commercial population: " << compop << endl;
                             break;
                         case 'I':
                             indpop += curr->getPopulation();// edit here fixed syntax
+                            cout << "Industrial population: " << indpop << endl;
+                            break;
+                        default:
+                            cout << "Non-populated zone (road/powerline/powered road), population 0." <<endl;
                             break;
                     }
+                    
+                    
+                    
                 }
         }
 

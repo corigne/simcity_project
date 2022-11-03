@@ -62,42 +62,47 @@ void analysis(Map * finalmap, z_list list) //edit  here, changed from map to Map
         if(row < 0 || col < 0 || endrow > finalmap->map_grid.size() || endcol > finalmap->map_grid.at(endrow).size())
         {
             cout << "The coordinates you have entered are invalid." << endl; //edit here typo
+            cout << "Would you like to specify another area to analyze? (y for yes, n for no) : ";
+            cin >> selection;
         }
         else
         {
             std::vector<std::vector<zone*> > temp = finalmap->map_grid;
-            for(int y = row; y < endrow; y++)
+            for(int y = row; y <= endrow; y++)
             {
-                for(int x = col; x < endcol; x++)
+                // cout << "ROW " << y << ":"<< endl;
+                for(int x = col; x <= endcol; x++)
                 {
                     zone* tempZone = temp.at(y).at(x);
                     populated* curr = dynamic_cast<populated*>(tempZone); /*edit here:
                     dynamically cast a populated pointer to be equal to the zone to access population of that zone*/
-
+                    
                     switch(tempZone->getType())
                     {
                         case 'R':
                             respop += curr->getPopulation();//edit here fixed syntax
-                            cout << "Hi" << endl;
-                            cout << "Residential population: " << respop << endl;
                             break;
                         case 'C':
-                            compop += curr->getPopulation();// edit here fixed syntax
-                            cout << "Commercial population: " << compop << endl;
+                            compop += curr->getPopulation();// edit here fixed syntax                            
                             break;
                         case 'I':
-                            indpop += curr->getPopulation();// edit here fixed syntax
-                            cout << "Industrial population: " << indpop << endl;
+                            indpop += curr->getPopulation();// edit here fixed syntax            
                             break;
                         default:
-                            cout << "Non-populated zone (road/powerline/powered road), population 0." <<endl;
+                            // cout << "Non-populated zone (road/powerline/powered road), population 0." <<endl; //edit here added default output statement for testing, remove later
                             break;
                     }
                     
-                    
-                    
                 }
+                //uncomment these when testing with populations > 0
+                // cout << "Total residential population in this row: " << respop << endl;
+                // cout << "Total commercial population in this row: " << compop << endl; 
+                // cout << "Total Industrial population in this row: " << indpop << endl; 
         }
+
+        cout << "Total residential population in this region: " << respop << endl;//edit here added output statement
+        cout << "Total commercial population in this region: " << compop << endl; //edit here added output statement
+        cout << "Total Industrial population in this region: " << indpop << endl; //edit here added output statement
 
         cout << "Would you like to specify another area to analyze? (y for yes, n for no) : ";
         cin >> selection;

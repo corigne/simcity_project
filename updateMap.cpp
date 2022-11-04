@@ -550,7 +550,8 @@ bool industrialGrowth(industrial *industrialZone)
   }; // end switch
 }
 
-bool update_map(z_list &list)
+// main update function
+bool updateMap(z_list &list)
 { 
   bool changed = false;
   //populate growing and inc at the end to avoid ripple growth

@@ -6,11 +6,11 @@
 #include "definitions.hpp" //author: Nathan
 
 // the rest are functional definitions
-#include "file_io.cpp" //author: Trevonne
+#include "fileIO.cpp" //author: Trevonne
 #include "adjacencies.cpp" //author: Nathan
-#include "list_sort.cpp" //author: Nathan
+#include "listSort.cpp" //author: Nathan
 #include "display.cpp" //author: Salma
-#include "update_map.cpp" //author: Chandler
+#include "updateMap.cpp" //author: Chandler
 #include "analysis.cpp" //author: Salma, Trevonne
 
 int main(int argc, char *argv[]){
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
   //read file + populate map struct
   //CHANGE THIS BACK TO argv[1] before submission this is for debugging
   std::string config = argv[1];
-  fileio(config, city_map->max_time, city_map->refresh_rate, city_map->map_grid);
+  fileIO(config, city_map->max_time, city_map->refresh_rate, city_map->map_grid);
   city_map->y_size = city_map->map_grid.size();
   city_map->x_size = city_map->map_grid.at(0).size();
 
@@ -65,11 +65,11 @@ int main(int argc, char *argv[]){
   z_list master_list;
   
   //populate the zlist from the current map
-  populate_zlist(*city_map, master_list);
+  populateZlist(*city_map, master_list);
 
   //FIRST LIST SORT
   //lists are sorted by population, then adj population, then lowest Y, then lowest X
-  pop_zone_sort(master_list);
+  popZoneSort(master_list);
 
   // Welcome/credit banner:
   std::cout << std::endl
@@ -99,7 +99,7 @@ int main(int argc, char *argv[]){
     }
     
     // updatemap returns true if the map was updated between 2 timesteps
-    change = update_map(master_list);
+    change = updateMap(master_list);
 
     //pollution updates, recursively, originates from ind nodes
     for(populated* curr : master_list.ind)

@@ -3,7 +3,7 @@
 
 #include "definitions.hpp"
 //void function that takes in refernce pointers for integers and a 2d vector, and a string for the configuration file name
-void fileio(std::string config, int &time, int &refresh, std::vector<std::vector<zone*> > &map)
+void fileIO(std::string config, int &time, int &refresh, std::vector<std::vector<zone*> > &map)
 {
 	std::ifstream  in_f; 
 	std::vector<std::string> data;

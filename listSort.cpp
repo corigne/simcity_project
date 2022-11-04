@@ -6,7 +6,7 @@
 
 /////// MERGED by nathan, Please do not overwrite the code below, it is working... //////
 // populates provided list struct with res, ind, and comm nodes
-void populate_zlist(Map &city_map, z_list &m_list)
+void populateZlist(Map &city_map, z_list &m_list)
 {
   for (std::vector<zone *> row : city_map.map_grid)
   {
@@ -38,7 +38,7 @@ void populate_zlist(Map &city_map, z_list &m_list)
   }
 }
 
-void merge_populated_vectors(std::vector<populated *> &vec,
+void mergePopulatedVectors(std::vector<populated *> &vec,
   const int low, const int midpoint, const int high)
 {
   // created our new halves and midpoint
@@ -93,7 +93,7 @@ void merge_populated_vectors(std::vector<populated *> &vec,
 }
 
 // sorts populated z_list struct members by population
-void mergesort_vec_asc(std::vector<populated *> &vec, const int low, const int high)
+void mergesortVecDsc(std::vector<populated *> &vec, const int low, const int high)
 {
   // base case
   if (low >= high)
@@ -104,15 +104,15 @@ void mergesort_vec_asc(std::vector<populated *> &vec, const int low, const int h
   int midpoint = low + (high - low) / 2;
 
   // sort recursion begins
-  mergesort_vec_asc(vec, low, midpoint);
-  mergesort_vec_asc(vec, midpoint + 1, high);
+  mergesortVecDsc(vec, low, midpoint);
+  mergesortVecDsc(vec, midpoint + 1, high);
 
   // merge the final results
-  merge_populated_vectors(vec, low, midpoint, high);
+  mergePopulatedVectors(vec, low, midpoint, high);
 }
 
 // calculate the adjacent population of a populated* zone
-int calc_adj_pop(populated* &zn)
+int calcAdjPop(populated* &zn)
 {
   int adj_pop = 0;
   for(zone* adj : zn->getLocallyAdjacent())
@@ -127,17 +127,17 @@ int calc_adj_pop(populated* &zn)
 }
 
 //insertion sort by adjacent population within == local population bubbles
-void adj_population_sort(std::vector<populated*> &vec)
+void adjPopulationSort(std::vector<populated*> &vec)
 {
   for(int i = 1; i < vec.size(); i++)
   {
     //calculate adj population for j
-    int adj_pop_i = calc_adj_pop(vec[i]);
+    int adj_pop_i = calcAdjPop(vec[i]);
 
     for(int j = i - 1; j > 0; j--)
     {
       //calculate adj population for j
-      int adj_pop_j = calc_adj_pop(vec[j]);
+      int adj_pop_j = calcAdjPop(vec[j]);
 
       bool same_loc_pop;
       // are the local populations the same?
@@ -154,18 +154,18 @@ void adj_population_sort(std::vector<populated*> &vec)
 }
 
 //insertion sort by y location within local & adj population == subsets
-void y_loc_sort(std::vector<populated*> &vec)
+void yLocSort(std::vector<populated*> &vec)
 {
   for(int i = 1; i < vec.size(); i++)
   {
     int loc_pop_i = vec[i]->getPopulation();
-    int adj_pop_i = calc_adj_pop(vec[i]);
+    int adj_pop_i = calcAdjPop(vec[i]);
     int y_i = vec[i]->getLocation().second;
 
     for(int j = i - 1; j > 0; j--)
     {
       int loc_pop_j = vec[j]->getPopulation();
-      int adj_pop_j = calc_adj_pop(vec[j]);
+      int adj_pop_j = calcAdjPop(vec[j]);
       int y_j = vec[j]->getLocation().second;
 
       bool same_adj_pop, same_loc_pop;
@@ -184,19 +184,19 @@ void y_loc_sort(std::vector<populated*> &vec)
 }
 
 //insertion sort by x location within local & adj population & y loc == subsets
-void x_loc_sort(std::vector<populated*> &vec)
+void xLocSort(std::vector<populated*> &vec)
 {
   for(int i = 1; i < vec.size(); i++)
   {
     int loc_pop_i = vec[i]->getPopulation();
-    int adj_pop_i = calc_adj_pop(vec[i]);
+    int adj_pop_i = calcAdjPop(vec[i]);
     int y_i = vec[i]->getLocation().second;
     int x_i = vec[i]->getLocation().first;
 
     for(int j = i - 1; j > 0; j--)
     {
       int loc_pop_j = vec[j]->getPopulation();
-      int adj_pop_j = calc_adj_pop(vec[j]);
+      int adj_pop_j = calcAdjPop(vec[j]);
       int y_j = vec[j]->getLocation().second;
       int x_j = vec[j]->getLocation().first;
 
@@ -216,24 +216,24 @@ void x_loc_sort(std::vector<populated*> &vec)
   }
 }
 
-void pop_zone_sort(z_list &lists)
+void popZoneSort(z_list &lists)
 {
   // recursively sort residential, then industrial, then commercial lists
   // population
-  mergesort_vec_asc(lists.res, 0, lists.res.size() - 1);
-  mergesort_vec_asc(lists.ind, 0, lists.ind.size() - 1);
-  mergesort_vec_asc(lists.com, 0, lists.com.size() - 1);
+  mergesortVecDsc(lists.res, 0, lists.res.size() - 1);
+  mergesortVecDsc(lists.ind, 0, lists.ind.size() - 1);
+  mergesortVecDsc(lists.com, 0, lists.com.size() - 1);
 
   //resort by adj population within == local population
-  adj_population_sort(lists.com);
-  adj_population_sort(lists.ind);
+  adjPopulationSort(lists.com);
+  adjPopulationSort(lists.ind);
 
   //resort by Y location
-  y_loc_sort(lists.com);
-  y_loc_sort(lists.ind);
+  yLocSort(lists.com);
+  yLocSort(lists.ind);
 
   //resort by X location
-  x_loc_sort(lists.com);
-  x_loc_sort(lists.ind);
+  xLocSort(lists.com);
+  xLocSort(lists.ind);
 
 }

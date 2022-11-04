@@ -1,4 +1,4 @@
-# SimCity README
+# SimCity v1.0 README
 ## Group 6 - CSCE 2110 - Section 002/213
 ### Members:
 - Chandler Garret
@@ -15,7 +15,10 @@ To compile, please use the following command:
 To run the application with a supplied config text file and CSV:
 
   1. Place the .CSV in the project folder.
-  2. Run >``./main "config_text_filename.txt"``
+  2. For Example: run >``./main "config1.txt"`` .  
+
+If you do not include a config filename argument while runnning the executable,  
+the program will exit with error code 1 and inform you of the error.
 
 ### Make
-We do not currently have a makefile, however this may change in the future once we real a stable build.
+Due to the simplicity of our includes, a makefile is unecessary for compilation.

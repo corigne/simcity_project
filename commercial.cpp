@@ -1,7 +1,7 @@
 // Author: Nathan Jodoin
 // CSCE2110 - SimCity
 // Recitation Section 213 - Group 6
-// Commercial zone Class Def.
+// Commercial zone Class Def. Inherits from populated << zone
 #include "definitions.hpp"
 
 class commercial : public populated

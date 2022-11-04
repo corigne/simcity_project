@@ -20,5 +20,13 @@ To run the application with a supplied config text file and CSV:
 If you do not include a config filename argument while runnning the executable,  
 the program will exit with error code 1 and inform you of the error.
 
+The test files provided for the simulation at the beginning of the assignment  
+are included in the project directory. Their filenames are:  
+  - config1.txt
+  - region1.csv
+
+If you wish to use other configuration or region files,  
+they must be placed in the root project folder.  
+
 ### Make
 Due to the simplicity of our includes, a makefile is unecessary for compilation.

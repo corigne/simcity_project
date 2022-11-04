@@ -8,7 +8,9 @@ class residential : public populated
 {
   private:
     int workers;
+
   public:
+    // constructors
     residential()
     {
       this->population = 0;
@@ -21,6 +23,7 @@ class residential : public populated
       setLocation(x, y);
     }
 
+    // returns the corresponding ASCII character for the zone type
     char getType()
     {
       return 'R';
@@ -43,6 +46,7 @@ class residential : public populated
       this->workers -= 1;
     }
 
+    //returns true if the zone has an available worker
     bool hasWorker()
     {
       if(workers > 0){

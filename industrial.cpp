@@ -1,7 +1,7 @@
 // Author: Nathan Jodoin
 // CSCE2110 - SimCity
 // Recitation Section 213 - Group 6
-// industrial zone Class Def.
+// industrial zone Class Def. inherits from populated << zone
 #include "definitions.hpp"
 
 class industrial : public populated
@@ -11,12 +11,13 @@ class industrial : public populated
     //residential adjacency list, by distance
     std::list<residential*> residential_adj;
   public:
-    //constructor
+    //constructors
     industrial()
     {
       this->population = 0;
       this->goods = 0;
     }
+    //primary working constructor for passing in X, Y coords
     industrial(int x, int y)
     {
       this->population = 0;
@@ -24,11 +25,13 @@ class industrial : public populated
       setLocation(x, y);
     }
 
+    //returns the correct ASCII char for the zone type
     char getType()
     {
       return 'I';
     }
 
+    //returns true is the zone has available goods
     bool hasGoods()
     {
       if(goods > 0)
@@ -68,6 +71,10 @@ class industrial : public populated
       this->residential_adj = residentialAdj;
     }
 
+    /// @brief Recursive BFS traversal of adjacent zone* to set pollution
+    /// @param org 
+    /// @param q 
+    /// @param disc 
     void updatePollution(industrial* &org, std::list<zone*> &q,
        std::vector<std::vector<bool> > &disc)
     {
@@ -90,7 +97,7 @@ class industrial : public populated
       //set the pollution level for the adj zones
       int poll_lvl = curr->getPollution() - 1;
 
-      //recurse to all zones
+      //traverse to all zones adjacent and add undisc zones to the disc q
       for(zone* adj : curr->getLocallyAdjacent())
       {
         if(adj != nullptr)
@@ -100,8 +107,9 @@ class industrial : public populated
 
           if(!disc[x][y])
           {
-            //if not yet updated, update neighbors with pollution
+            //  if not yet updated, update neighbors with pollution
             // but only if the poll_lvl is higher than the existing poll lvl
+            //  doing this with BFS the poll. is set according to BFS lvl
             if(poll_lvl > adj->getPollution())
             {
               adj->setPollution(poll_lvl);
@@ -112,6 +120,7 @@ class industrial : public populated
           }
         }
       }
+      //recursive step to the next zone in the disc q
       updatePollution(org, q, disc);
     }
 };

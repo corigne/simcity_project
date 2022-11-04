@@ -4,17 +4,22 @@
 //Adjacency Calculation Functions
 #include "definitions.hpp"
 
+/// @brief Creates a vector of local adjacencies, starting with topleft going clockwise
+/// @param map is the primary datastructure required to identify local adjacencies
 void calcLocalAdjacencies(Map * map)
 { 
+  //for each row in the map
   for(int y = 0; y < map->y_size; y++)
   {
+    //for each zone in the row
     for(int x = 0; x < map->x_size; x++)
     {
       //create a temporary vector size 8
       std::vector<zone *> temp;
       temp.reserve(8);
 
-      //if not overwritten a nullptr value represents OUT OF BOUNDS adjacencies
+      // a nullptr value represents OUT OF BOUNDS adjacencies
+      // so we will the vector with nullptr by default
       for(int i = 0; i < 8; i++){
         temp.push_back(nullptr);
       }
@@ -80,59 +85,73 @@ void calcLocalAdjacencies(Map * map)
   }
 }
 
+/// @brief Recursively builds an adjlist of resid. and incust. pointers from the origin
+/// @param q the shared discovery queue, passed in with origin already inside
+/// @param r empty list  residential* adjacencies by dist
+/// @param i empty list for industrial* adjacencies by dist
+/// @param disc discovery truth map, 2D array of bool (X,Y)
 void zoneBFS(std::list<zone*> &q, std::list<residential*> &r,
   std::list<industrial*> &i, std::vector<std::vector<bool> > (&disc))
 {
-    if(q.empty())
-    {
-      return;
-    }
+  //if the queue is empty, there are no more traversable zones, return up the stack
+  if(q.empty())
+  {
+    return;
+  }
 
-    zone* curr = q.front();
-    
-    // if current is a residential or industrial, add to appropriate list
-    switch(curr->getType())
+  zone* curr = q.front();
+  
+  // if current is a residential or industrial, add to appropriate list
+  switch(curr->getType())
+  {
+    case 'I':
     {
-      case 'I':
+      //dynamic casting allows us to push back an industrial pointer to the list
+      industrial* tmp_curr = dynamic_cast<industrial*>(curr);
+      i.push_back(tmp_curr);
+      break;
+    }
+    case 'R':
+    {
+      //dynamic casting again, same reason
+      residential* tmp_curr = dynamic_cast<residential*>(curr);
+      r.push_back(tmp_curr);
+      break;
+    }
+    default:
+    {
+      break;
+    }
+  }
+
+  // pop the front of the disc queue
+  q.pop_front();
+
+  // for each adjacent of the current zone, add traversable zones to the disc q
+  for(zone* adj : curr->getLocallyAdjacent())
+  {
+    if(adj != nullptr)
+    {
+      int x = adj->getLocation().first;
+      int y = adj->getLocation().second;
+      bool trav = ((adj->getType() != ' ') && (adj->getType() != 'T'));
+      
+      if(trav && !disc[x][y])
       {
-        industrial* tmp_curr = dynamic_cast<industrial*>(curr);
-        i.push_back(tmp_curr);
-        break;
-      }
-      case 'R':
-      {
-        residential* tmp_curr = dynamic_cast<residential*>(curr);
-        r.push_back(tmp_curr);
-        break;
-      }
-      default:
-      {
-        break;
+        disc[x][y] = true;
+        q.push_back(adj);
       }
     }
-
-    q.pop_front();
-
-    for(zone* adj : curr->getLocallyAdjacent())
-    {
-      if(adj != nullptr)
-      {
-        int x = adj->getLocation().first;
-        int y = adj->getLocation().second;
-        bool trav = ((adj->getType() != ' ') && (adj->getType() != 'T'));
-        
-        if(trav && !disc[x][y])
-        {
-          disc[x][y] = true;
-          q.push_back(adj);
-        }
-      }
-    }
-    zoneBFS(q, r, i, disc);
+  }
+  //then recurse to the next item in the queue
+  zoneBFS(q, r, i, disc);
 }
 
+/// @brief The master function from which the remote adj BFS algo is called
+/// @param map the working Map passed in from main
 void calcRemoteAdjacencies(Map * map)
 {
+  //for each row/zone in the map, run BFS to build the adjacency list
   for(std::vector<zone*> rows : map->map_grid)
   {
     for(zone* curr : rows)
@@ -148,13 +167,16 @@ void calcRemoteAdjacencies(Map * map)
 
       zoneBFS(q, res, ind, disc);
 
+      //if the current zone is indust. or comm. pass in their required adj lists
       if(curr->getType() == 'I')
       {
+        //dyanamic casting required here too
         industrial* temp_i = dynamic_cast<industrial*>(curr);
         temp_i->setResidentialAdj(res);
       }
       if(curr->getType() == 'C')
       {
+        //and here again
         commercial* temp_c = dynamic_cast<commercial*>(curr);
         temp_c->setResidentialAdj(res);
         temp_c->setIndustrialAdj(ind);

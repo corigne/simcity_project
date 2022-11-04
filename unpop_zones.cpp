@@ -1,8 +1,10 @@
 //Author: Nathan Jodoin
 //CSCE2110 SimCity
 //Recitation Sec. 213 Group 6
-//Unpopulated zone class definitions.
+//Unpopulated zone class definitions, most of them are just placeholders.
+//They're primarily used to to typechecking for adjacency traversals.
 #include "definitions.hpp"
+
 //road class
 class road: public zone
 {
@@ -56,12 +58,20 @@ class powered_road: public zone
       return '#';
     }
 };
-//powerplant class
+
+// powerplant class
+// This was originally intended to be a major component of our program functionality,
+// however the project requirements have no function for the powerplant
+// Chandler and I coded the powerline traversal functionality into the program 
+// before the functionality was deemed unnecessary. ~Nathan J.
+
 class powerplant: public zone
 {
   public:
 
-
+    // Description: uses recursive DFS to traverse along powerlines and powered roads
+    // any zone adjacent to a powerplant, powerline, or powered road will have
+    // its powered state set to true.
     void setPoweredState(zone * currentZone){
 
       for(zone *PSI :currentZone->getLocallyAdjacent() )
@@ -79,8 +89,6 @@ class powerplant: public zone
       setLocation(x, y);
     }
 
-    // this template allows the user to pass an array w/o size
-    
     void setPoweredState(zone* cell, std::vector<std::vector<bool> > (&visited))
     {
       cell->setPowered(true);
@@ -112,6 +120,7 @@ class powerplant: public zone
       }
     }
 
+    //Returns the appropriate ASCII character for the zone type
     char getType()
     {
       return 'P';

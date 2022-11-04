@@ -11,16 +11,19 @@ class commercial : public populated
     std::list<industrial*> industrialAdj;
 
   public:
+    //constructors
     commercial()
     {
       this->population = 0;
     }
+    //primary working constructor
     commercial(int x, int y)
     {
       setLocation(x, y);
       this->population = 0;
     }
-
+    
+    // returns the corresponding ASCII character for the zone type
     char getType()
     {
       return 'C';

@@ -8,6 +8,7 @@
 // the rest are functional definitions
 #include "file_io.cpp" //author: Trevonne
 #include "adjacencies.cpp" //author: Nathan
+#include "list_sort.cpp" //author: Nathan
 #include "display.cpp" //author: Salma
 #include "update_map.cpp" //author: Chandler
 #include "analysis.cpp" //author: Salma, Trevonne

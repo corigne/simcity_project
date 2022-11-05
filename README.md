@@ -1,5 +1,5 @@
 # SimCity v1.0 README
-## Group 6 - CSCE 2110 - Section 002/213
+## Group 6
 ### Members:
 - Chandler Garret
 - Trevonne Bridges
